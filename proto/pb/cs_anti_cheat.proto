@@ -1,0 +1,48 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "options.proto";
+
+enum ANTI_CHEAT_SDK_TYPE {
+    ANTI_CHEAT_SDK_TYPE_NONE = 0;
+    ANTI_CHEAT_SDK_TYPE_PC = 1;
+    ANTI_CHEAT_SDK_TYPE_MOBILE = 2;
+}
+message CS_ANTI_CHEAT_UPLOAD_DATA {
+    bytes data = 1;
+}
+message SC_ANTI_CHEAT_SYNC_DATA {
+    bytes data = 1;
+}
+message SC_ANTI_CHEAT_TICKET {
+    string ticket = 1;
+    int32 zone_id = 2;
+}
+message CS_ANTI_CHEAT_SEND_ANTI_DATA1 {
+    bytes data = 1;
+}
+message CS_ANTI_CHEAT_SEND_ANTI_DATA2 {
+    bytes data = 1;
+}
+message CS_ANTI_CHEAT_SEND_ANTI_DATA4 {
+    bytes data = 1;
+}
+message SC_ANTI_CHEAT_SEND_ANTI_DATA4 {
+    string result = 1;
+}
+message CS_ANTI_CHEAT_GET_LIGHT_FEATURE {
+    int32 cpu_arch = 1;
+}
+message SC_ANTI_CHEAT_GET_LIGHT_FEATURE {
+    bytes name_buf = 1;
+    bytes sig_buf = 2;
+    uint32 sig_crc = 3;
+}
+message SC_ANTI_CHEAT_CREDIT_WARNING {
+    int32 record_duration = 1;
+}
+message SC_ANTI_CHEAT_CREDIT_ZERO {
+    int64 last_credit_zero_ts = 1;
+}

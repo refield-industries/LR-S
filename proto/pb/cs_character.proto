@@ -1,0 +1,72 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+
+message ITEM_INFO {
+    string res_id = 1;
+    int32 res_count = 2;
+}
+message CS_CHAR_LEVEL_UP {
+    uint64 charObjID = 1;
+    repeated ITEM_INFO items = 2;
+}
+message SC_CHAR_LEVEL_UP {
+    uint64 charObjID = 1;
+}
+message SC_CHAR_SYNC_LEVEL_EXP {
+    uint64 charObjID = 1;
+    int32 level = 2;
+    int32 exp = 3;
+}
+message SC_CHAR_GAIN_EXP_TOAST {
+    int32 exp = 1;
+    int32 expType = 2;
+}
+message SC_CHAR_SYNC_STATUS {
+    uint64 objid = 1;
+    bool is_dead = 2;
+    BATTLE_INFO battle_info = 3;
+}
+message CS_CHAR_POTENTIAL_UNLOCK {
+    uint64 char_obj_id = 1;
+    uint32 level = 2;
+    int32 itemId = 3;
+}
+message SC_CHAR_POTENTIAL_UNLOCK {
+    uint64 char_obj_id = 1;
+    uint32 level = 2;
+}
+message CS_CHAR_SET_POTENTIAL_CG {
+    uint64 char_obj_id = 1;
+    int32 potential_level = 2;
+    string cg_id = 3;
+}
+message SC_CHAR_SET_POTENTIAL_CG {
+    uint64 char_obj_id = 1;
+    int32 potential_level = 2;
+    string cg_id = 3;
+}
+message SC_CHAR_SKILL_INFOS {
+    uint64 char_obj_id = 1;
+    repeated SKILL_LEVEL_INFO level_infos = 2;
+}
+message CS_CHAR_SKILL_LEVEL_UP {
+    uint64 char_obj_id = 1;
+    string skill_id = 2;
+    int32 skill_type = 3;
+}
+message SC_CHAR_SKILL_LEVEL_UP {
+    uint64 char_obj_id = 1;
+    SKILL_LEVEL_INFO level_info = 2;
+}
+message CS_CHAR_UNLOCK_TALENT_NODE {
+    uint64 char_obj_id = 1;
+    string node_id = 2;
+}
+message SC_CHAR_UNLOCK_TALENT_NODE {
+    uint64 char_obj_id = 1;
+    string node_id = 2;
+}

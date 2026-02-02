@@ -1,0 +1,211 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+import "options.proto";
+
+enum SHOP_FREQUENCY_TYPE {
+    SFT_TYPE_GOODS = 0;
+    SFT_TYPE_SHOP = 1;
+    SFT_TYPE_SHOP_GROUP = 2;
+}
+enum SHOP_RANDOM_TYPE {
+    SHOP_RANDOM_DEFAULT = 0;
+    SHOP_RANDOM_DOMAIN = 1;
+}
+message CS_SHOP_BUY {
+    string shop_id = 1;
+    string goods_id = 2;
+    int32 count = 3;
+    int64 timestamp = 4;
+    bool use_weaponbox_ticket = 5;
+}
+message CS_SHOP_SWAP_MONEY {
+    string source_money_id = 1;
+    string target_money_id = 2;
+    int64 swap_source_money_num = 3;
+}
+message CSD_SHOP_SELL_GOODS {
+    string goods_id = 1;
+    int32 count = 2;
+}
+message CS_SHOP_SELL {
+    string shop_id = 1;
+    uint64 role_id = 4;
+    repeated CSD_SHOP_SELL_GOODS sell_goods = 5;
+    int64 timestamp = 6;
+}
+message CS_SHOP_DOMAIN_CHANNEL_LEVEL_UP {
+    string shop_group_id = 1;
+    string channel_id = 2;
+    int32 target_level = 3;
+}
+message CS_SHOP_QUERY_FRIEND_GOODS_PRICE {
+    string shop_id = 1;
+    string goods_id = 2;
+    repeated uint64 role_ids = 3;
+}
+message CS_SHOP_MANUAL_REFRESH {
+    string shop_group_id = 1;
+    string shop_id = 2;
+}
+message CS_SHOP_QUERY_FRIEND_SHOP {
+    uint64 friend_role_id = 1;
+    repeated string shop_ids = 2;
+}
+message CS_SHOP_SWAP_CHAR_POTENTIAL_UP {
+    repeated ITEM_BUNDLE pu_items = 1;
+}
+message SCD_SHOP_DYNAMIC_GOODS {
+    string goods_id = 1;
+    string goods_template_id = 2;
+}
+message SCD_SHOP_RANDOM_REFRESH {
+    repeated SCD_SHOP_DYNAMIC_GOODS dynamic_goods = 1;
+}
+message SCD_DOMAIN_SHOP_GOODS {
+    string goods_id = 1;
+    repeated int32 history_price = 2;
+}
+message SCD_DOMAIN_SHOP_POSITIONS {
+    int64 quantity = 1;
+    int32 avg_price = 2;
+}
+message SCD_SHOP_RANDOM_DOMAIN {
+    repeated SCD_DOMAIN_SHOP_GOODS domain_rand_goods = 1;
+    map<string, SCD_DOMAIN_SHOP_POSITIONS> positions = 2;
+}
+message SCD_SHOP_DISCOUNT {
+    string goods_id = 1;
+    float discount = 2;
+}
+message SCD_SHOP_UNLOCK_CONDITIONS {
+    string id = 1;
+    map<string, int32> unlock_condition_values = 2;
+    map<string, bool> unlock_condition_flags = 3;
+}
+message SCD_SHOP_TIME_RANGE {
+    int64 open_tms = 1;
+    int64 close_tms = 2;
+}
+message SCD_SHOP {
+    string shop_id = 1;
+    int32 shop_refresh_type = 2;
+    map<string, int32> unlock_condition_values = 3;
+    map<string, bool> unlock_condition_flags = 4;
+    repeated SCD_SHOP_DISCOUNT discounts = 5;
+    repeated SCD_SHOP_UNLOCK_CONDITIONS goods_unlock_conditions = 6;
+    bool is_dynamic_good = 7;
+    bool is_dynamic_discount = 8;
+    map<string, SCD_SHOP_TIME_RANGE> goods_time_range = 10;
+    SHOP_RANDOM_TYPE random_type = 9;
+    oneof refresh_data {
+        SCD_SHOP_RANDOM_REFRESH random_refresh = 21;
+        SCD_SHOP_RANDOM_DOMAIN random_domain = 22;
+    }
+}
+message SCD_SHOP_FREQUENCY_LIMIT {
+    string frequency_limit_id = 1;
+    int32 count = 2;
+}
+message SCD_SHOP_DYN_FREQUENCY_UPLIMIT {
+    string frequency_limit_id = 1;
+    int32 uplimit = 2;
+}
+message SCD_SHOP_FREQUENCY_LIMIT_MGR {
+    repeated SCD_SHOP_FREQUENCY_LIMIT use_count = 1;
+    repeated SCD_SHOP_DYN_FREQUENCY_UPLIMIT dyn_uplimit = 2;
+    repeated SCD_SHOP_FREQUENCY_LIMIT manual_refresh_limits = 11;
+}
+message SCD_SHOP_DOMAIN_CHANNEL {
+    string domain_id = 1;
+    map<string, int32> channels = 2;
+    string version = 3;
+}
+message SCD_SHOP_GROUP_DATA {
+    repeated SCD_SHOP_DOMAIN_CHANNEL domain_channels = 1;
+}
+message SC_SHOP_SYNC {
+    repeated SCD_SHOP_UNLOCK_CONDITIONS shop_group_conditions = 1;
+    repeated SCD_SHOP shops = 2;
+    repeated SCD_SHOP_FREQUENCY_LIMIT frequency_limits = 3;
+    repeated SCD_SHOP_FREQUENCY_LIMIT manual_refresh_limits = 4;
+    SCD_SHOP_GROUP_DATA shop_group_data = 5;
+    SCD_SHOP_FREQUENCY_LIMIT_MGR frequency_limit_mgr = 6;
+}
+message SC_SHOP_SYNC_SHOP_GROUP_CONDITION {
+    SCD_SHOP_UNLOCK_CONDITIONS shop_group_conditions = 1;
+}
+message SC_SHOP_MODIFY_SHOP {
+    repeated SCD_SHOP shops = 1;
+}
+message SC_SHOP_SYNC_SHOP_CONDITION {
+    SCD_SHOP_UNLOCK_CONDITIONS shop_conditions = 1;
+}
+message SC_SHOP_SYNC_GOODS_CONDITION {
+    SCD_SHOP_UNLOCK_CONDITIONS goods_conditions = 1;
+}
+message SC_SHOP_MODIFY_FREQUENCY_LIMIT {
+    repeated SCD_SHOP_FREQUENCY_LIMIT frequency_limits = 1;
+    repeated SCD_SHOP_FREQUENCY_LIMIT manual_refresh_limits = 2;
+    SCD_SHOP_FREQUENCY_LIMIT_MGR frequency_limit_mgr = 3;
+}
+message SC_SHOP_DELETE_FREQUENCY_LIMIT {
+    repeated string frequency_limits = 1;
+    repeated string manual_refresh_limits = 2;
+}
+message SC_SHOP_BUY_RESP {
+    string shop_id = 1;
+    string goods_id = 2;
+    int32 count = 3;
+}
+message SC_SHOP_SWAP_MONEY {
+    string source_money_id = 1;
+    string target_money_id = 2;
+    int64 cost_source_money_num = 3;
+    int64 get_target_money_num = 4;
+}
+message SC_SHOP_DOMAIN_CHANNEL_LEVEL_UP {
+    string shop_group_id = 1;
+    string channel_id = 2;
+    int32 target_level = 3;
+}
+message SC_SHOP_MODIFY_DOMAIN_SHOP_POSITIONS {
+    string shop_id = 1;
+    string goods_id = 2;
+    int32 avg_price = 3;
+    int64 count = 4;
+}
+message SC_SHOP_SELL_RESP {
+    string shop_id = 1;
+    string goods_id = 2;
+    int32 count = 3;
+    uint64 role_id = 4;
+    repeated CSD_SHOP_SELL_GOODS sell_goods = 5;
+}
+message SCD_GOODS_HIS_PRICE {
+    uint64 role_id = 1;
+    string shop_id = 2;
+    string goods_id = 3;
+    repeated int32 price = 4;
+}
+message SC_SHOP_QUERY_FRIEND_GOODS_PRICE {
+    repeated SCD_GOODS_HIS_PRICE his_price = 1;
+}
+message SC_SHOP_MANUAL_REFRESH {
+    string shop_group_id = 1;
+    string shop_id = 2;
+    int32 refresh_count = 3;
+}
+message SCD_SHOP_GOODS_PRICE {
+    repeated SCD_SHOP_DISCOUNT discounts = 1;
+}
+message SC_SHOP_QUERY_FRIEND_SHOP {
+    uint64 friend_role_id = 1;
+    map<string, SCD_SHOP_GOODS_PRICE> shop_goods = 2;
+    repeated SCD_GOODS_HIS_PRICE his_price = 3;
+}
+message SC_SHOP_SWAP_CHAR_POTENTIAL_UP {
+}

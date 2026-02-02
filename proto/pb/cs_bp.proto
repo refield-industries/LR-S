@@ -1,0 +1,132 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+
+enum BP_TASK_STATE {
+    NOT_ACCEPT = 0;
+    IN_PROCESSING = 1;
+    HAS_COMPLETED = 2;
+    TAKE_REWARD = 3;
+    DISABLE = 4;
+}
+enum BP_VISIBLE_CONDS_OBJ_TYPE {
+    TASK = 0;
+    TASK_GROUP = 1;
+    TASK_LABEL = 2;
+}
+enum BP_TRACK_ACTIVE_TYPE {
+    BTAT_FREE = 0;
+    BTAT_PAY = 1;
+    BTAT_TICKET = 2;
+}
+message CSD_BP_TRACK_REWARD {
+    string bp_track_id = 1;
+    repeated int32 level = 2;
+}
+message CS_BP_TAKE_TRACK_REWARD {
+    repeated CSD_BP_TRACK_REWARD take_track_reward = 1;
+}
+message SC_BP_TAKE_TRACK_REWARD {
+    repeated CSD_BP_TRACK_REWARD failed_reward = 1;
+    repeated ITEM_BUNDLE items = 2;
+}
+message CS_BP_TAKE_TASK_REWARD {
+    repeated string task_ids = 1;
+}
+message SC_BP_TASK_STATE_MODIFY {
+    map<string, BP_TASK_STATE> task_state = 1;
+}
+message CS_BP_BUY_LEVEL {
+    int32 target_level = 1;
+}
+message CS_BP_BUY_ORIGINIUM_TRACK {
+}
+message SCD_BP_CLOSE_STATUS {
+    bool is_close = 1;
+    int32 close_reason = 2;
+}
+message SCD_BP_SEASON_DATA {
+    string season_id = 1;
+    int32 abscent_cnt = 2;
+    int64 open_time = 3;
+    int64 close_time = 4;
+    SCD_BP_CLOSE_STATUS close_status = 5;
+    int64 can_buy_level_tms = 6;
+}
+message SC_BP_SYNC_ALL {
+    SCD_BP_SEASON_DATA season_data = 1;
+    SCD_BP_LEVEL_DATA level_data = 2;
+    SCD_BP_TRACK_MGR bp_track_mgr = 3;
+    SCD_BP_TASK_MGR bp_task_mgr = 4;
+}
+message SCD_BP_LEVEL_DATA {
+    int32 cur_level = 1;
+    int32 cur_exp = 2;
+}
+message SC_BP_LEVEL_MODIFY {
+    SCD_BP_LEVEL_DATA level_data = 1;
+}
+message SCD_BP_TRACK_REWARD_DATA {
+    string bp_track_id = 1;
+    repeated uint64 reward_state = 2;
+    int32 recurring_times = 3;
+    BP_TRACK_ACTIVE_TYPE active_type = 4;
+}
+message SCD_BP_TRACK_MGR {
+    repeated SCD_BP_TRACK_REWARD_DATA track_data = 1;
+}
+message SC_BP_TRACK_MGR_MODIFY {
+    SCD_BP_TRACK_MGR bp_track_mgr = 1;
+}
+message SCD_BP_TASK {
+    string task_id = 1;
+    repeated SCD_BP_CONDITION_DATA visible_conditions = 2;
+    repeated SCD_BP_CONDITION_DATA complete_conditions = 3;
+    int64 visible_tms = 4;
+    BP_TASK_STATE task_state = 5;
+    SCD_BP_CLOSE_STATUS close_status = 6;
+}
+message SCD_BP_TASK_GROUP {
+    string task_group_id = 1;
+    repeated SCD_BP_CONDITION_DATA visible_conditions = 2;
+    int64 visible_tms = 3;
+    int64 disable_tms = 4;
+    repeated SCD_BP_TASK tasks = 5;
+    SCD_BP_CLOSE_STATUS close_status = 6;
+}
+message SCD_BP_TASK_LABEL {
+    string task_label_id = 1;
+    repeated SCD_BP_CONDITION_DATA visible_conditions = 2;
+    int64 visible_tms = 3;
+    repeated SCD_BP_TASK_GROUP groups = 4;
+    SCD_BP_CLOSE_STATUS close_status = 5;
+}
+message SCD_BP_TASK_MGR {
+    repeated SCD_BP_TASK_LABEL labels = 1;
+}
+message SCD_BP_CONDITION_DATA {
+    string cond_id = 1;
+    int32 value = 2;
+    bool flag = 3;
+}
+message SC_BP_SYNC_VISIBLE_CONDITION {
+    BP_VISIBLE_CONDS_OBJ_TYPE obj_type = 1;
+    string id = 2;
+    repeated SCD_BP_CONDITION_DATA conditions = 3;
+}
+message SC_BP_SYNC_TASK_COMPLETE_CONDITION {
+    string task_id = 1;
+    repeated SCD_BP_CONDITION_DATA conditions = 2;
+}
+message SC_BP_ABSCENT_COUNT_MODIFY {
+    int32 abscent_cnt = 1;
+}
+message SC_BP_SYNC_TASK_LABEL_MODIFY {
+    repeated SCD_BP_TASK_LABEL labels = 1;
+}
+message SC_BP_BUY_LEVEL {
+    int32 target_level = 1;
+}

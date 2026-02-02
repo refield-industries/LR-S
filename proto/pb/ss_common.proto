@@ -1,0 +1,16 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "beyond-go/proto/pbsscommon;pbsscommon";
+
+enum ObjStateType {
+    ObjStateNormal = 0;
+    ObjStateAbnormal = 1;
+}
+message OBJ_STATE {
+    string objid = 1;
+    ObjStateType state = 2;
+}
+message OBJ_LIST {
+    repeated string obj_ids = 1;
+}

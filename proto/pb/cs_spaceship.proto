@@ -1,0 +1,644 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "cs_achieve.proto";
+import "common.proto";
+import "options.proto";
+
+message SCD_SPACESHIP_CONTROL_CENTER {
+    map<int64, SCD_SPACESHIP_REPORT> reports = 1;
+}
+message SCD_SPACESHIP_MANUFACTURING_STATION {
+    SPACESHIP_MANUFACTURING_ORDER remain_produce_order = 1;
+    map<string, int32> product_map = 2;
+    map<int64, SCD_SPACESHIP_REPORT> reports = 3;
+}
+message SCD_SPACESHIP_COMMAND_CENTER {
+    uint64 in_progress_expedition_instance_id = 1;
+    map<int64, SCD_SPACESHIP_REPORT> report = 2;
+}
+message SCD_SPACESHIP_ROOM_ATTR_SOURCE {
+    string charId = 1;
+    int32 index = 2;
+    string skillId = 3;
+    int32 sourceType = 4;
+}
+message SCD_SPACESHIP_ROOM_ATTR_UNIT {
+    int32 type = 1;
+    float value = 2;
+    bool isNotWorking = 3;
+    SCD_SPACESHIP_ROOM_ATTR_SOURCE source = 4;
+}
+message SCD_SPACESHIP_ROOM_ATTR {
+    float value = 1;
+    float theoreticalValue = 2;
+    repeated SCD_SPACESHIP_ROOM_ATTR_UNIT baseAttrs = 3;
+    repeated SCD_SPACESHIP_ROOM_ATTR_UNIT percentAttrs = 4;
+    repeated SCD_SPACESHIP_ROOM_ATTR_UNIT absAdditionAttrs = 5;
+    repeated SCD_SPACESHIP_ROOM_ATTR_UNIT maxAdditionAttrs = 6;
+}
+message SCD_SPACESHIP_ROOM {
+    string id = 1;
+    int32 type = 2;
+    int32 level = 3;
+    map<string, int32> level_up_conditon_values = 4;
+    map<string, bool> level_up_condition_flags = 5;
+    repeated string stationed_char_list = 6;
+    map<int32, SCD_SPACESHIP_ROOM_ATTR> attrsMap = 7;
+    bool has_char_working = 8;
+    int32 serial_num = 9;
+    oneof room_data {
+        SCD_SPACESHIP_CONTROL_CENTER control_center = 21;
+        SCD_SPACESHIP_MANUFACTURING_STATION manufacturing_station = 22;
+        SCD_SPACESHIP_GROW_CABIN grow_cabin = 23;
+        SCD_SPACESHIP_COMMAND_CENTER command_center = 24;
+        SCD_SPACESHIP_GUEST_ROOM guest_room = 25;
+        SCD_SPACESHIP_GUEST_ROOM_CLUE_EXTENSION guest_room_clue_extension = 26;
+    }
+}
+message SCD_SPACESHIP_ROOM_LEVEL_UP {
+    string id = 1;
+    int32 type = 2;
+    int32 level = 3;
+    map<string, int32> level_up_conditon_values = 4;
+    map<string, bool> level_up_condition_flags = 5;
+}
+message SCD_SPACESHIP_ROOM_STATION {
+    string id = 1;
+    int32 type = 2;
+    repeated string stationed_char_list = 3;
+    map<int32, SCD_SPACESHIP_ROOM_ATTR> attrsMap = 4;
+    bool has_char_working = 5;
+    oneof produce_status {
+        SCD_SPACESHIP_MANUFACTURING_STATION_PRODUCE_STATUS manufacturing_station_produce_status = 21;
+        SCD_SPACESHIP_GROW_CABIN_PRODUCE_STATUS grow_cabin_produce_status = 22;
+        SCD_SPACESHIP_GUEST_ROOM_PRODUCE_STATUS guest_room_produce_status = 23;
+    }
+}
+message SCD_SPACESHIP_CHAR_SKILL {
+    int32 index = 1;
+    string skillId = 2;
+}
+message SCD_SPACESHIP_CHAR {
+    string char_id = 1;
+    float physical_strength = 2;
+    int32 favorability = 3;
+    string stationed_room_id = 4;
+    bool is_working = 5;
+    repeated SCD_SPACESHIP_CHAR_SKILL skills = 6;
+    bool is_presented = 7;
+    int32 recv_gift_cnt = 8;
+    string temp_reward_id = 9;
+    int32 daily_add_favorability = 10;
+    map<int32, int32> present_gift_map = 11;
+}
+message SCD_SPACESHIP_CHAR_SKILL_LIST {
+    string charId = 1;
+    repeated SCD_SPACESHIP_CHAR_SKILL skills = 2;
+}
+message SCD_SPACESHIP_CHAR_STATION {
+    string charId = 1;
+    string stationedRoomId = 2;
+    bool isWorking = 3;
+    float physical_strength = 4;
+}
+message SPACESHIP_MANUFACTURING_ORDER {
+    string formula_id = 1;
+    int32 remain_produce_count = 2;
+    int32 current_progress = 3;
+}
+message SC_SPACESHIP_SYNC {
+    repeated SCD_SPACESHIP_ROOM rooms = 1;
+    repeated SCD_SPACESHIP_CHAR chars = 2;
+    map<int32, int32> blackboard_kvs = 3;
+    SCD_SPACESHIP_ASSIST assist_data = 4;
+    map<int32, int32> showcase_info = 5;
+    SCD_SPACESHIP_EXPEDITION expedition_data = 6;
+}
+message SC_SPACESHIP_MODIFY_BLACKBOARD {
+    map<int32, int32> kvs = 1;
+}
+message SC_SPACESHIP_MODIFY_ROOM {
+    repeated SCD_SPACESHIP_ROOM rooms = 1;
+}
+message SC_SPACESHIP_SYNC_ROOM_LEVEL_UP {
+    repeated SCD_SPACESHIP_ROOM_LEVEL_UP room_level_up_infos = 1;
+}
+message SC_SPACESHIP_MODIFY_CHAR {
+    repeated SCD_SPACESHIP_CHAR chars = 1;
+}
+message SC_SPACESHIP_SYNC_CHAR_SKILL {
+    repeated SCD_SPACESHIP_CHAR_SKILL_LIST char_skills = 1;
+}
+message SC_SPACESHIP_SYNC_ROOM_STATION {
+    repeated SCD_SPACESHIP_ROOM_STATION rooms = 1;
+    repeated SCD_SPACESHIP_CHAR_STATION chars = 2;
+}
+message SCD_SPACESHIP_ROOM_SERIAL_NUM_CHANGE {
+    string room_id = 1;
+    int32 serial_num = 2;
+}
+message SC_SPACESHIP_ROOM_SERIAL_NUM_CHANGE {
+    repeated SCD_SPACESHIP_ROOM_SERIAL_NUM_CHANGE changes = 1;
+}
+message CHAR_PRESENT_GIFT_INFO {
+    string char_id = 1;
+    string reward_id = 2;
+}
+message SC_SPACESHIP_PRESENT_CHAR_INFO {
+    repeated CHAR_PRESENT_GIFT_INFO gift_infos = 1;
+}
+message SPACESHIP_CHAR_FAVORABILITY_CHANGE_INFO {
+    string char_id = 1;
+    int32 cur_fav = 2;
+}
+message SC_SPACESHIP_CHAR_FAVORABILITY_CHANGE {
+    repeated SPACESHIP_CHAR_FAVORABILITY_CHANGE_INFO change_infos = 1;
+}
+message SC_SPACESHIP_RECV_GIFT_FROM_CHAR {
+    string char_id = 1;
+}
+message SC_SPACESHIP_PRESENT_GIFT_TO_CHAR {
+    string char_id = 1;
+    int32 cur_fav = 2;
+    int32 recv_gift_cnt = 3;
+    int32 daily_add_favorability = 4;
+    map<int32, int32> present_gift_map = 5;
+}
+message SC_SPACESHIP_MANUFACTURING_STATION_SYNC {
+    string room_id = 1;
+    SPACESHIP_MANUFACTURING_ORDER remain_produce_order = 2;
+    map<string, int32> product_map = 3;
+}
+message SC_SPACESHIP_MANUFACTURING_STATION_CANCEL {
+    string room_id = 1;
+}
+message SC_SPACESHIP_MANUFACTURING_STATION_COLLECT {
+    string room_id = 1;
+}
+message SPACESHIP_GUEST_ROOM_CLUE_DATA {
+    repeated SPACESHIP_GUEST_ROOM_CLUE self_clues = 1;
+    repeated SPACESHIP_GUEST_ROOM_CLUE receive_clues = 2;
+    repeated SPACESHIP_GUEST_ROOM_CLUE pre_receive_clues = 3;
+    map<int32, uint64> placed_clue_status = 4;
+    uint64 info_exchange_inst_id = 5;
+    int64 info_exchange_expire_ts = 6;
+    double collect_clue_progress = 7;
+    int32 clue_room_level = 9;
+    int32 base_credit_reward = 10;
+    int32 base_info_reward = 11;
+    int32 join_friend_exchange_cnt = 12;
+    int32 daily_clue_index = 13;
+    map<uint64, int64> joined_info_exchange_role_ids = 14;
+    int32 recv_clue_cnt = 15;
+}
+message SPACESHIP_GUEST_ROOM_FURNITURE_DATA {
+    repeated uint32 char_picture_ids = 1;
+    SCD_SPACESHIP_GUEST_ROOM_MUSIC_PLAYER music_player = 2;
+}
+message SPACESHIP_GUEST_ROOM_VISIT_RECORD_DATA {
+    repeated SPACESHIP_GUEST_ROOM_VISITOR_RECORD records = 1;
+    repeated uint64 weekly_visit_role_ids = 2;
+    int32 weekly_join_info_exchange_cnt = 3;
+    int32 weekly_prod_support_cnt = 4;
+}
+message SCD_SPACESHIP_GUEST_ROOM {
+    map<int64, SCD_SPACESHIP_REPORT> reports = 1;
+    SPACESHIP_GUEST_ROOM_FURNITURE_DATA furniture_data = 3;
+    SPACESHIP_GUEST_ROOM_VISIT_RECORD_DATA visit_record_data = 4;
+    SPACESHIP_GUEST_ROOM_DISPLAY_DATA display_data = 5;
+}
+message SCD_SPACESHIP_GUEST_ROOM_CLUE_EXTENSION {
+    map<int64, SCD_SPACESHIP_REPORT> reports = 1;
+    SPACESHIP_GUEST_ROOM_CLUE_DATA clue_data = 2;
+}
+message SPACESHIP_GUEST_ROOM_DISPLAY_DATA {
+    SCD_SPACESHIP_GUEST_ROOM_WEAPON weapon = 1;
+    SCD_SPACESHIP_GUEST_ROOM_CHAR char = 2;
+}
+message SCD_SPACESHIP_GROW_CABIN {
+    repeated SCD_SPACESHIP_GROW_BOX boxes = 1;
+    map<int64, SCD_SPACESHIP_REPORT> reports = 2;
+}
+message SC_SPACESHIP_MODIFY_GROW_CABIN {
+    string id = 1;
+    repeated SCD_SPACESHIP_GROW_BOX boxes = 2;
+}
+message SCD_SPACESHIP_GROW_BOX {
+    int32 box_id = 1;
+    string recipe_id = 2;
+    string preview_recipe_id = 3;
+    float progress = 4;
+    bool is_ready = 5;
+}
+message SC_SPACESHIP_GROW_CABIN_BREED {
+    repeated ITEM_BUNDLE items = 1;
+}
+message SC_SPACESHIP_GROW_CABIN_SOW {
+}
+message SC_SPACESHIP_GROW_CABIN_HARVEST {
+    repeated ITEM_BUNDLE items = 1;
+}
+message SC_SPACESHIP_GROW_CABIN_CANCEL {
+}
+message SCD_SPACESHIP_REPORT {
+    repeated int32 char_work_record = 1;
+    map<int32, int32> output = 2;
+    SpaceshipExtraReportType report_type = 10;
+    oneof report_data {
+        SCD_SPACESHIP_EXPEDITION_REPORT expedition_report = 11;
+    }
+}
+message SCD_SPACESHIP_EXPEDITION_REPORT {
+    repeated SCD_SPACESHIP_EXPEDITION_REPORT_DATA report_data = 1;
+}
+message SCD_SPACESHIP_EXPEDITION_REPORT_DATA {
+    string region_id = 1;
+    string expedition_id = 2;
+    string room_id = 3;
+    repeated string char_ids = 4;
+}
+message SC_SPACESHIP_REPORT_CHAR_WORK_MODIFY {
+    repeated SCD_SPACESHIP_ROOM_REPORT_CHAR_WORK_MODIFY room_char_work_record = 1;
+}
+message SC_SPACESHIP_REPORT_OUTPUT_MODIFY {
+    string room_id = 1;
+    map<int64, SCD_SPACESHIP_ROOM_REPORT_OUTPUT> output_report = 2;
+}
+message SCD_SPACESHIP_ROOM_REPORT_CHAR_WORK_MODIFY {
+    string room_id = 1;
+    int64 ts = 2;
+    repeated int32 char_work_record = 3;
+}
+message SC_SPACESHIP_REPORT_EXPEDITION_MODIFY {
+    repeated SCD_SPACESHIP_REPORT_EXPEDITION_MODIFY report_data = 1;
+}
+message SCD_SPACESHIP_REPORT_EXPEDITION_MODIFY {
+    string region_id = 1;
+    map<int64, SCD_SPACESHIP_REPORT> reports = 2;
+}
+message SCD_SPACESHIP_ROOM_REPORT_OUTPUT {
+    map<int32, int32> output = 1;
+}
+message SC_SPACESHIP_MANUFACTURING_STATION_START {
+    string room_id = 1;
+    SPACESHIP_MANUFACTURING_ORDER remain_produce_order = 2;
+}
+message SCD_SPACESHIP_MANUFACTURING_STATION_PRODUCE_STATUS {
+    SPACESHIP_MANUFACTURING_ORDER remain_produce_order = 1;
+}
+message SCD_SPACESHIP_GROW_CABIN_PRODUCE_STATUS {
+    repeated SCD_SPACESHIP_GROW_BOX boxes = 1;
+}
+message SCD_SPACESHIP_GUEST_ROOM_PRODUCE_STATUS {
+    double cur_collect_process = 1;
+}
+message SCD_SPACESHIP_EXPEDITION {
+    int32 info_tokens = 1;
+    repeated SCD_SPACESHIP_EXPEDITION_DOMAIN domains = 2;
+    repeated SCD_SPACESHIP_EXPEDITION_REGION regions = 3;
+}
+message SCD_SPACESHIP_EXPEDITION_DOMAIN {
+    string domain_id = 1;
+    int32 progress = 2;
+}
+message SCD_SPACESHIP_EXPEDITION_REGION {
+    string region_id = 1;
+    RegionStatus status = 2;
+    int32 level = 3;
+    repeated SCD_SPACESHIP_EXPEDITION_EXPEDITION expeditions = 4;
+    repeated int64 refresh_expedition_time = 5;
+    int32 upgrade_progress = 6;
+    int32 manual_refresh_count = 7;
+    map<string, int32> limited_expedition_record = 8;
+    map<int64, SCD_SPACESHIP_REPORT> reports = 9;
+}
+message SCD_SPACESHIP_EXPEDITION_EXPEDITION {
+    uint64 instance_id = 1;
+    string expedition_id = 2;
+    ExpeditionStatus status = 3;
+    int64 expire_time = 4;
+    string assigned_room_id = 5;
+    float progress = 6;
+}
+message CS_SPACESHIP_BUILD_ROOM {
+    string room_id = 1;
+    int32 room_type = 2;
+}
+message CS_SPACESHIP_LEVEL_UP_ROOM {
+    string room_id = 1;
+}
+message CS_SPACESHIP_DECONSTRUCT_ROOM {
+    string room_id = 1;
+}
+message CS_SPACESHIP_STATION_CHAR {
+    string room_id = 1;
+    repeated string stationed_char_list = 2;
+}
+message CS_SPACESHIP_STATION_CHAR_CHANGE_WORK_STATE {
+    string char_id = 1;
+    bool go_to_work = 2;
+}
+message CS_SPACESHIP_PRESENT_GIFT_TO_CHAR {
+    string char_id = 1;
+    repeated ITEM_BUNDLE gifts = 2;
+}
+message CS_SPACESHIP_RECV_GIFT_FROM_CHAR {
+    string char_id = 1;
+}
+message CS_SPACESHIP_MANUFACTURING_STATION_COLLECT {
+    string room_id = 1;
+}
+message CS_SPACESHIP_MANUFACTURING_STATION_START {
+    string room_id = 1;
+    string formula_id = 2;
+    int32 count = 3;
+}
+message CS_SPACESHIP_MANUFACTURING_STATION_CANCEL {
+    string room_id = 1;
+}
+message CS_SPACESHIP_MANUFACTURING_STATION_CHANGE_ORDER {
+    string room_id = 1;
+    string formula_id = 2;
+    int32 count = 3;
+}
+message CS_SPACESHIP_GROW_CABIN_BREED {
+    string room_id = 1;
+    string recipe_id = 3;
+    int32 multi = 4;
+}
+message CS_SPACESHIP_GROW_CABIN_SOW {
+    string room_id = 1;
+    repeated CSD_SPACESHIP_GROW_CABIN_SOW boxes = 2;
+}
+message CSD_SPACESHIP_GROW_CABIN_SOW {
+    string recipe_id = 1;
+    int32 box_id = 2;
+}
+message CS_SPACESHIP_GROW_CABIN_CLEAR_PREVIEW_RECIPE {
+    string room_id = 1;
+    int32 box_id = 2;
+}
+message CS_SPACESHIP_GROW_CABIN_HARVEST {
+    string room_id = 1;
+    repeated int32 box_id_list = 2;
+    bool all = 3;
+}
+message CS_SPACESHIP_GROW_CABIN_CANCEL {
+    string room_id = 1;
+    int32 box_id = 2;
+}
+message CS_SPACESHIP_VISIT_REQ {
+    uint64 host_role_id = 1;
+}
+message SC_SPACESHIP_VISIT_SYNC {
+    uint64 host_role_id = 1;
+    string host_role_name = 2;
+    string host_short_id = 3;
+    repeated SCD_SPACESHIP_ROOM rooms = 4;
+    repeated SCD_SPACESHIP_CHAR chars = 5;
+    map<int32, int32> blackboard_kvs = 6;
+    SCD_SPACESHIP_ASSIST assist_data = 7;
+    map<int32, int32> showcase_info = 8;
+    SCD_SPACESHIP_EXPEDITION expedition_data = 9;
+    SCD_SPACESHIP_VISIT_EXTRA_DATA extra_data = 20;
+}
+message CS_SPACESHIP_LEAVE_VISIT_REQ {
+}
+message CS_SPACESHIP_HELP_ROOM {
+    string room_id = 1;
+}
+message SC_SPACESHIP_HELP_ROOM {
+    string room_id = 1;
+    int32 error_code = 2;
+    BeHelpedCount be_helped_count_total = 3;
+}
+message CS_SPACESHIP_USE_HELP_CREDIT {
+    string room_id = 1;
+    int32 times = 3;
+    repeated string char_ids = 2;
+}
+message SC_SPACESHIP_USE_HELP_CREDIT {
+    string room_id = 1;
+    int32 times = 2;
+}
+message SC_SPACESHIP_ASSIST_DATA {
+    SCD_SPACESHIP_ASSIST assist_data = 1;
+}
+message SCD_SPACESHIP_ASSIST {
+    int32 help_others_count = 1;
+    repeated HelpOthersRecord help_others_record = 2;
+    repeated BeHelpedRecord be_helped_record = 3;
+    map<string, BeHelpedCount> be_helped_credit_left = 4;
+    map<string, BeHelpedCount> be_helped_count_total = 5;
+}
+message HelpOthersRecord {
+    uint64 target = 1;
+    string room_id = 2;
+    int32 room_type = 3;
+}
+message BeHelpedRecord {
+    uint64 role_id = 1;
+    string role_name = 2;
+    string room_id = 3;
+    int32 room_type = 4;
+}
+message BeHelpedCount {
+    int32 control_center = 1;
+    int32 manufacturing_station = 2;
+    map<int32, int32> grow_cabin = 3;
+    int32 command_center = 4;
+}
+message CS_SPACESHIP_GUEST_ROOM_RECV_CLUE {
+}
+message SC_SPACESHIP_GUEST_ROOM_RECV_CLUE {
+    SPACESHIP_GUEST_ROOM_CLUE clue = 1;
+}
+message SC_SPACESHIP_GUEST_ROOM_AUTO_RECV_CLUE {
+    SPACESHIP_GUEST_ROOM_CLUE clue = 1;
+    int64 credit_reward_cnt = 2;
+    double new_collect_progress = 3;
+}
+message CS_SPACESHIP_GUEST_ROOM_RECV_FRIEND_CLUE {
+    repeated uint64 clue_inst_ids = 1;
+}
+message SC_SPACESHIP_GUEST_ROOM_RECV_FRIEND_CLUE {
+    repeated uint64 clue_inst_ids = 1;
+    int32 recv_clue_cnt = 2;
+}
+message CS_SPACESHIP_GUEST_ROOM_PRESENT_FRIEND_CLUE {
+    uint64 friend_role_id = 1;
+    uint64 clue_inst_id = 2;
+}
+message SC_SPACESHIP_GUEST_ROOM_PRESENT_FRIEND_CLUE {
+    uint64 friend_role_id = 1;
+    uint64 clue_inst_id = 2;
+}
+message CS_SPACESHIP_GUEST_ROOM_PLACE_CLUE {
+    uint64 clue_inst_id = 1;
+}
+message SC_SPACESHIP_GUEST_ROOM_PLACE_CLUE {
+    map<int32, uint64> placed_clue_status = 1;
+}
+message CS_SPACESHIP_GUEST_ROOM_CANCEL_PLACE_CLUE {
+    uint64 clue_inst_id = 1;
+}
+message SC_SPACESHIP_GUEST_ROOM_CANCEL_PLACE_CLUE {
+    map<int32, uint64> placed_clue_status = 1;
+}
+message CS_SPACESHIP_GUEST_ROOM_DELETE_SELF_CLUE {
+    uint64 clue_inst_id = 1;
+}
+message SC_SPACESHIP_GUEST_ROOM_DELETE_SELF_CLUE {
+    uint64 clue_inst_id = 1;
+    map<int32, uint64> placed_clue_status = 2;
+    int32 recycle_credit_reward_cnt = 3;
+}
+message CS_SPACESHIP_GUEST_ROOM_OPEN_INFO_EXCHANGE {
+}
+message SC_SPACESHIP_GUEST_ROOM_OPEN_INFO_EXCHANGE {
+    uint64 info_exchange_inst_id = 1;
+    int64 expire_ts = 2;
+}
+message CS_SPACESHIP_GUEST_ROOM_GET_CLUE_INFO {
+}
+message SC_SPACESHIP_GUEST_ROOM_GET_CLUE_INFO {
+    SPACESHIP_GUEST_ROOM_CLUE_DATA data = 1;
+    repeated uint64 joined_info_exchange_role_ids = 2;
+}
+message CS_SPACESHIP_GUEST_ROOM_SETTLE_INFO_EXCHANGE {
+}
+message SC_SPACESHIP_GUEST_ROOM_SETTLE_INFO_EXCHANGE {
+    map<string, int32> base_reward_map = 1;
+    map<string, int32> extra_reward_map = 2;
+    uint64 info_exchange_inst_id = 3;
+    repeated uint64 friend_role_ids = 4;
+}
+message CS_SPACESHIP_GUEST_ROOM_JOIN_FRIEND_INFO_EXCHANGE {
+    uint64 friend_role_id = 1;
+    uint64 info_exchange_inst_id = 2;
+}
+message SC_SPACESHIP_GUEST_ROOM_JOIN_FRIEND_INFO_EXCHANGE {
+    uint64 friend_role_id = 1;
+    uint64 info_exchange_inst_id = 2;
+    map<uint64, bool> friend_role_map = 3;
+}
+message CS_SPACESHIP_GUEST_ROOM_SET_CHAR_PICTURE_LIST {
+    repeated uint32 char_picture_ids = 1;
+}
+message SC_SPACESHIP_GUEST_ROOM_SET_CHAR_PICTURE_LIST {
+    repeated uint32 char_picture_ids = 1;
+}
+message CS_SPACESHIP_GUEST_ROOM_SET_PLAYING_MUSIC {
+    string music_item_id = 1;
+}
+message SC_SPACESHIP_GUEST_ROOM_MUSIC_PLAYER_MODIFY {
+    SCD_SPACESHIP_GUEST_ROOM_MUSIC_PLAYER music_player = 1;
+}
+message SCD_SPACESHIP_GUEST_ROOM_MUSIC_PLAYER {
+    string cur_music_item = 1;
+    repeated string unlock_music_item_list = 2;
+}
+message CS_SPACESHIP_GUEST_ROOM_QUERY_VISIT_LIST {
+}
+message SC_SPACESHIP_GUEST_ROOM_QUERY_VISIT_LIST {
+    repeated SPACESHIP_GUEST_ROOM_VISITOR_RECORD visit_list = 1;
+    int32 weekly_visit_role_cnt = 2;
+    int32 weekly_be_supported_cnt = 3;
+    int32 weekly_join_info_exchange_cnt = 4;
+}
+message CS_SPACESHIP_GUEST_ROOM_RECV_VISIT_LIST_REWARD {
+}
+message SC_SPACESHIP_GUEST_ROOM_RECV_VISIT_LIST_REWARD {
+}
+message SC_SPACESHIP_GUEST_ROOM_NEW_VISITOR_OP_NOTIFY {
+    uint64 visitor_role_id = 1;
+    int32 action_type = 2;
+    VISIT_OP_RECORD op_record = 3;
+}
+message CS_SPACESHIP_SHOWCASE_MODIFY {
+    int32 showcase_id = 1;
+    int32 item_id = 2;
+}
+message SC_SPACESHIP_SHOWCASE_MODIFY {
+    map<int32, int32> showcase_info = 1;
+}
+message CS_SPACESHIP_EXPEDITION_START {
+    uint64 expedition_instance_id = 1;
+    string room_id = 2;
+    repeated string char_ids = 3;
+}
+message SC_SPACESHIP_EXPEDITION_START {
+    uint64 expedition_instance_id = 1;
+    string room_id = 2;
+    repeated string char_ids = 3;
+}
+message CS_SPACESHIP_EXPEDITION_CANCEL {
+    uint64 expedition_instance_id = 1;
+}
+message SC_SPACESHIP_EXPEDITION_CANCEL {
+    uint64 expedition_instance_id = 1;
+}
+message CS_SPACESHIP_EXPEDITION_COLLECT {
+    uint64 expedition_instance_id = 1;
+}
+message SC_SPACESHIP_EXPEDITION_COLLECT {
+    uint64 expedition_instance_id = 1;
+}
+message CS_SPACESHIP_EXPEDITION_REFRESH {
+    string region_id = 1;
+}
+message SC_SPACESHIP_EXPEDITION_REFRESH {
+    string region_id = 1;
+}
+message SC_SPACESHIP_EXPEDITION_INFO_TOKENS_UPDATE {
+    int32 info_tokens = 1;
+}
+message SC_SPACESHIP_EXPEDITION_REGION_UPDATE {
+    repeated SCD_SPACESHIP_EXPEDITION_DOMAIN domains = 1;
+    repeated SCD_SPACESHIP_EXPEDITION_REGION regions = 2;
+}
+message SC_SPACESHIP_EXPEDITION_EXPEDITION_UPDATE {
+    repeated SCD_SPACESHIP_EXPEDITION_EXPEDITION expeditions = 1;
+}
+message SCD_SPACESHIP_GUEST_ROOM_WEAPON {
+    map<int32, SCD_SPACESHIP_GUEST_ROOM_WEAPON_DATA_BY_TYPE> weapon_map = 1;
+}
+message SCD_SPACESHIP_GUEST_ROOM_WEAPON_DATA_BY_TYPE {
+    repeated uint64 inst_id_list = 1;
+}
+message SCD_SPACESHIP_GUEST_ROOM_CHAR {
+    repeated int32 char_template_id_list = 1;
+}
+message SCD_SPACESHIP_VISIT_EXTRA_DATA {
+    SCD_SPACESHIP_VISIT_EXTRA_DATA_ACHIEVEMENT achievement = 1;
+    repeated ITEM_INST inst_list = 2;
+    repeated SCD_SPACESHIP_VISIT_EXTRA_DATA_CHAR char_list = 3;
+}
+message SCD_SPACESHIP_VISIT_EXTRA_DATA_CHAR {
+    int32 char_template_id = 1;
+    int32 potential_level = 2;
+}
+message SCD_SPACESHIP_VISIT_EXTRA_DATA_ACHIEVEMENT {
+    map<int32, int32> display = 1;
+    repeated SCD_ACHIEVE_PERSONAL_INFO info_list = 2;
+}
+message CS_SPACESHIP_GUEST_ROOM_WEAPON_CHANGE {
+    int32 type = 1;
+    repeated uint64 weapon_inst_ids = 2;
+}
+message SC_SPACESHIP_GUEST_ROOM_WEAPON_CHANGE {
+    int32 type = 1;
+    repeated uint64 weapon_inst_ids = 2;
+}
+message CS_SPACESHIP_GUEST_ROOM_CHAR_CHANGE {
+    repeated string char_ids = 1;
+}
+message SC_SPACESHIP_GUEST_ROOM_CHAR_CHANGE {
+    repeated string char_ids = 1;
+}
+message CS_SPACESHIP_GUEST_ROOM_READ_CLUE {
+    repeated uint64 clue_inst_ids = 1;
+}

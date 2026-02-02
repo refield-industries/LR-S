@@ -1,0 +1,101 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+enum RACING_ACHIEVEMENT_STATUS {
+    Racing_Status_None = 0;
+    Racing_Status_Active = 1;
+    Racing_Status_Completed = 2;
+    Racing_Status_Received = 3;
+}
+message SC_SYNC_RACING_DUNGEON_PASSED_LEVEL {
+    map<string, int32> max_passed_level = 1;
+}
+message SC_RACING_DUNGEON_ENTER {
+    string dungeon_id = 1;
+    int32 level = 2;
+    string tactics_id = 3;
+    repeated uint64 char_team = 4;
+}
+message SC_SYNC_RACING_DUNGEON_SETTLEMENT {
+    string dungeon_id = 1;
+    int32 level = 2;
+    bool is_passed = 3;
+    int64 total_playtime = 4;
+    float score = 5;
+    int32 battle_pass_exp = 6;
+    repeated int64 completed_room_list = 7;
+}
+message SC_SYNC_RACING_DUNGEON_RECONNECT {
+    string dungeon_id = 1;
+    int32 level = 2;
+    int64 total_playtime = 3;
+    repeated string buff_list = 4;
+    string tactics_id = 5;
+    int32 kill_monster_counter = 6;
+    bool paused = 7;
+    repeated int64 completed_room_list = 8;
+}
+message CS_RACING_DUNGEON_GET_BATTLE_PASS {
+    string dungeon_id = 1;
+}
+message SC_RACING_DUNGEON_GET_BATTLE_PASS {
+    string dungeon_id = 1;
+    int32 battle_pass_exp = 2;
+    repeated int32 received_node_id = 3;
+    repeated int32 unlock_node_id = 4;
+}
+message CS_RACING_DUNGEON_BATTLE_PASS_RECEIVE_REWARD {
+    string dungeon_id = 1;
+    bool receive_all = 2;
+    int32 received_node_id = 3;
+}
+message SC_RACING_DUNGEON_BATTLE_PASS_RECEIVE_REWARD {
+    string dungeon_id = 1;
+    int32 battle_pass_exp = 2;
+    repeated string receive_rewards = 3;
+    repeated int32 received_node_id = 4;
+}
+message CS_RACING_DUNGEON_GET_ACHIEVEMENT {
+    string dungeon_id = 1;
+}
+message SC_RACING_DUNGEON_GET_ACHIEVEMENT {
+    string dungeon_id = 1;
+    repeated RACING_DUNGEON_ACHIEVEMENT achievements = 2;
+}
+message RACING_DUNGEON_ACHIEVEMENT {
+    int32 node_id = 1;
+    RACING_ACHIEVEMENT_STATUS status = 2;
+    int32 condition_counter = 3;
+}
+message CS_RACING_DUNGEON_ACHIEVEMENT_RECEIVE_REWARD {
+    string dungeon_id = 1;
+    bool receive_all = 2;
+    int32 received_achievement = 3;
+}
+message SC_RACING_DUNGEON_ACHIEVEMENT_RECEIVE_REWARD {
+    string dungeon_id = 1;
+    repeated string receive_rewards = 2;
+    repeated RACING_DUNGEON_ACHIEVEMENT achievements = 3;
+}
+message CS_RACING_DUNGEON_LEAVE {
+}
+message SC_SYNC_RACING_DUNGEON_BUFF_MODIFY {
+    repeated string buff_list = 1;
+    string add_buff_id = 2;
+}
+message CS_RACING_DUNGEON_UPDATE_BATTLE_INFO {
+    int32 kill_monster_counter = 1;
+}
+message SC_SYNC_RACING_DUNGEON_ACHIEVEMENT_MODIFY {
+    int32 achievement_id = 1;
+}
+message SC_SYNC_RACING_TIMER_PAUSE {
+    bool paused = 1;
+    int64 server_timestamp = 2;
+    int64 total_playtime = 3;
+}
+message SC_SYNC_RACING_DUNGEON_COMPLETE_ROOM {
+    int64 room_id = 1;
+}

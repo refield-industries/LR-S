@@ -1,0 +1,39 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message ADVENTURE_TASK {
+    string task_id = 1;
+    int32 progress = 2;
+    int32 state = 3;
+}
+message SC_ADVENTURE_BOOK_SYNC {
+    int32 adventure_book_stage = 1;
+    repeated ADVENTURE_TASK tasks = 2;
+    int32 daily_activation = 3;
+    repeated int32 daily_activation_gathered_reward_ids = 4;
+}
+message SC_DAILY_ACTIVATION_MODIFY {
+    int32 daily_activation = 1;
+    repeated int32 daily_activation_gathered_reward_ids = 2;
+}
+message CS_TAKE_ADVENTURE_TASK_REWARD {
+    string task_id = 1;
+}
+message CS_TAKE_ALL_ACTIVATION_REWARD {
+}
+message CS_TAKE_ALL_ADVENTURE_TASK_REWARD {
+    int32 task_type = 1;
+}
+message SC_ADVENTURE_TASK_MODIFY {
+    repeated ADVENTURE_TASK tasks = 1;
+}
+message CS_TAKE_ADVENTURE_BOOK_STAGE_REWARD {
+    int32 adventure_book_stage = 1;
+}
+message SC_ADVENTURE_BOOK_STAGE_MODIFY {
+    int32 adventure_book_stage = 1;
+}
+message SC_RESET_DAILY_ADVENTURE_TASK {
+}

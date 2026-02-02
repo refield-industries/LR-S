@@ -1,0 +1,13 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message SC_SYNC_CLIENT_REMOTE_TASK {
+    string task_id = 1;
+    string content = 2;
+}
+message CS_REPORT_CLIENT_REMOTE_TASK_RET {
+    string task_id = 1;
+    string result = 2;
+}

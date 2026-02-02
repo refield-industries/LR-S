@@ -1,0 +1,10 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message CS_CHECK_SENSITIVE {
+    string content = 1;
+}
+message SC_CHECK_SENSITIVE {
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+
+message MONEY_INFO {
+    string id = 1;
+    int64 amount = 2;
+}
+message CS_WALLET_RECORD_REQUIRE {
+    string id = 1;
+}
+message SC_SYNC_WALLET {
+    repeated MONEY_INFO money_list = 1;
+    repeated WALLET_MONEY_RECORD record_mgr = 2;
+}
+message SC_SYNC_WALLET_RECORD {
+    WALLET_MONEY_RECORD record = 2;
+}
+message SC_WALLET_SYNC_MONEY {
+    string id = 1;
+    int64 amount = 2;
+    int64 op_amount = 3;
+}

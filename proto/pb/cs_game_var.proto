@@ -1,0 +1,18 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message SC_SYNC_ALL_GAME_VAR {
+    map<int32, int64> server_vars = 1;
+    map<int32, int64> client_vars = 2;
+}
+message CS_UPDATE_CLIENT_GAME_VAR {
+    int32 key = 1;
+    int64 value = 2;
+}
+message SC_UPDATE_GAME_VAR {
+    int32 key = 1;
+    int64 value = 2;
+    int32 type = 3;
+}

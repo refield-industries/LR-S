@@ -1,0 +1,560 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+import "options.proto";
+import "cs_factory_chapter.proto";
+
+enum FACTORY_OP_TYPE {
+    NONE = 0;
+    PLACE = 1;
+    PLACE_CONVEYOR = 2;
+    DISMANTLE = 3;
+    SET_SELECT_TARGET = 5;
+    ENABLE_NODE = 6;
+    MOVE_NODE = 7;
+    DISMANTLE_BOX_CONVEYOR = 8;
+    REPAIR_NODE = 9;
+    MOVE_ITEM_CACHE_TO_CACHE = 10;
+    MOVE_ITEM_BAG_TO_CACHE = 11;
+    MOVE_ITEM_CACHE_TO_BAG = 12;
+    MOVE_ITEM_DEPOT_TO_CACHE = 13;
+    MOVE_ITEM_CACHE_TO_DEPOT = 14;
+    MOVE_ITEM_CONVEYOR_TO_BAG = 15;
+    CACHE_TRANSPORT_TRANSFER = 16;
+    CACHE_TRANSPORT_ENABLE = 17;
+    SET_TRAVEL_POLE_DEFAULT_NEXT = 18;
+    USE_HEAL_TOWER_POINT = 19;
+    BATTLE_REPAIR = 20;
+    ADD_CONNECTION = 21;
+    DEL_CONNECTION = 22;
+    PLACE_SIGN = 23;
+    GRID_BOX_INNER_MOVE = 31;
+    GRID_BOX_INNER_SPLIT = 32;
+    MOVE_ITEM_BAG_TO_GRID_BOX = 33;
+    MOVE_ITEM_GRID_BOX_TO_BAG = 34;
+    MOVE_ITEM_DEPOT_TO_GRID_BOX = 35;
+    MOVE_ITEM_GRID_BOX_TO_DEPOT = 36;
+    MOVE_ALL_CACHE_OUT_ITEM_TO_BAG = 37;
+    QUICK_PUT_BATTERY = 38;
+    CHANGE_PRODUCER_MODE = 41;
+    REVERSE_FLUID_CONVEYOR_DIRECTION = 42;
+    DISMANTLE_BATCH = 43;
+    SET_VALVE_ITEM = 44;
+    SET_VALVE_LIMIT = 45;
+    RESET_VALVE_RECORD = 46;
+    TAKE_OUT_FLUID_FROM_LIQUID_BODY = 51;
+    PUT_IN_FLUID_TO_LIQUID_BODY = 52;
+    FILLING_FLUID_COM_WITH_BAG = 53;
+    FILLING_FLUID_COM_WITH_DEPOT = 54;
+    PLACE_BATCH = 55;
+    MOVE_BATCH = 56;
+    SUBMIT_PENDING_ITEMS = 57;
+    CANCEL_BATCH_PENDING = 58;
+    SET_SOCIAL_LIKE = 59;
+    ADD_UD_PIPE_CONNECTION = 60;
+    DEL_UD_PIPE_CONNECTION = 61;
+    SUBMIT_REPORT_SIGN = 62;
+}
+enum FACTORY_OP_RET_CODE {
+    OK = 0;
+    FAIL = 1;
+    UNKNOWN_OP_TYPE = 2;
+    MESH_CONFLICT = 3;
+    MUST_IN_MAIN = 4;
+    NO_BUILDING_ITEM = 5;
+}
+enum RET_FLUID_WITH_LIQUID_BODY {
+    RET_FLUID_WITH_LIQUID_BODY_OK = 0;
+    RET_FLUID_WITH_LIQUID_BODY_None = 1;
+    RET_FLUID_WITH_LIQUID_BODY_PartialByBag = 2;
+    RET_FLUID_WITH_LIQUID_BODY_PartialByLiquidBody = 3;
+}
+message CS_FACTORY_OP {
+    string index = 1;
+    FACTORY_OP_TYPE op_type = 2;
+    string chapter_id = 3;
+    oneof op_payload {
+        CSD_FACTORY_OP_PLACE place = 11;
+        CSD_FACTORY_OP_PLACE_CONVEYOR place_conveyor = 12;
+        CSD_FACTORY_OP_DISMANTLE dismantle = 13;
+        CSD_FACTORY_OP_SET_SELECT_TARGET set_select_target = 15;
+        CSD_FACTORY_OP_ENABLE_NODE enable_node = 16;
+        CSD_FACTORY_OP_MOVE_NODE move_node = 17;
+        CSD_FACTORY_OP_DISMANTLE_BOX_CONVEYOR dismantle_box_conveyor = 18;
+        CSD_FACTORY_OP_REPAIR_NODE repair_node = 19;
+        CSD_FACTORY_OP_MOVE_ITEM_CACHE_TO_CACHE move_item_cache_to_cache = 20;
+        CSD_FACTORY_OP_MOVE_ITEM_BAG_TO_CACHE move_item_bag_to_cache = 21;
+        CSD_FACTORY_OP_MOVE_ITEM_CACHE_TO_BAG move_item_cache_to_bag = 22;
+        CSD_FACTORY_OP_MOVE_ITEM_DEPOT_TO_CACHE move_item_depot_to_cache = 23;
+        CSD_FACTORY_OP_MOVE_ITEM_CACHE_TO_DEPOT move_item_cache_to_depot = 24;
+        CSD_FACTORY_OP_MOVE_ITEM_CONVEYOR_TO_BAG move_item_conveyor_to_bag = 25;
+        CSD_FACTORY_OP_CACHE_TRANSPORT_TRANSFER cache_transport_transfer = 26;
+        CSD_FACTORY_OP_CACHE_TRANSPORT_ENABLE cache_transport_enable = 27;
+        CSD_FACTORY_OP_SET_TRAVEL_POLE_DEFAULT_NEXT set_travel_pole_default_next = 28;
+        CSD_FACTORY_OP_USE_HEAL_TOWER_POINT use_heal_tower_point = 29;
+        CSD_FACTORY_OP_BATTLE_REPAIR battle_repair = 30;
+        CSD_FACTORY_OP_ADD_CONNECTION add_connection = 31;
+        CSD_FACTORY_OP_DEL_CONNECTION del_connection = 32;
+        CSD_FACTORY_OP_GRID_BOX_INNER_MOVE grid_box_inner_move = 41;
+        CSD_FACTORY_OP_GRID_BOX_INNER_SPLIT grid_box_inner_split = 42;
+        CSD_FACTORY_OP_MOVE_ITEM_BAG_TO_GRID_BOX move_item_bag_to_grid_box = 43;
+        CSD_FACTORY_OP_MOVE_ITEM_GRID_BOX_TO_BAG move_item_grid_box_to_bag = 44;
+        CSD_FACTORY_OP_MOVE_ITEM_DEPOT_TO_GRID_BOX move_item_depot_to_grid_box = 45;
+        CSD_FACTORY_OP_MOVE_ITEM_GRID_BOX_TO_DEPOT move_item_grid_box_to_depot = 46;
+        CSD_FACTORY_OP_MOVE_ALL_CACHE_OUT_ITEM_TO_BAG move_all_cache_out_item_to_bag = 47;
+        CSD_FACTORY_OP_QUICK_PUT_BATTERY quick_put_battery = 48;
+        CSD_FACTORY_OP_CHANGE_PRODUCER_MODE change_producer_mode = 51;
+        CSD_FACTORY_OP_REVERSE_FLUID_CONVEYOR_DIRECTION reverse_fluid_conveyor_direction = 52;
+        CSD_FACTORY_OP_DISMANTLE_BATCH dismantle_batch = 53;
+        CSD_FACTORY_OP_SET_VALVE_ITEM set_valve_item = 54;
+        CSD_FACTORY_OP_SET_VALVE_LIMIT set_valve_limit = 55;
+        CSD_FACTORY_OP_RESET_VALVE_RECORD reset_valve_record = 56;
+        CSD_FACTORY_OP_TAKE_OUT_FLUID_FROM_LIQUID_BODY take_out_fluid_from_liquid_body = 61;
+        CSD_FACTORY_OP_PUT_IN_FLUID_TO_LIQUID_BODY put_in_fluid_to_liquid_body = 62;
+        CSD_FACTORY_OP_FILLING_FLUID_COM_WITH_BAG filling_fluid_com_with_bag = 63;
+        CSD_FACTORY_OP_FILLING_FLUID_COM_WITH_DEPOT filling_fluid_com_with_depot = 64;
+        CSD_FACTORY_OP_BATCH_PLACE batch_place = 65;
+        CSD_FACTORY_OP_BATCH_MOVE batch_move = 66;
+        CSD_FACTORY_OP_SUBMIT_ITEM_TO_PENDING_DATA submit_item_to_pending_data = 67;
+        CSD_FACTORY_OP_CANCEL_ONE_BATCH_PENDING cancel_one_batch_pending = 68;
+        CSD_FACTORY_OP_SET_SOCIAL_LIKE set_social_like = 69;
+        CSD_FACTORY_OP_PLACE_SIGN place_sign = 70;
+        CSD_FACTORY_OP_ADD_UD_PIPE_CONNECTION add_ud_pipe_conn = 71;
+        CSD_FACTORY_OP_DEL_UD_PIPE_CONNECTION del_ud_pipe_conn = 72;
+        CSD_FACTORY_OP_SUBMIT_REPORT_SIGN submit_report_sign = 73;
+    }
+}
+message CSD_FACTORY_INTERACTIVE_PARAM {
+    VECTOR position = 1;
+    VECTOR rotation = 2;
+    map<int32, DYNAMIC_PARAMETER> properties = 3;
+}
+message CSD_FACTORY_OP_PLACE {
+    string template_id = 1;
+    SCD_VEC3_INT position = 2;
+    SCD_VEC3_INT direction = 3;
+    int32 map_id = 4;
+    CSD_FACTORY_INTERACTIVE_PARAM interactive_param = 5;
+}
+message CSD_FACTORY_OP_PLACE_SIGN {
+    CSD_FACTORY_OP_PLACE place = 1;
+    repeated int32 sign_param = 2;
+}
+message CSD_FACTORY_OP_ADD_UD_PIPE_CONNECTION {
+    uint64 from_com_id = 1;
+    uint64 to_com_id = 2;
+}
+message CSD_FACTORY_OP_DEL_UD_PIPE_CONNECTION {
+    uint64 from_com_id = 1;
+    uint64 to_com_id = 2;
+}
+message CSD_FACTORY_OP_SUBMIT_REPORT_SIGN {
+    uint64 node_id = 1;
+    repeated string reason = 3;
+    string content = 4;
+}
+message CSD_FACTORY_OP_PLACE_CONVEYOR {
+    string template_id = 1;
+    SCD_VEC3_INT direction_in = 2;
+    SCD_VEC3_INT direction_out = 3;
+    repeated SCD_VEC3_INT points = 4;
+    int32 map_id = 5;
+}
+message CSD_FACTORY_OP_DISMANTLE {
+    uint32 node_id = 1;
+}
+message CSD_FACTORY_OP_DISMANTLE_BATCH {
+    repeated CSD_FACTORY_OP_DISMANTLE dismantles = 1;
+    repeated CSD_FACTORY_OP_DISMANTLE_BOX_CONVEYOR dismantle_conveyors = 2;
+    repeated int32 slot_id = 3;
+}
+message CSD_FACTORY_OP_DISMANTLE_BOX_CONVEYOR {
+    uint32 node_id = 1;
+    repeated int32 index_list = 2;
+}
+message CSD_FACTORY_OP_REPAIR_NODE {
+    uint32 node_id = 1;
+}
+message CSD_FACTORY_OP_SET_SELECT_TARGET {
+    uint32 component_id = 1;
+    string item_id = 2;
+}
+message CSD_FACTORY_OP_ENABLE_NODE {
+    uint32 node_id = 1;
+    bool enable = 2;
+}
+message CSD_FACTORY_OP_MOVE_NODE {
+    uint32 node_id = 1;
+    SCD_VEC3_INT position = 2;
+    SCD_VEC3_INT direction = 3;
+    CSD_FACTORY_INTERACTIVE_PARAM interactive_param = 5;
+}
+message CSD_FACTORY_OP_MOVE_ITEM_CACHE_TO_CACHE {
+    uint32 from_component_id = 1;
+    uint32 to_component_id = 2;
+    string item_id = 3;
+}
+message CSD_FACTORY_OP_MOVE_ITEM_BAG_TO_CACHE {
+    int32 grid_index = 1;
+    uint32 component_id = 2;
+    int32 cache_grid_index = 3;
+    ITEM_MOVE_MODE mode = 4;
+}
+message CSD_FACTORY_OP_MOVE_ITEM_CACHE_TO_BAG {
+    uint32 component_id = 1;
+    string item_id = 2;
+    bool all = 3;
+    int32 cache_grid_index = 4;
+    int32 grid_index = 5;
+    ITEM_MOVE_MODE mode = 6;
+}
+message CSD_FACTORY_OP_MOVE_ITEM_DEPOT_TO_CACHE {
+    string item_id = 1;
+    uint32 component_id = 2;
+    int32 cache_grid_index = 3;
+    ITEM_MOVE_MODE mode = 4;
+}
+message CSD_FACTORY_OP_MOVE_ITEM_CACHE_TO_DEPOT {
+    uint32 component_id = 1;
+    string item_id = 2;
+    bool all = 3;
+    int32 cache_grid_index = 4;
+    ITEM_MOVE_MODE mode = 5;
+}
+message CSD_FACTORY_OP_MOVE_ITEM_CONVEYOR_TO_BAG {
+    uint32 component_id = 1;
+    int32 index = 2;
+    bool all = 3;
+}
+message CSD_FACTORY_OP_CACHE_TRANSPORT_TRANSFER {
+    uint32 component_id = 1;
+}
+message CSD_FACTORY_OP_CACHE_TRANSPORT_ENABLE {
+    uint32 component_id = 1;
+    bool enable = 2;
+}
+message CSD_FACTORY_OP_SET_TRAVEL_POLE_DEFAULT_NEXT {
+    uint32 component_id = 1;
+    uint32 default_next = 2;
+}
+message CSD_FACTORY_OP_USE_HEAL_TOWER_POINT {
+    uint32 component_id = 1;
+    uint32 use_count = 2;
+}
+message CSD_FACTORY_OP_BATTLE_REPAIR {
+    uint32 node_id = 1;
+}
+message CSD_FACTORY_OP_ADD_CONNECTION {
+    int32 map_id = 1;
+    uint64 from_com_id = 4;
+    uint64 to_com_id = 5;
+}
+message CSD_FACTORY_OP_DEL_CONNECTION {
+    int32 map_id = 1;
+    uint64 index = 2;
+}
+message CSD_FACTORY_OP_GRID_BOX_INNER_MOVE {
+    uint32 component_id = 1;
+    int32 from_index = 2;
+    int32 to_index = 3;
+}
+message CSD_FACTORY_OP_GRID_BOX_INNER_SPLIT {
+    uint32 component_id = 1;
+    int32 from_index = 2;
+    int32 to_index = 3;
+    int32 count = 4;
+}
+message CSD_FACTORY_OP_MOVE_ITEM_BAG_TO_GRID_BOX {
+    int32 bag_grid_index = 1;
+    uint32 component_id = 2;
+    int32 grid_box_index = 3;
+    ITEM_MOVE_MODE mode = 4;
+}
+message CSD_FACTORY_OP_MOVE_ITEM_GRID_BOX_TO_BAG {
+    uint32 component_id = 1;
+    int32 grid_box_index = 2;
+    int32 bag_grid_index = 3;
+    ITEM_MOVE_MODE mode = 4;
+}
+message CSD_FACTORY_OP_MOVE_ITEM_DEPOT_TO_GRID_BOX {
+    string item_id = 1;
+    uint32 component_id = 2;
+    int32 grid_box_index = 3;
+    ITEM_MOVE_MODE mode = 4;
+}
+message CSD_FACTORY_OP_MOVE_ITEM_GRID_BOX_TO_DEPOT {
+    uint32 component_id = 1;
+    int32 grid_box_index = 2;
+    ITEM_MOVE_MODE mode = 3;
+}
+message CSD_FACTORY_OP_MOVE_ALL_CACHE_OUT_ITEM_TO_BAG {
+    uint32 node_id = 1;
+}
+message CSD_FACTORY_OP_QUICK_PUT_BATTERY {
+    uint32 com_id = 1;
+}
+message CSD_FACTORY_OP_CHANGE_PRODUCER_MODE {
+    uint32 node_id = 1;
+    string to_mode = 2;
+}
+message CSD_FACTORY_OP_REVERSE_FLUID_CONVEYOR_DIRECTION {
+    uint32 node_id = 1;
+}
+message CSD_FACTORY_OP_SET_VALVE_ITEM {
+    uint32 com_id = 1;
+    string item_id = 2;
+}
+message CSD_FACTORY_OP_SET_VALVE_LIMIT {
+    uint32 com_id = 1;
+    bool enable = 2;
+    int32 limit = 3;
+}
+message CSD_FACTORY_OP_RESET_VALVE_RECORD {
+    uint32 com_id = 1;
+}
+message CSD_FACTORY_OP_TAKE_OUT_FLUID_FROM_LIQUID_BODY {
+    string liquid_body_inst_key = 1;
+    repeated ITEM_BUNDLE bottle_items = 4;
+}
+message CSD_FACTORY_OP_PUT_IN_FLUID_TO_LIQUID_BODY {
+    string liquid_body_inst_key = 1;
+    repeated ITEM_BUNDLE bottle_water_items = 4;
+}
+message CSD_FACTORY_OP_FILLING_FLUID_COM_WITH_BAG {
+    uint32 component_id = 1;
+    int32 bag_grid_index = 2;
+}
+message CSD_FACTORY_OP_FILLING_FLUID_COM_WITH_DEPOT {
+    uint32 component_id = 1;
+    string item_id = 2;
+}
+message CSD_BATCH_PLACE_NODE {
+    string template_id = 1;
+    SCD_VEC3_INT position = 2;
+    SCD_VEC3_INT direction = 3;
+    CSD_FACTORY_INTERACTIVE_PARAM interactive_param = 4;
+    repeated CSD_BATCH_PLACE_COM coms = 5;
+}
+message CSD_BATCH_PLACE_CONVEYORS {
+    string template_id = 1;
+    SCD_VEC3_INT direction_in = 2;
+    SCD_VEC3_INT direction_out = 3;
+    repeated SCD_VEC3_INT points = 4;
+}
+message CSD_FACTORY_OP_BATCH_PLACE {
+    int32 map_id = 1;
+    repeated CSD_BATCH_PLACE_NODE nodes = 2;
+    repeated CSD_BATCH_PLACE_CONVEYORS conveyor_nodes = 3;
+}
+message CSD_FACTORY_OP_MOVE_BOX_CONVEYOR {
+    uint32 node_id = 1;
+    repeated int32 index_list = 2;
+}
+message CSD_FACTORY_AREA_RELATED_POS {
+    SCD_VEC3_INT area_start_pos = 1;
+    SCD_VEC3_INT area_offset = 2;
+    SCD_VEC3_INT area_rotate = 3;
+}
+message CSD_FACTORY_OP_BATCH_MOVE_NODE {
+    uint32 node_id = 1;
+    CSD_FACTORY_INTERACTIVE_PARAM interactive_param = 2;
+}
+message CSD_FACTORY_OP_BATCH_MOVE {
+    CSD_FACTORY_AREA_RELATED_POS related_pos = 1;
+    repeated CSD_FACTORY_OP_BATCH_MOVE_NODE move_nodes = 2;
+    repeated CSD_FACTORY_OP_MOVE_BOX_CONVEYOR move_conveyors = 3;
+    repeated int32 slot_id = 4;
+}
+message CSD_FACTORY_OP_SUBMIT_ITEM_TO_PENDING_DATA {
+    int32 slot_id = 1;
+    map<string, int32> submit_items = 2;
+}
+message CSD_FACTORY_OP_CANCEL_ONE_BATCH_PENDING {
+    int32 slot_id = 1;
+}
+message CSD_FACTORY_OP_SET_SOCIAL_LIKE {
+    uint32 node_id = 1;
+}
+message SC_FACTORY_OP_RET {
+    string index = 1;
+    FACTORY_OP_RET_CODE ret_code = 2;
+    FACTORY_OP_TYPE op_type = 3;
+    string err_message = 4;
+    oneof op_payload {
+        SCD_FACTORY_OP_RET_PLACE place = 11;
+        SCD_FACTORY_OP_RET_PLACE_CONVEYOR place_conveyor = 12;
+        SCD_FACTORY_OP_RET_DISMANTLE dismantle = 13;
+        SCD_FACTORY_OP_RET_SET_SELECT_TARGET set_select_target = 15;
+        SCD_FACTORY_OP_RET_ENABLE_NODE enable_node = 16;
+        SCD_FACTORY_OP_RET_MOVE_NODE move_node = 17;
+        SCD_FACTORY_OP_RET_DISMANTLE_BOX_CONVEYOR dismantle_box_conveyor = 18;
+        SCD_FACTORY_OP_RET_REPAIR_NODE repair_node = 19;
+        SCD_FACTORY_OP_RET_MOVE_ITEM_CACHE_TO_CACHE move_item_cache_to_cache = 20;
+        SCD_FACTORY_OP_RET_MOVE_ITEM_BAG_TO_CACHE move_item_bag_to_cache = 21;
+        SCD_FACTORY_OP_RET_MOVE_ITEM_CACHE_TO_BAG move_item_cache_to_bag = 22;
+        SCD_FACTORY_OP_RET_MOVE_ITEM_DEPOT_TO_CACHE move_item_depot_to_cache = 23;
+        SCD_FACTORY_OP_RET_MOVE_ITEM_CACHE_TO_DEPOT move_item_cache_to_depot = 24;
+        SCD_FACTORY_OP_RET_MOVE_ITEM_CONVEYOR_TO_BAG move_item_conveyor_to_bag = 25;
+        SCD_FACTORY_OP_RET_CACHE_TRANSPORT_TRANSFER cache_transport_transfer = 26;
+        SCD_FACTORY_OP_RET_CACHE_TRANSPORT_ENABLE cache_transport_enable = 27;
+        SCD_FACTORY_OP_RET_SET_TRAVEL_POLE_DEFAULT_NEXT set_travel_pole_default_next = 28;
+        SCD_FACTORY_OP_RET_USE_HEAL_TOWER_POINT use_heal_tower_point = 29;
+        SCD_FACTORY_OP_RET_BATTLE_REPAIR battle_repair = 30;
+        SCD_FACTORY_OP_RET_ADD_CONNECTION add_connection = 31;
+        SCD_FACTORY_OP_RET_DEL_CONNECTION del_connection = 32;
+        SCD_FACTORY_OP_RET_GRID_BOX_INNER_MOVE grid_box_inner_move = 41;
+        SCD_FACTORY_OP_RET_GRID_BOX_INNER_SPLIT grid_box_inner_split = 42;
+        SCD_FACTORY_OP_RET_MOVE_ITEM_BAG_TO_GRID_BOX move_item_bag_to_grid_box = 43;
+        SCD_FACTORY_OP_RET_MOVE_ITEM_GRID_BOX_TO_BAG move_item_grid_box_to_bag = 44;
+        SCD_FACTORY_OP_RET_MOVE_ITEM_DEPOT_TO_GRID_BOX move_item_depot_to_grid_box = 45;
+        SCD_FACTORY_OP_RET_MOVE_ITEM_GRID_BOX_TO_DEPOT move_item_grid_box_to_depot = 46;
+        SCD_FACTORY_OP_RET_MOVE_ALL_CACHE_OUT_ITEM_TO_BAG move_all_cache_out_item_to_bag = 47;
+        SCD_FACTORY_OP_RET_QUICK_PUT_BATTERY quick_put_battery = 48;
+        SCD_FACTORY_OP_RET_CHANGE_PRODUCER_MODE change_producer_mode = 51;
+        SCD_FACTORY_OP_RET_REVERSE_FLUID_CONVEYOR_DIRECTION reverse_fluid_conveyor_direction = 52;
+        SCD_FACTORY_OP_RET_DISMANTLE_BATCH dismantle_batch = 53;
+        SCD_FACTORY_OP_RET_SET_VALVE_ITEM set_valve_item = 54;
+        SCD_FACTORY_OP_RET_SET_VALVE_LIMIT set_valve_limit = 55;
+        SCD_FACTORY_OP_RET_RESET_VALVE_RECORD reset_valve_record = 56;
+        SCD_FACTORY_OP_RET_TAKE_OUT_FLUID_FROM_LIQUID_BODY take_out_fluid_from_liquid_body = 61;
+        SCD_FACTORY_OP_RET_PUT_IN_FLUID_TO_LIQUID_BODY put_in_fluid_to_liquid_body = 62;
+        SCD_FACTORY_OP_RET_FILLING_FLUID_COM_WITH_BAG filling_fluid_com_with_bag = 63;
+        SCD_FACTORY_OP_RET_FILLING_FLUID_COM_WITH_DEPOT filling_fluid_com_with_depot = 64;
+        SCD_FACTORY_OP_RET_BATCH_PLACE batch_place = 65;
+        SCD_FACTORY_OP_RET_BATCH_MOVE batch_move = 66;
+        SCD_FACTORY_OP_RET_SUBMIT_ITEM_TO_PENDING_DATA submit_item_to_pending_data = 67;
+        SCD_FACTORY_OP_RET_CANCEL_ONE_BATCH_PENDING cancel_one_batch_pending = 68;
+        SCD_FACTORY_OP_RET_SET_SOCIAL_LIKE set_social_like = 69;
+        SCD_FACTORY_OP_RET_PLACE_SIGN place_sign = 70;
+        SCD_FACTORY_OP_RET_ADD_UD_PIPE_CONNECTION add_ud_pipe_conn = 71;
+        SCD_FACTORY_OP_RET_DEL_UD_PIPE_CONNECTION del_ud_pipe_conn = 72;
+        SCD_FACTORY_OP_SUBMIT_REPORT_SIGN submit_report_sign = 73;
+    }
+}
+message SCD_FACTORY_OP_RET_PLACE {
+    uint32 node_id = 1;
+}
+message SCD_FACTORY_OP_RET_PLACE_CONVEYOR {
+    repeated uint32 node_id = 1;
+}
+message SCD_FACTORY_OP_RET_PLACE_SIGN {
+    uint32 node_id = 1;
+}
+message SCD_FACTORY_OP_RET_DISMANTLE {
+}
+message SCD_FACTORY_OP_RET_DISMANTLE_BATCH {
+}
+message SCD_FACTORY_OP_RET_DISMANTLE_BOX_CONVEYOR {
+    repeated uint32 node_id = 1;
+}
+message SCD_FACTORY_OP_RET_REPAIR_NODE {
+}
+message SCD_FACTORY_OP_RET_SET_SELECT_TARGET {
+}
+message SCD_FACTORY_OP_RET_ENABLE_NODE {
+}
+message SCD_FACTORY_OP_RET_MOVE_NODE {
+}
+message SCD_FACTORY_OP_RET_MOVE_ITEM_CACHE_TO_CACHE {
+}
+message SCD_FACTORY_OP_RET_MOVE_ITEM_BAG_TO_CACHE {
+    uint32 to_component_id = 1;
+    int32 to_grid_index = 2;
+}
+message SCD_FACTORY_OP_RET_MOVE_ITEM_CACHE_TO_BAG {
+    repeated int32 to_grid_index = 1;
+}
+message SCD_FACTORY_OP_RET_MOVE_ITEM_DEPOT_TO_CACHE {
+    uint32 to_component_id = 1;
+    int32 to_grid_index = 2;
+}
+message SCD_FACTORY_OP_RET_MOVE_ITEM_CACHE_TO_DEPOT {
+}
+message SCD_FACTORY_OP_RET_MOVE_ITEM_CONVEYOR_TO_BAG {
+}
+message SCD_FACTORY_OP_RET_CACHE_TRANSPORT_TRANSFER {
+    bool success = 1;
+}
+message SCD_FACTORY_OP_RET_CACHE_TRANSPORT_ENABLE {
+}
+message SCD_FACTORY_OP_RET_SET_TRAVEL_POLE_DEFAULT_NEXT {
+}
+message SCD_FACTORY_OP_RET_USE_HEAL_TOWER_POINT {
+    uint32 used_count = 1;
+}
+message SCD_FACTORY_OP_RET_BATTLE_REPAIR {
+}
+message SCD_FACTORY_OP_RET_ADD_CONNECTION {
+    uint64 index = 1;
+}
+message SCD_FACTORY_OP_RET_DEL_CONNECTION {
+}
+message SCD_FACTORY_OP_RET_GRID_BOX_INNER_MOVE {
+}
+message SCD_FACTORY_OP_RET_GRID_BOX_INNER_SPLIT {
+}
+message SCD_FACTORY_OP_RET_MOVE_ITEM_BAG_TO_GRID_BOX {
+    uint32 to_component_id = 1;
+    repeated int32 to_grid_index = 2;
+}
+message SCD_FACTORY_OP_RET_MOVE_ITEM_GRID_BOX_TO_BAG {
+    repeated int32 to_grid_index = 1;
+}
+message SCD_FACTORY_OP_RET_MOVE_ITEM_DEPOT_TO_GRID_BOX {
+    uint32 to_component_id = 1;
+    repeated int32 to_grid_index = 2;
+}
+message SCD_FACTORY_OP_RET_MOVE_ITEM_GRID_BOX_TO_DEPOT {
+    bool not_all_success = 1;
+}
+message SCD_FACTORY_OP_RET_MOVE_ALL_CACHE_OUT_ITEM_TO_BAG {
+    repeated int32 to_grid_index = 1;
+}
+message SCD_FACTORY_OP_RET_QUICK_PUT_BATTERY {
+    repeated ITEM_BUNDLE cost_items = 1;
+}
+message SCD_FACTORY_OP_RET_CHANGE_PRODUCER_MODE {
+}
+message SCD_FACTORY_OP_RET_REVERSE_FLUID_CONVEYOR_DIRECTION {
+}
+message SCD_FACTORY_OP_RET_SET_VALVE_ITEM {
+}
+message SCD_FACTORY_OP_RET_SET_VALVE_LIMIT {
+}
+message SCD_FACTORY_OP_RET_RESET_VALVE_RECORD {
+}
+message SCD_FACTORY_OP_RET_TAKE_OUT_FLUID_FROM_LIQUID_BODY {
+    repeated ITEM_BUNDLE cost_bottle_items = 1;
+    repeated ITEM_BUNDLE gain_bottle_water_items = 2;
+    int32 cost_liquid = 3;
+    RET_FLUID_WITH_LIQUID_BODY ret = 4;
+}
+message SCD_FACTORY_OP_RET_PUT_IN_FLUID_TO_LIQUID_BODY {
+    repeated ITEM_BUNDLE cost_bottle_water_items = 1;
+    repeated ITEM_BUNDLE gain_bottle_items = 2;
+    int32 gain_liquid = 3;
+    RET_FLUID_WITH_LIQUID_BODY ret = 4;
+}
+message SCD_FACTORY_OP_RET_FILLING_FLUID_COM_WITH_BAG {
+}
+message SCD_FACTORY_OP_RET_FILLING_FLUID_COM_WITH_DEPOT {
+}
+message SCD_FACTORY_OP_RET_BATCH_PLACE {
+}
+message SCD_FACTORY_OP_RET_BATCH_MOVE {
+}
+message SCD_FACTORY_OP_RET_SUBMIT_ITEM_TO_PENDING_DATA {
+}
+message SCD_FACTORY_OP_RET_CANCEL_ONE_BATCH_PENDING {
+}
+message SCD_FACTORY_OP_RET_SET_SOCIAL_LIKE {
+}
+message SCD_FACTORY_OP_RET_ADD_UD_PIPE_CONNECTION {
+}
+message SCD_FACTORY_OP_RET_DEL_UD_PIPE_CONNECTION {
+}
+message SCD_FACTORY_OP_SUBMIT_REPORT_SIGN {
+}

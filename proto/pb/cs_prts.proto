@@ -1,0 +1,17 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message CS_PRTS_MARK_READ {
+    string prts_id = 1;
+}
+message CS_PRTS_MARK_TERMINAL_READ {
+    string terminal_content_id = 1;
+}
+message CS_PRTS_RICH_CONTENT_READ {
+    string id = 1;
+}
+message CS_PRTS_FINISH_INVESTIGATE {
+    string id = 1;
+}

@@ -1,0 +1,55 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "options.proto";
+
+message SETTLEMENT {
+    string settlement_id = 1;
+    int32 level = 2;
+    int64 exp = 3;
+    string officer_char_template_id = 4;
+    int64 unlockTs = 5;
+    int64 remain_money = 6;
+    TD_GAIN_EFFECT active_gain_effect = 10;
+    TD_GAIN_EFFECT active_time_limit_gain_effect = 11;
+}
+message TD_GAIN_EFFECT {
+    string active_game_id = 1;
+    float gain_effect = 2;
+    int64 expiration_ts = 3;
+}
+message SC_SETTLEMENT_SYNC_ALL {
+    repeated SETTLEMENT settlements = 1;
+    int64 last_tick_time = 2;
+    map<string, string> versions = 3;
+}
+message SC_SETTLEMENT_SYNC_MODIFY {
+    repeated SETTLEMENT settlements_modify = 1;
+    int64 last_tick_time = 2;
+}
+message CS_SETTLEMENT_SET_OFFICER {
+    string settlement_id = 1;
+    string officer_template_id = 2;
+}
+message SC_SETTLEMENT_SET_OFFICER {
+    string settlement_id = 1;
+    string officer_template_id = 2;
+}
+message CS_SETTLEMENT_SELL_ITEM {
+    string settlement_id = 1;
+    string item_id = 2;
+    int32 count = 3;
+}
+message SC_SETTLEMENT_SELL_ITEM {
+    string settlement_id = 1;
+    string sell_item_id = 2;
+    int32 expect_sell_count = 3;
+    int32 real_sell_count = 4;
+    map<string, int64> reward_base = 7;
+    map<string, int64> reward_bonus = 8;
+}
+message SC_SETTLEMENT_REMAIN_MONEY_SYNC {
+    map<string, int64> remain_money = 1;
+}

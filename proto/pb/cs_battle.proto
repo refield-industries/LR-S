@@ -1,0 +1,80 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "battle.proto";
+import "common.proto";
+
+message CS_DEV_CLEAR_BATTLE_INFO {
+}
+message CS_BATTLE_OP {
+    BATTLE_CLIENT_DATA client_data = 1;
+}
+message SC_SPAWN_ENEMY {
+    uint32 client_key = 1;
+    repeated uint64 enemy_inst_ids = 2;
+}
+message SPAWN_SERVER_SUMMON_DATA {
+    uint64 owner_inst_id = 1;
+    uint64 summon_inst_id = 2;
+}
+message SC_ENTITY_PROPERTY_CHANGE {
+    uint64 inst_id = 1;
+    BATTLE_INFO info = 2;
+}
+message SC_BATTLE_DEBUG_INFO {
+    string msg = 1;
+    int32 reason = 2;
+}
+message SC_BATTLE_GENERATION_CHANGE {
+    uint64 inst_id = 1;
+    uint32 generation = 2;
+}
+message SC_RESET_BATTLE_STATUS {
+    uint64 inst_id = 1;
+    uint64 battle_inst_id = 2;
+    BATTLE_MGR_INFO battle_info = 3;
+    BATTLE_RESET_REASON reason = 4;
+}
+message SC_ATTACH_SERVER_SKILL {
+    uint64 inst_id = 1;
+    repeated SERVER_SKILL skills = 2;
+    uint32 generation = 3;
+}
+message SC_UPDATE_SERVER_SKILL {
+    uint64 inst_id = 1;
+    repeated SERVER_SKILL skills = 2;
+    uint32 generation = 3;
+}
+message SC_DETACH_SERVER_SKILL {
+    uint64 inst_id = 1;
+    repeated uint64 del_inst_ids = 2;
+    uint32 generation = 3;
+}
+message SC_ADD_SERVER_BUFF {
+    uint64 inst_id = 1;
+    repeated SERVER_BUFF buffs = 2;
+    uint32 generation = 3;
+}
+message SC_REMOVE_SERVER_BUFF {
+    uint64 inst_id = 1;
+    repeated uint64 del_inst_ids = 2;
+    uint32 generation = 3;
+}
+message SC_BATTLE_SYNC_SEQ_ID {
+    int32 last_max_seq_id = 1;
+}
+message GLOBAL_BUFF_INFO {
+    int32 global_buff_num_id = 1;
+    BATTLE_BLACKBOARD assigned_items = 2;
+}
+message SC_BATTLE_SYNC_GLOBAL_BUFF_INFO {
+    repeated GLOBAL_BUFF_INFO global_buff_info = 1;
+}
+message SC_BATTLE_ADD_GLOBAL_BUFF {
+    GLOBAL_BUFF_INFO global_buff_info = 1;
+}
+message SC_BATTLE_REMOVE_GLOBAL_BUFF {
+    int32 global_buff_num_id = 1;
+}

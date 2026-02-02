@@ -1,0 +1,199 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+
+enum FRIEND_CHAT_MSG_EXTRA_FLAG {
+    FRIEND_CHAT_MSG_EXTRA_FLAG_NONE = 0;
+    FRIEND_CHAT_MSG_EXTRA_FLAG_EXTERNAL_SHARING = 1;
+}
+enum FRIEND_CHAT_LIST_SIMPLE_SYNC_TYPE {
+    CHAT_LIST_SIMPLE_SYNC_DEFAULT = 0;
+    CHAT_LIST_SIMPLE_SYNC_THIRD_LOGIN = 1;
+}
+enum BRIEF_SOCIAL_BUILDING_STATUS {
+    BRIEF_SOCIAL_BUILDING_STATUS_NONE = 0;
+    BRIEF_SOCIAL_BUILDING_STATUS_EXIST = 1;
+    BRIEF_SOCIAL_BUILDING_STATUS_INVALID = 2;
+}
+enum FRIEND_CHAT_MSG_INSTANT_INFO_TYPE {
+    FRIEND_CHAT_MSG_INSTANT_INFO_TYPE_SOCIAL_BUILDING = 0;
+    FRIEND_CHAT_MSG_INSTANT_INFO_TYPE_BLUE_PRINT = 1;
+}
+message CS_FRIEND_CHAT_CREATE {
+    uint64 role_id = 1;
+}
+message CS_FRIEND_CHAT_CLOSE {
+    repeated uint64 role_id = 1;
+}
+message CS_FRIEND_CHAT_MSG_QUERY {
+    uint64 target_role_id = 1;
+    uint32 start_index = 2;
+    uint32 end_index = 3;
+    bool all = 4;
+}
+message CS_FRIEND_CHAT_MSG_READ {
+    uint64 target_role_id = 1;
+    uint32 read_index = 2;
+}
+message CSD_FRIEND_CHAT_MSG_DATA_PRESET_TEXT {
+    int32 num_id = 1;
+}
+message CSD_FRIEND_CHAT_MSG_DATA_EMOJI {
+    int32 num_id = 2;
+}
+message CSD_FRIEND_CHAT_MSG_DATA_SOCIAL_BUILDING {
+    string chapter_id = 1;
+    uint32 node_id = 2;
+}
+message CSD_FRIEND_CHAT_MSG_DATA_BLUE_PRINT {
+    string shared_code = 1;
+}
+message CS_FRIEND_CHAT_MSG_SEND {
+    uint64 target_role_id = 1;
+    FRIEND_CHAT_MSG_EXTRA_FLAG extra_flag = 2;
+    FRIEND_CHAT_MSG_TYPE type = 10;
+    oneof data {
+        CSD_FRIEND_CHAT_MSG_DATA_PRESET_TEXT preset_text_data = 11;
+        CSD_FRIEND_CHAT_MSG_DATA_EMOJI emoji_data = 12;
+        CSD_FRIEND_CHAT_MSG_DATA_SOCIAL_BUILDING social_building_data = 13;
+        CSD_FRIEND_CHAT_MSG_DATA_BLUE_PRINT blue_print_data = 14;
+    }
+}
+message CSD_FRIEND_CHAT_MSG_INSTANT_INFO_QUERY_SOCIAL_BUILDING {
+    uint64 creator_id = 1;
+}
+message CSD_FRIEND_CHAT_MSG_INSTANT_INFO_QUERY_BLUE_PRINT {
+    string shared_code = 1;
+}
+message CSD_FRIEND_CHAT_MSG_INSTANT_INFO_QUERY {
+    uint32 msg_index = 1;
+    FRIEND_CHAT_MSG_INSTANT_INFO_TYPE type = 10;
+    oneof data {
+        CSD_FRIEND_CHAT_MSG_INSTANT_INFO_QUERY_SOCIAL_BUILDING social_building_data = 11;
+        CSD_FRIEND_CHAT_MSG_INSTANT_INFO_QUERY_BLUE_PRINT blue_print_data = 12;
+    }
+}
+message CS_FRIEND_CHAT_MSG_INSTANT_INFO_QUERY {
+    uint64 target_role_id = 1;
+    repeated CSD_FRIEND_CHAT_MSG_INSTANT_INFO_QUERY query_list = 2;
+}
+message CS_FRIEND_CHAT_SOCIAL_BUILDING_RECEIVE {
+    uint64 target_role_id = 1;
+    uint32 msg_index = 2;
+    bool is_replace = 4;
+    uint64 replace_building_owner_id = 5;
+    uint32 replace_building_node_id = 6;
+    int32 replace_building_scene_id = 7;
+}
+message CS_FRIEND_CHAT_SOCIAL_BUILDING_CHECK_AREA {
+    string scene_id = 1;
+    VECTOR pos = 2;
+}
+message SC_FRIEND_CHAT_SOCIAL_BUILDING_CHECK_AREA {
+    string scene_id = 1;
+    bool is_enable = 2;
+}
+message CS_FRIEND_CHAT_LIST_SIMPLE_SYNC {
+    FRIEND_CHAT_LIST_SIMPLE_SYNC_TYPE type = 1;
+}
+message SC_FRIEND_CHAT_MSG_READ {
+    uint64 target_role_id = 1;
+    uint32 read_index = 2;
+}
+message SCD_FRIEND_CHAT_MSG_DATA_PRESET_TEXT {
+    int32 num_id = 1;
+}
+message SCD_FRIEND_CHAT_MSG_DATA_EMOJI {
+    int32 num_id = 2;
+}
+message SCD_FRIEND_CHAT_MSG_DATA_SOCIAL_BUILDING {
+    uint64 creator_id = 1;
+    uint32 node_id = 2;
+    int32 scene_num_id = 3;
+    int32 template_id = 4;
+    VECTOR pos = 5;
+    int32 dir_y = 6;
+}
+message SCD_FRIEND_CHAT_MSG_DATA_BLUE_PRINT {
+    string shared_code = 1;
+}
+message SCD_FRIEND_CHAT_MSG {
+    uint32 msg_index = 1;
+    uint64 owner_id = 2;
+    int64 ts = 3;
+    FRIEND_CHAT_MSG_TYPE type = 10;
+    oneof data {
+        SCD_FRIEND_CHAT_MSG_DATA_PRESET_TEXT preset_text_data = 11;
+        SCD_FRIEND_CHAT_MSG_DATA_EMOJI emoji_data = 12;
+        SCD_FRIEND_CHAT_MSG_DATA_SOCIAL_BUILDING social_building_data = 13;
+        SCD_FRIEND_CHAT_MSG_DATA_BLUE_PRINT blue_print_data = 14;
+    }
+}
+message SC_FRIEND_CHAT_MSG_QUERY {
+    uint64 target_role_id = 1;
+    repeated SCD_FRIEND_CHAT_MSG msg_list = 2;
+}
+message SCD_FRIEND_CHAT_MSG_INSTANT_INFO {
+    uint32 msg_index = 1;
+    FRIEND_CHAT_MSG_INSTANT_INFO_TYPE type = 10;
+    oneof data {
+        SCD_FRIEND_CHAT_MSG_INSTANT_INFO_SOCIAL_BUILDING social_building_data = 11;
+        SCD_FRIEND_CHAT_MSG_INSTANT_INFO_BLUE_PRINT blue_print_data = 12;
+    }
+}
+message SC_FRIEND_CHAT_MSG_INSTANT_INFO_QUERY {
+    uint64 target_role_id = 1;
+    repeated SCD_FRIEND_CHAT_MSG_INSTANT_INFO msg_list = 2;
+}
+message SCD_FRIEND_CHAT_MSG_INSTANT_INFO_SOCIAL_BUILDING {
+    string name = 1;
+    string short_id = 2;
+    bool is_deleted = 5;
+}
+message SCD_FRIEND_CHAT_MSG_INSTANT_INFO_BLUE_PRINT {
+    string name = 1;
+    repeated int32 tags = 2;
+    string icon = 3;
+    int32 base_color = 4;
+    BRIEF_BP_STATUS status = 5;
+    int32 share_idx = 6;
+    uint64 bp_uid = 7;
+}
+message SCD_FRIEND_CHAT_LIST_THIRD_ACCOUNT_DATA {
+    HG_THIRD_ACCOUNT_TYPE last_login_type = 1;
+    THIRD_ACCOUNT_DATA third_account_data = 2;
+}
+message SC_FRIEND_CHAT_LIST_SIMPLE_SYNC {
+    repeated SCD_FRIEND_CHAT_LIST_DATA data_list = 1;
+    int32 daily_social_building_share_cnt = 2;
+}
+message SCD_FRIEND_CHAT_LIST_DATA {
+    uint64 role_id = 1;
+    uint32 read_index = 2;
+    uint32 newest_index = 3;
+    FRIEND_CHAT_LIST_SIMPLE_SYNC_TYPE data_type = 10;
+    oneof extra_data {
+        SCD_FRIEND_CHAT_LIST_THIRD_ACCOUNT_DATA third_account_data = 11;
+    }
+}
+message SC_FRIEND_CHAT_LIST_ADD {
+    SCD_FRIEND_CHAT_LIST_DATA data = 1;
+}
+message SC_FRIEND_CHAT_LIST_DELETE {
+    repeated uint64 role_id_list = 1;
+}
+message SC_FRIEND_CHAT_LIST_TOP {
+    uint64 role_id = 1;
+}
+message SC_FRIEND_CHAT_MSG_RECEIVE_NOTIFY {
+    uint64 target_role_id = 1;
+    uint32 newest_index = 2;
+    FRIEND_CHAT_MSG_EXTRA_FLAG extra_flag = 3;
+    bool from_self = 10;
+}
+message SC_FRIEND_CHAT_DAILY_SOCIAL_BUILDING_SHARE_CNT_MODIFY {
+    int32 cnt = 1;
+}

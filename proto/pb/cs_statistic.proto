@@ -1,0 +1,25 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message CS_STAT_REQ_INC_STAT {
+    int32 type = 1;
+    int32 param = 2;
+}
+message CS_STAT_REQ_SET_STAT {
+    int32 type = 1;
+    int32 param = 2;
+    uint32 value = 3;
+}
+message STAT_INFO {
+    int32 type = 1;
+    uint32 value = 2;
+    int32 param = 3;
+}
+message SC_SYNC_ALL_STAT {
+    repeated STAT_INFO stats_info = 1;
+}
+message SC_SYNC_STAT {
+    STAT_INFO stat_info = 1;
+}

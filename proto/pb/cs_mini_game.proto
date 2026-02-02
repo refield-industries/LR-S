@@ -1,0 +1,19 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message MINI_GAME_INFO {
+    string mini_game_id = 1;
+    int32 completed_count = 2;
+}
+message SC_SYNC_ALL_MINI_GAME {
+    repeated MINI_GAME_INFO completed_mini_game = 1;
+}
+message CS_COMPLETE_MINI_GAME {
+    string mini_game_id = 2;
+}
+message SC_COMPLETE_MINI_GAME {
+    string mini_game_id = 2;
+    int32 completed_count = 3;
+}

@@ -1,0 +1,62 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message SC_SCENE_MONSTER_SPAWNER_START {
+    int32 scene_num_id = 1;
+    uint64 spawner_id = 2;
+    repeated string enabled_hidden_wave_key_list = 3;
+}
+message SC_SCENE_MONSTER_SPAWNER_STOP {
+    int32 scene_num_id = 1;
+    uint64 spawner_id = 2;
+}
+message SC_SCENE_MONSTER_SPAWNER_COMPLETE {
+    int32 scene_num_id = 1;
+    uint64 spawner_id = 2;
+}
+message CS_SCENE_MONSTER_SPAWNER_BEGIN_WAVE {
+    int32 scene_num_id = 1;
+    uint64 spawner_id = 2;
+    int32 wave_id = 3;
+    double client_timestamp = 4;
+}
+message CS_SCENE_MONSTER_SPAWNER_WAVE_CONFIRM_COMPLETE {
+    int32 scene_num_id = 1;
+    uint64 spawner_id = 2;
+    int32 wave_id = 3;
+}
+message SC_SCENE_MONSTER_SPAWNER_WAVE_PRE_COMPLETE {
+    int32 scene_num_id = 1;
+    uint64 spawner_id = 2;
+    int32 wave_id = 3;
+}
+message SC_SCENE_MONSTER_SPAWNER_WAVE_COMPLETE {
+    int32 scene_num_id = 1;
+    uint64 spawner_id = 2;
+    int32 wave_id = 3;
+}
+message SC_SCENE_MONSTER_SPAWNER_BEGIN_WAVE {
+    int32 scene_num_id = 1;
+    uint64 spawner_id = 2;
+    int32 wave_id = 3;
+}
+message SC_SCENE_MONSTER_SPAWNER_OBJECT_DATA_BEGIN {
+    int32 scene_num_id = 1;
+    uint64 spawner_id = 2;
+    int32 wave_id = 3;
+    int32 group_id = 4;
+}
+message SC_SCENE_MONSTER_SPAWNER_OBJECT_DATA_END {
+    int32 scene_num_id = 1;
+    uint64 spawner_id = 2;
+    int32 wave_id = 3;
+    int32 group_id = 4;
+    repeated SPAWNER_DETAIL details = 5;
+}
+message SPAWNER_DETAIL {
+    uint64 obj_id = 1;
+    int32 action_id = 2;
+    int32 spawn_idx = 3;
+}

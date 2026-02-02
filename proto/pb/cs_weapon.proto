@@ -1,0 +1,59 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message CS_WEAPON_PUTON {
+    uint64 charid = 1;
+    uint64 weaponid = 2;
+}
+message SC_WEAPON_PUTON {
+    uint64 charid = 1;
+    uint64 weaponid = 2;
+    uint64 offweaponid = 3;
+    uint64 put_off_charid = 4;
+}
+message CS_WEAPON_BREAKTHROUGH {
+    uint64 weaponid = 1;
+}
+message SC_WEAPON_BREAKTHROUGH {
+    uint64 weaponid = 1;
+    uint32 breakthrough_lv = 2;
+}
+message CS_WEAPON_REFINE_UPGRADE {
+    uint64 weaponid = 1;
+    uint32 upgrade_refine_lv = 2;
+    repeated uint64 cost_weapon_ids = 3;
+    map<string, uint64> cost_weapon_potential_up_items = 4;
+}
+message SC_WEAPON_REFINE_UPGRADE {
+    uint64 weaponid = 1;
+    uint32 refine_lv = 2;
+}
+message CS_WEAPON_ADD_EXP {
+    uint64 weaponid = 1;
+    map<string, uint64> cost_item_id2count = 2;
+    repeated uint64 cost_weapon_ids = 3;
+}
+message SC_WEAPON_ADD_EXP {
+    uint64 weaponid = 1;
+    uint64 new_exp = 2;
+    uint32 weapon_lv = 3;
+}
+message CS_WEAPON_ATTACH_GEM {
+    uint64 weaponid = 1;
+    uint64 gemid = 2;
+}
+message SC_WEAPON_ATTACH_GEM {
+    uint64 weaponid = 1;
+    uint64 gemid = 2;
+    uint64 detach_gemid = 3;
+    uint64 detach_gem_weaponid = 4;
+}
+message CS_WEAPON_DETACH_GEM {
+    uint64 weaponid = 1;
+}
+message SC_WEAPON_DETACH_GEM {
+    uint64 weaponid = 1;
+    uint64 detach_gemid = 2;
+}

@@ -1,0 +1,91 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+enum PLATFORM_GOODS_LIMIT_TYPE {
+    PGLT_INVALID = 0;
+    PGLT_COMMON = 1;
+    PGLT_ONCE_BONUS = 2;
+    PGLT_GIFT_PACK = 5;
+}
+message CS_PAY_CREATE_ORDER {
+    string goods_id = 1;
+    string cash_shop_id = 2;
+    int32 count = 3;
+}
+message CS_PAY_ACCEPT_ORDER {
+    repeated string order_ids = 1;
+}
+message CS_PAY_QUERY_PLATFORM_DATA {
+}
+message SC_PAY_CREATE_ORDER {
+    string sign_param = 1;
+    string goods_id = 2;
+    string cash_shop_id = 3;
+    int32 count = 4;
+}
+message SC_PAY_ACCEPT_ORDER {
+    repeated string left_order_ids = 1;
+}
+message SCD_ORDER_SETTLE {
+    string goods_id = 1;
+    int32 quantity = 2;
+    int32 duplicate_cnt = 3;
+    int32 once_bonus_cnt = 4;
+    bool is_web = 5;
+    string order_id = 6;
+}
+message SC_PAY_ORDER_SETTLE {
+    SCD_ORDER_SETTLE order_settle = 1;
+}
+message SCD_CASH_SHOP_CONDS {
+    string cond_id = 1;
+    int32 value = 2;
+    bool flag = 3;
+}
+message SCD_CASH_SHOP_GOODS {
+    string goods_id = 1;
+    repeated SCD_CASH_SHOP_CONDS goods_conds = 2;
+    int64 open_tms = 3;
+    int64 close_tms = 4;
+}
+message SCD_CASH_SHOP_FREQUENCY_LIMIT {
+    string frequency_limit_id = 1;
+    int32 count = 2;
+}
+message SCD_REMIND_CB_NTF {
+    repeated SCD_ORDER_SETTLE orders_settle = 1;
+}
+message SCD_CASH_SHOP {
+    string cash_shop_id = 1;
+    repeated SCD_CASH_SHOP_CONDS shop_conds = 2;
+    map<string, SCD_CASH_SHOP_GOODS> goods = 3;
+    int64 open_tms = 4;
+    int64 close_tms = 5;
+}
+message SCD_CASH_SHOP_MGR {
+    repeated SCD_CASH_SHOP cash_shops = 1;
+    repeated SCD_CASH_SHOP_FREQUENCY_LIMIT fre_limit = 2;
+}
+message SC_PAY_SYNC_CASH_SHOPS {
+    SCD_CASH_SHOP_MGR shop_mgr = 1;
+}
+message SCD_PLATFORM_GOODS_DATA {
+    string goods_id = 1;
+    PLATFORM_GOODS_LIMIT_TYPE limit_type = 2;
+    int32 limit_count = 3;
+    int32 purchase_count = 4;
+}
+message SC_PAY_QUERY_PLATFORM_DATA {
+    repeated SCD_PLATFORM_GOODS_DATA platform_goods_data = 1;
+}
+message SC_PAY_CASH_SHOP_MODIFY {
+    SCD_CASH_SHOP shop = 1;
+}
+message SC_PAY_CASH_SHOP_GOODS_MODIFY {
+    SCD_CASH_SHOP_GOODS goods = 1;
+}
+message SC_PAY_SYNC_REMIND_ORDER {
+    SCD_REMIND_CB_NTF remind_ntf = 1;
+}

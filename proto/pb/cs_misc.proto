@@ -1,0 +1,16 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message ATTR_INFO {
+    int32 attr_type = 1;
+    double basic_value = 2;
+    double value = 3;
+}
+message SC_SYNC_ATTR {
+    uint64 objID = 1;
+    repeated ATTR_INFO attr_list = 2;
+}
+message SC_NEW_NOTICE_NOTIFY {
+}

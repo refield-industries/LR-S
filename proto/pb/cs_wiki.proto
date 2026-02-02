@@ -1,0 +1,19 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+enum WIKI_PIN_ENUM {
+    WIKI_PIN_ENUM_NONE = 0;
+    WIKI_PIN_ENUM_FORMULA = 1;
+    WIKI_PIN_ENUM_BUILDING = 2;
+}
+message SC_SYNC_ALL_WIKI {
+    repeated uint32 latest_unlock = 1;
+}
+message CS_UNLOCK_WIKI {
+    uint32 wiki_id = 1;
+}
+message CS_MARK_WIKI_READ {
+    repeated uint32 wiki_ids = 1;
+}

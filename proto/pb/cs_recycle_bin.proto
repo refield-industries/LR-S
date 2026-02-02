@@ -1,0 +1,25 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message RECYCLE_BIN {
+    string recycle_bin_id = 1;
+    int32 lv = 2;
+    int64 last_collect_time = 3;
+}
+message SC_RECYCLE_BIN_SYSTEM_SYNC_ALL {
+    repeated RECYCLE_BIN recycle_bins = 1;
+}
+message SC_RECYCLE_BIN_MODIFY {
+    RECYCLE_BIN recycle_bin = 1;
+}
+message CS_RECYCLE_BIN_UNLOCK {
+    string recycle_bin_id = 1;
+}
+message CS_RECYCLE_BIN_LEVEL_UP {
+    string recycle_bin_id = 1;
+}
+message CS_RECYCLE_BIN_COLLECT {
+    string recycle_bin_id = 1;
+}

@@ -1,0 +1,85 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+import "options.proto";
+
+enum DUNGEON_COMPLETION_STATUS {
+    DC_STATUS_NONE = 0;
+    DC_STATUS_BEFORE_COMPLETION = 1;
+    DC_STATUS_BEFORE_REWARD = 2;
+    DC_STATUS_AFTER_REWARD = 3;
+}
+message CS_ENTER_DUNGEON {
+    repeated TEAM_CHAR_ID char_team = 1;
+    string dungeon_id = 2;
+    oneof enter_param {
+        ENTER_RACING_DUNGEON_PARAM racing_param = 21;
+        ENTER_WEEK_RAID_PARAM week_raid_param = 22;
+    }
+}
+message CS_ENTER_TRAIN_DUNGEON {
+    repeated TEAM_CHAR_ID char_team = 1;
+    string dungeon_id = 2;
+    ENTER_RACING_DUNGEON_PARAM racing_param = 10;
+}
+message ENTER_RACING_DUNGEON_PARAM {
+    int32 level = 1;
+    string tactics_id = 2;
+}
+message ENTER_WEEK_RAID_PARAM {
+    string item_id = 1;
+    int32 count = 2;
+}
+message CS_RESTART_DUNGEON {
+    string dungeon_id = 1;
+    DUNGEON_COMPLETION_STATUS completion_status = 2;
+}
+message CS_LEAVE_DUNGEON {
+    string dungeon_id = 1;
+}
+message CS_DUNGEON_RECOVER_AP {
+    repeated ITEM_BUNDLE items = 1;
+    bool use_money = 2;
+    repeated INST_ITEM_BUNDLE inst_items = 3;
+    int32 expect_money_buy_count = 4;
+}
+message CS_DUNGEON_RESTORE_AP {
+    string lunch_box_item_id = 1;
+    int32 count = 2;
+}
+message CS_DUNGEON_TOUCH_ENTRANCE {
+    string dungeon_series_id = 1;
+}
+message SC_ENTER_DUNGEON {
+    string dungeon_id = 3;
+    string scene_id = 4;
+}
+message SC_RESTART_DUNGEON {
+    string dungeon_id = 1;
+}
+message SC_LEAVE_DUNGEON {
+    string dungeon_id = 1;
+}
+message SC_SYNC_STAMINA {
+    uint32 cur_stamina = 1;
+    uint32 max_stamina = 2;
+    int64 next_recover_time = 3;
+    int32 delta = 4;
+}
+message SC_SYNC_FULL_DUNGEON_STATUS {
+    uint32 cur_stamina = 1;
+    uint32 max_stamina = 2;
+    int64 next_recover_time = 3;
+}
+message SC_NTF_AP_ITEMS_EXPIRE_AUTO_USE {
+    uint32 cur_stamina = 1;
+    int32 delta = 2;
+}
+message SC_DUNGEON_RESTORE_AP_RSP {
+    ITEM_BUNDLE cost_empty_lunch_box_item = 1;
+    int32 cost_stamina = 2;
+    ITEM_BUNDLE reward_full_lunch_box_item = 3;
+}

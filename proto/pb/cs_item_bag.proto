@@ -1,0 +1,294 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+import "options.proto";
+
+enum ITEM_BAG_USE_TYPE {
+    item_bag_use_type_default = 0;
+    item_bag_use_type_trial_char_equip_medicine = 1;
+    item_bag_use_type_bomb = 2;
+    item_bag_use_type_item_case = 3;
+    item_bag_use_type_equip_medicine = 4;
+    item_bag_use_type_map_detector = 5;
+    item_bag_use_type_gem_locked_term_box = 6;
+    item_bag_use_type_fertilize = 7;
+    item_bag_use_type_monthlycard = 8;
+    item_bag_use_type_bp_ticket = 9;
+}
+enum E_USE_ITEM_RESULT {
+    E_USE_ITEM_RESULT_OK = 0;
+    E_USE_ITEM_RESULT_UnknownFail = 1;
+    E_USE_ITEM_RESULT_CondiitonFail = 2;
+}
+message SCD_ITEM_BAG {
+    int32 grid_limit = 1;
+    repeated SCD_ITEM_GRID grids = 2;
+}
+message SCD_ITEM_DEPOT {
+    map<string, int32> stackable_items = 1;
+    repeated SCD_ITEM_GRID inst_list = 2;
+}
+message SCD_ITEM_LOST_AND_FOUND {
+    map<string, int32> stackable_items = 1;
+    repeated SCD_ITEM_GRID inst_list = 2;
+}
+message SCD_ITEM_BAG_MODIFY {
+    int32 grid_limit = 1;
+    repeated SCD_ITEM_GRID grids = 2;
+    repeated int32 del_list = 3;
+}
+message SCD_ITEM_DEPOT_MODIFY {
+    map<string, int32> items = 1;
+    repeated SCD_ITEM_GRID inst_list = 2;
+    repeated uint64 del_inst_list = 3;
+    map<string, bool> infinite_items = 4;
+}
+message SCD_ITEM_LOST_AND_FOUND_MODIFY {
+    map<string, int32> items = 1;
+    repeated SCD_ITEM_GRID inst_list = 2;
+    repeated uint64 del_inst_list = 3;
+}
+message CS_ITEM_BAG_TIDY_IN_BAG {
+    int32 scope_name = 11;
+}
+message CS_ITEM_BAG_MOVE_IN_BAG {
+    int32 from_grid = 1;
+    int32 to_grid = 2;
+    int32 scope_name = 11;
+}
+message CS_ITEM_BAG_SPLIT_IN_BAG {
+    int32 from_grid = 1;
+    int32 to_grid = 2;
+    int32 move_count = 3;
+    int32 scope_name = 11;
+}
+message CS_ITEM_BAG_FACTORY_DEPOT_TO_BAG {
+    string item_id = 1;
+    int32 grid_index = 2;
+    int32 count = 3;
+    ITEM_MOVE_MODE mode = 4;
+    int32 scope_name = 11;
+    string chapter_id = 12;
+}
+message CS_ITEM_BAG_BAG_TO_FACTORY_DEPOT {
+    repeated int32 grid_list = 1;
+    ITEM_MOVE_MODE mode = 2;
+    int32 scope_name = 11;
+    string chapter_id = 12;
+}
+message CS_ITEM_BAG_SET_ITEM_LOCK {
+    repeated ITEM_INST_LOCK_INFO lock_info_list = 1;
+    int32 scope_name = 11;
+}
+message CS_ITEM_BAG_ABANDON_IN_BAG {
+    map<int32, int32> grid_cut = 1;
+    uint64 target_object_id = 2;
+    int32 scope_name = 11;
+}
+message CS_ITEM_BAG_DESTROY_IN_DEPOT {
+    int32 depot = 1;
+    map<string, int32> items = 2;
+    repeated uint64 inst_id_list = 3;
+    int32 scope_name = 11;
+}
+message CS_ITEM_BAG_DESTROY_IN_FACTORY_DEPOT {
+    map<string, int32> items = 1;
+    int32 scope_name = 11;
+    string chapter_id = 12;
+}
+message CS_ITEM_BAG_DUMP_BOTTLE_IN_BAG {
+    int32 grid_index = 1;
+    int32 count = 2;
+    int32 scope_name = 11;
+}
+message CS_ITEM_BAG_DUMP_BOTTLE_IN_FACTORY_DEPOT {
+    string item_id = 1;
+    int32 count = 2;
+    int32 scope_name = 11;
+    string chapter_id = 12;
+}
+message CS_ITEM_BAG_TAKEOUT_LOST_AND_FOUND {
+    bool all = 1;
+    map<string, int32> items = 2;
+    repeated uint64 inst_id_list = 3;
+}
+message CS_ITEM_BAG_USE_ITEM_CASE {
+    string id = 1;
+    int32 count = 2;
+    repeated string select_rewards = 3;
+}
+message CS_ITEM_BAG_USE_ITEM {
+    ITEM_BAG_USE_TYPE use_type = 12;
+    int32 grid_index = 1;
+    string item_id = 6;
+    int32 count = 2;
+    uint64 item_inst_id = 7;
+    repeated uint64 char_inst_id_list = 3;
+    uint64 equip_medicine_char_inst_id = 4;
+    repeated string item_use_args = 5;
+    int32 scope_name = 11;
+    oneof specific_info {
+        ITEM_CASE_SPECIFIC_INFO item_case_specific_info = 31;
+        ITEM_CASE_LOCKED_GEM_BOX gem_box = 32;
+        ITEM_CASE_FERTILIZE fertilize = 33;
+    }
+}
+message ITEM_CASE_FERTILIZE {
+    string chapter_id = 1;
+    uint32 node_id = 2;
+}
+message ITEM_CASE_SPECIFIC_INFO {
+    repeated string select_rewards = 1;
+}
+message ITEM_CASE_LOCKED_GEM_BOX {
+    repeated string locked_term = 1;
+}
+message CS_ITEM_BAG_CHG_SPACESHIP_CHAPTER {
+    string spaceship_chapter_id = 1;
+}
+message CS_ITEM_BAG_SET_BATCH_MOVE_FLAG {
+    int64 batch_move_flag = 1;
+    int32 scope_name = 11;
+}
+message SCD_ITEM_BAG_SYNC_QUICK_BAR {
+    repeated string item_id = 1;
+    int32 pos = 2;
+}
+message SC_ITEM_BAG_COMMON_SYNC {
+    SCD_ITEM_LOST_AND_FOUND lost_and_found = 1;
+    repeated SCD_ITEM_BAG_LT_ITEM_EXPIRE_RECORD lt_item_expire_records = 2;
+}
+message SC_ITEM_BAG_COMMON_MODIFY {
+    SCD_ITEM_LOST_AND_FOUND_MODIFY lost_and_found = 1;
+}
+message SC_ITEM_BAG_SCOPE_SYNC {
+    SCD_ITEM_BAG bag = 1;
+    map<string, SCD_ITEM_DEPOT> factory_depot = 2;
+    map<int32, SCD_ITEM_DEPOT> depot = 3;
+    SCD_ITEM_BAG_SYNC_QUICK_BAR quick_bar = 4;
+    SCD_ITEM_BAG_SCOPE_ASSISTANT assistant = 5;
+    int32 scope_name = 11;
+    string current_chapter_id = 12;
+    string spaceship_chapter_id = 13;
+}
+message SC_TRIAL_CHARACTER_EQUIP_MEDICINE_MODIFY {
+    uint64 trial_obj_id = 1;
+    int32 count = 2;
+}
+message SC_ITEM_BAG_TRIAL_CHAR_DEPOT_MODIFY {
+    int32 scope_name = 1;
+    SCD_ITEM_DEPOT_MODIFY trial_char_depot = 2;
+}
+message SC_ITEM_BAG_TRIAL_CHAR_DEPOT_CLEAR {
+    int32 scope_name = 1;
+}
+message SC_ITEM_BAG_SCOPE_MODIFY {
+    SCD_ITEM_BAG_MODIFY bag = 1;
+    map<string, SCD_ITEM_DEPOT_MODIFY> factory_depot = 2;
+    map<int32, SCD_ITEM_DEPOT_MODIFY> depot = 3;
+    SCD_ITEM_BAG_SYNC_QUICK_BAR quick_bar = 4;
+    SCD_ITEM_BAG_SCOPE_ASSISTANT_MODIFY assistant = 5;
+    int32 scope_name = 11;
+    string current_chapter_id = 12;
+    bool is_scope_delete = 14;
+}
+message SCD_ITEM_BAG_SCOPE_ASSISTANT {
+    map<string, int32> last_use_time = 1;
+    map<string, bool> cannot_destroy = 2;
+    bool cannot_destroy_all = 3;
+    int64 batch_move_flag = 4;
+}
+message SCD_ITEM_BAG_SCOPE_ASSISTANT_MODIFY {
+    map<string, int32> last_use_time = 1;
+    map<string, bool> cannot_destroy = 2;
+    bool cannot_destroy_all = 3;
+    int64 batch_move_flag = 4;
+}
+message SC_ITEM_BAG_USE_ITEM {
+    ITEM_BAG_USE_TYPE use_type = 5;
+    E_USE_ITEM_RESULT result = 1;
+    SCD_ITEM_GRID used_item = 2;
+    repeated uint64 char_inst_id_list = 3;
+    uint64 equip_medicine_char_inst_id = 4;
+    int32 scope_name = 11;
+    oneof result_info {
+        USE_ITEM_RESULT_GEM_BOX gem_box = 21;
+    }
+}
+message USE_ITEM_RESULT_GEM_BOX {
+    repeated uint64 gem_inst_id = 1;
+}
+message SC_ITEM_BAG_SET_QUICK_BAR {
+    repeated string item_id = 1;
+    int32 scope_name = 11;
+}
+message SC_ITEM_BAG_SET_QUICK_BAR_POS {
+    int32 pos = 1;
+    int32 scope_name = 11;
+}
+message ITEM_INST_LOCK_INFO {
+    string item_id = 1;
+    uint64 inst_id = 2;
+    bool is_lock = 3;
+    ITEM_FLAG item_flag = 4;
+}
+message SC_ITEM_BAG_SET_ITEM_LOCK {
+    repeated ITEM_INST_LOCK_INFO lock_info_list = 1;
+    int32 scope_name = 11;
+}
+message SC_ITEM_BAG_ABANDON_IN_BAG {
+}
+message SC_ITEM_BAG_TAKEOUT_LOST_AND_FOUND {
+    bool nothing_got = 1;
+}
+message SC_ITEM_BAG_GOT_ITEM_TOAST {
+    map<string, int32> items = 1;
+}
+message SC_REWARD_TOAST_BEGIN {
+    int32 reward_source_type = 1;
+    uint64 reward_toast_inst_id = 2;
+}
+message SC_REWARD_TOAST_END {
+    repeated REWARD_ITEM reward_virtual_list = 1;
+    uint64 reward_toast_inst_id = 2;
+}
+message SC_REWARD_DROP_SP_ITEM_TOAST {
+    string item_id = 1;
+    int64 count = 2;
+    VECTOR pos = 3;
+    int32 reward_source_type = 4;
+    uint64 reward_toast_inst_id = 5;
+}
+message SC_ITEM_BAG_USE_ITEM_CASE {
+    string id = 1;
+    int32 count = 2;
+}
+message SC_ITEM_BAG_CHG_SPACESHIP_CHAPTER {
+    string spaceship_chapter_id = 1;
+}
+message CS_ITEM_BAG_SPRAY_TO_BUILDING {
+    int32 scope_name = 1;
+    string item_id = 3;
+    map<uint32, int32> bullet_to = 11;
+    int32 bullet_waste = 12;
+    oneof liquid_source {
+        uint32 from_building_id = 4;
+        uint64 from_interactive_obj_id = 5;
+    }
+}
+message SCD_ITEM_BAG_LT_ITEM_EXPIRE_RECORD {
+    repeated ITEM_BUNDLE items = 1;
+    int32 record_id = 2;
+}
+message SC_ITEM_BAG_LT_ITEMS_EXPIRE_NTF {
+    SCD_ITEM_BAG_LT_ITEM_EXPIRE_RECORD record = 1;
+}
+message CS_ITEM_BAG_LT_ITEMS_EXPIRE_CONFIRM_REQ {
+    repeated int32 record_id_list = 1;
+}
+message SC_ITEM_BAG_LT_ITEMS_EXPIRE_CONFIRM_RSP {
+    repeated int32 record_id_list = 1;
+}

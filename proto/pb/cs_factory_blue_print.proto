@@ -1,0 +1,224 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "cs_factory_op.proto";
+import "cs_factory_chapter.proto";
+import "options.proto";
+
+enum FACTORY_BP_REVIEW_STATUS {
+    PENDING = 0;
+    IN_PROGRESS = 1;
+    APPROVED = 2;
+}
+enum FACTORY_BP_SOURCE_TYPE {
+    FBST_MINE = 0;
+    FBST_SYS = 1;
+    FBST_GIFT = 2;
+    FBST_PRESET = 3;
+}
+enum FACTORY_BP_MODIFY_TYPE {
+    FBMT_NONE = 0;
+    FBMT_NAME = 1;
+    FBMT_DESC = 2;
+    FBMT_ICON = 3;
+    FBMT_PROD_ICON = 4;
+    FBMT_BP_TAGS = 5;
+}
+message CSD_FACTORY_BLUE_PRINT_SIZE {
+    int32 x_len = 1;
+    int32 z_len = 2;
+}
+message CSD_FACTORY_BLUE_PRINT_ICON {
+    string icon = 1;
+    int32 base_color = 2;
+}
+message CSD_BLUE_PRINT_TRANSFORM {
+    SCD_VEC3_INT position = 1;
+    SCD_VEC3_INT direction = 2;
+    CSD_FACTORY_INTERACTIVE_PARAM interactive_param = 3;
+    SCD_VEC3_INT direction_in = 6;
+    SCD_VEC3_INT direction_out = 7;
+    repeated SCD_VEC3_INT points = 8;
+}
+message CSD_BLUE_PRINT_NODE {
+    string template_id = 1;
+    string product_icon = 2;
+    int32 node_id = 3;
+    CSD_BLUE_PRINT_TRANSFORM transform = 4;
+    repeated CSD_BATCH_PLACE_COM coms = 5;
+}
+message CSD_FACTORY_BLUE_PRINT_DATA {
+    string name = 3;
+    string desc = 4;
+    CSD_FACTORY_BLUE_PRINT_SIZE bp_size = 5;
+    CSD_FACTORY_BLUE_PRINT_ICON bp_icon = 7;
+    repeated int32 bp_tags = 8;
+    FACTORY_BP_REVIEW_STATUS review_status = 9;
+    CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 10;
+    int32 use_count = 11;
+    uint64 creator_role_id = 12;
+    string creator_user_id = 13;
+    repeated CSD_BLUE_PRINT_NODE nodes = 14;
+    bool is_new = 15;
+    int64 fetch_time = 16;
+}
+message CS_FACTORY_SAVE_BLUE_PRINT {
+    string index = 1;
+    CSD_FACTORY_BLUE_PRINT_DATA blue_print_data = 2;
+}
+message SC_FACTORY_SAVE_BLUE_PRINT {
+    string index = 1;
+}
+message CSD_FACTORY_BLUE_PRINT_NODE_PRODUCT_ICON {
+    repeated int32 node_id = 1;
+    repeated string prod_icon = 2;
+}
+message CSD_FACTORY_BLUE_PRINT_TAGS {
+    repeated int32 tags = 1;
+}
+message FACTORY_BLUE_PRINT_MODIFY_DATA {
+    FACTORY_BP_MODIFY_TYPE modify_type = 1;
+    oneof op_payload {
+        string modify_name = 11;
+        string modify_desc = 12;
+        CSD_FACTORY_BLUE_PRINT_ICON modify_bp_icon = 14;
+        CSD_FACTORY_BLUE_PRINT_NODE_PRODUCT_ICON nodes_prod_icon = 15;
+        CSD_FACTORY_BLUE_PRINT_TAGS modify_tags = 16;
+    }
+}
+message CS_FACTORY_MODIFY_BLUE_PRINT {
+    string index = 1;
+    repeated FACTORY_BLUE_PRINT_MODIFY_DATA modify_data = 3;
+    CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 4;
+}
+message SC_FACTORY_MODIFY_BLUE_PRINT {
+    string index = 1;
+    repeated FACTORY_BLUE_PRINT_MODIFY_DATA modify_data = 3;
+    CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 4;
+}
+message CS_FACTORY_DEL_BLUE_PRINT {
+    string index = 1;
+    repeated CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 3;
+}
+message SC_FACTORY_DEL_BLUE_PRINT {
+    string index = 1;
+    repeated CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 3;
+}
+message SC_FACTORY_SYNC_BLUE_PRINT_DATA {
+    CSD_FACTORY_BLUE_PRINT_DATA blue_print_data = 1;
+}
+message SCD_FACTORY_SYS_BLUE_PRINT_DATA {
+    CSD_FACTORY_BLUE_PRINT_PARAM sys_bp_param = 1;
+    uint64 bp_uid = 2;
+    int32 use_count = 3;
+    int64 fetch_time = 4;
+    bool is_new = 5;
+}
+message SCD_FACTORY_GIFT_BLUE_PRINT_DATA {
+    CSD_FACTORY_BLUE_PRINT_PARAM gift_bp_param = 1;
+    int32 use_count = 2;
+    int64 fetch_time = 3;
+    bool is_new = 4;
+}
+message SC_FACTORY_SYNC_BLUE_PRINT_MGR {
+    repeated CSD_FACTORY_BLUE_PRINT_DATA blue_print_info = 1;
+    repeated SCD_FACTORY_SYS_BLUE_PRINT_DATA sys_blue_print = 2;
+    repeated SCD_FACTORY_GIFT_BLUE_PRINT_DATA gift_blue_print = 3;
+    SCD_FACTORY_BP_PUBLIC_STATUS fac_bp_pub_status = 4;
+}
+message CSD_FACTORY_GIFT_BLUE_PRINT {
+    uint64 bp_uid = 1;
+    uint64 target_role_id = 2;
+    int32 share_idx = 3;
+}
+message CSD_FACTORY_BLUE_PRINT_PARAM {
+    FACTORY_BP_SOURCE_TYPE source_type = 1;
+    oneof op_payload {
+        uint64 my_bp_uid = 11;
+        string sys_bp_key = 12;
+        CSD_FACTORY_GIFT_BLUE_PRINT gift_bp_key = 13;
+        string preset_bp_key = 14;
+    }
+}
+message CS_FACTORY_USE_BLUE_PRINT {
+    string index = 1;
+    int32 scope_name = 3;
+    int32 map_id = 4;
+    CSD_FACTORY_AREA_RELATED_POS related_pos = 5;
+    CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 6;
+}
+message SC_FACTORY_USE_BLUE_PRINT {
+    string index = 1;
+    CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 2;
+    int32 use_count = 3;
+}
+message CS_FACTORY_REVIEW_BLUE_PRINT {
+    string index = 1;
+    CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 2;
+}
+message SC_FACTORY_REVIEW_BLUE_PRINT {
+    string index = 1;
+    CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 2;
+    FACTORY_BP_REVIEW_STATUS status = 3;
+}
+message CS_FACTORY_SHARE_BLUE_PRINT {
+    string index = 1;
+    CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 2;
+}
+message SC_FACTORY_SHARE_BLUE_PRINT {
+    string index = 1;
+    string share_code = 2;
+}
+message CS_FACTORY_QUERY_SHARED_BLUE_PRINT {
+    string index = 1;
+    string share_code = 2;
+}
+message SC_FACTORY_QUERY_SHARED_BLUE_PRINT {
+    string index = 1;
+    CSD_FACTORY_BLUE_PRINT_DATA blue_print_data = 2;
+}
+message CS_FACTORY_FETCH_GIFT_BLUE_PRINT {
+    string index = 1;
+    string share_code = 2;
+}
+message SC_FACTORY_FETCH_GIFT_BLUE_PRINT {
+    string index = 1;
+}
+message CS_FACTORY_REPORT_BLUE_PRINT {
+    string index = 1;
+    CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 2;
+    repeated string reason = 3;
+    string content = 4;
+}
+message SC_FACTORY_REPORT_BLUE_PRINT {
+    string index = 1;
+}
+message CS_FACTORY_QUERY_GIFT_BLUE_PRINT {
+    string index = 1;
+    repeated CSD_FACTORY_BLUE_PRINT_PARAM bp_params = 2;
+}
+message SC_FACTORY_QUERY_GIFT_BLUE_PRINT {
+    string index = 1;
+    repeated CSD_FACTORY_BLUE_PRINT_DATA blue_print_data = 2;
+}
+message CSD_FACTORY_SET_BP_FLAG {
+    CSD_FACTORY_BLUE_PRINT_PARAM bp_param = 1;
+    bool is_new = 2;
+}
+message CS_FACTORY_SET_BLUE_PRINT_FLAG {
+    string index = 1;
+    repeated CSD_FACTORY_SET_BP_FLAG set_bp_flag = 2;
+}
+message SC_FACTORY_SET_BLUE_PRINT_FLAG {
+    string index = 1;
+    repeated CSD_FACTORY_SET_BP_FLAG success_set = 2;
+}
+message SCD_FACTORY_BP_PUBLIC_STATUS {
+    bool forbid_share = 1;
+    bool forbid_fetch = 2;
+}
+message SC_FACTORY_BP_PUBLIC_STATUS {
+    SCD_FACTORY_BP_PUBLIC_STATUS public_status = 1;
+}

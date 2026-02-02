@@ -1,0 +1,26 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message CS_ADVENTURE_TAKE_REWARD_ALL {
+}
+message SC_ADVENTURE_LEVEL_MODIFY {
+    int32 level = 1;
+    int64 exp = 2;
+}
+message SC_ADVENTURE_SYNC_ALL {
+    int32 level = 1;
+    int64 exp = 2;
+    int32 world_level = 3;
+    int32 unlock_world_level = 4;
+    int64 last_set_world_level_ts = 5;
+}
+message CS_ADVENTURE_SET_WORLD_LEVEL {
+    int32 world_level = 1;
+}
+message SC_ADVENTURE_WORLD_LEVEL_MODIFY {
+    int32 world_level = 1;
+    int32 unlock_world_level = 2;
+    int64 last_set_world_level_ts = 3;
+}

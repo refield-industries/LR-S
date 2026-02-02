@@ -1,0 +1,19 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "options.proto";
+
+message CSHead {
+    int32 msgid = 1;
+    uint64 up_seqid = 2;
+    uint64 down_seqid = 3;
+    uint32 total_pack_count = 4;
+    uint32 current_pack_index = 5;
+    bool is_compress = 6;
+    uint32 checksum = 7;
+}
+message CS_MERGE_MSG {
+    bytes msg = 1;
+}

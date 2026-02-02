@@ -1,0 +1,8 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message SC_SYNC_GAME_MODE {
+    string mode_id = 1;
+}

@@ -1,0 +1,19 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message SC_SYNC_ALL_DOODAD_GROUP {
+    repeated DOODAD_GROUP_INFO doodad_group_info_list = 1;
+}
+message DOODAD_GROUP_INFO {
+    int32 scene_num_id = 1;
+    uint64 group_id = 2;
+    int64 next_refresh_time = 3;
+    int32 next_refresh_count = 4;
+    int32 max_count = 5;
+    int32 cur_count = 8;
+}
+message SC_DOODAD_GROUP_MODIFY {
+    repeated DOODAD_GROUP_INFO doodad_group_info_list = 1;
+}

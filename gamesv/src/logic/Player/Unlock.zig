@@ -1,0 +1,126 @@
+const Unlock = @This();
+const std = @import("std");
+const Allocator = std.mem.Allocator;
+
+pub const default_unlocked_systems: []const SystemType = blk: {
+    const fields = @typeInfo(SystemType).@"enum".fields;
+    var list: []const SystemType = &.{};
+
+    for (fields) |field| {
+        if (field.value != @intFromEnum(SystemType.none)) {
+            list = list ++ .{@field(SystemType, field.name)};
+        }
+    }
+
+    break :blk list;
+};
+
+unlocked_systems: []SystemType,
+
+pub fn deinit(unlock: *Unlock, gpa: Allocator) void {
+    gpa.free(unlock.unlocked_systems);
+}
+
+pub const SystemType = enum(i32) {
+    none = 10000000,
+    map = 0,
+    inventory = 1,
+    watch = 2,
+    valuable_depot = 3,
+    shop = 4,
+    char_team = 5,
+    gacha = 51,
+    dungeon = 52,
+    bloc_mission = 53,
+    mail = 54,
+    wiki = 55,
+    prts = 56,
+    submit_ether = 57,
+    scan = 58,
+    char_ui = 59,
+    friend = 60,
+    daily_mission = 61,
+    general_ability_bomb = 62,
+    general_ability_fluid_interact = 63,
+    general_ability = 64,
+    sns = 65,
+    equip_tech = 66,
+    equip_produce = 67,
+    dungeon_factory = 69,
+    enemy_spawner = 70,
+    general_ability_water_gun = 71,
+    general_ability_snapshot = 72,
+    fac_building_pin = 101,
+    fac_craft_pin = 102,
+    fac_mode = 103,
+    fac_tech_tree = 104,
+    fac_overview = 105,
+    fac_yield_stats = 106,
+    fac_conveyor = 107,
+    fac_transfer_port = 108,
+    fac_bridge = 109,
+    fac_splitter = 110,
+    fac_merger = 111,
+    fac_bus = 112,
+    fac_zone = 113,
+    fac_system = 114,
+    fac_pipe = 115,
+    fac_pipe_splitter = 116,
+    fac_pipe_connector = 117,
+    fac_pipe_converger = 118,
+    fac_hub = 119,
+    fac_bus_free = 120,
+    fac_top_view = 121,
+    fac_blueprint = 122,
+    fac_underground_pipe = 123,
+    fac_social = 124,
+    fac_valve = 125,
+    fac_pipe_valve = 126,
+    fac_panel_store = 127,
+    fac_fertilize = 128,
+    manual_craft = 201,
+    item_use = 202,
+    item_quick_bar = 203,
+    product_manual = 204,
+    manual_craft_soil = 205,
+    weapon = 251,
+    equip = 252,
+    equip_enhance = 253,
+    gem_enhance = 254,
+    normal_attack = 301,
+    normal_skill = 302,
+    ultimate_skill = 303,
+    team_skill = 304,
+    combo_skill = 305,
+    team_switch = 306,
+    dash = 307,
+    jump = 308,
+    lock_target = 309,
+    spaceship_present_gift = 401,
+    spaceship_manufacturing_station = 402,
+    spaceship_control_center = 403,
+    spaceship_system = 404,
+    spaceship_grow_cabin = 405,
+    spaceship_shop = 406,
+    spaceship_guest_room = 407,
+    settlement = 501,
+    domain_development = 502,
+    domain_development_domain_depot = 503,
+    settlement_defense = 504,
+    kite_station = 511,
+    domain_shop = 512,
+    racing_dungeon = 601,
+    battle_training = 602,
+    week_raid = 603,
+    week_raid_intro = 604,
+    water_drone_can_use_xiranite = 605,
+    adventure_exp_and_lv = 651,
+    adventure_book = 652,
+    guidance_manul = 661,
+    ai_bark = 670,
+    achievement = 701,
+    minigame_puzzle = 801,
+    bp_system = 802,
+    activity = 1100,
+    check_in = 1113,
+};

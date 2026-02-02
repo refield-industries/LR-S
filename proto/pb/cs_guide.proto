@@ -1,0 +1,32 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "options.proto";
+
+message GUIDE_GROUP_INFO {
+    string guide_group_id = 1;
+    int32 guide_state = 2;
+}
+message CS_COMPLETE_GUIDE_GROUP_KEY_STEP {
+    string guide_group_id = 1;
+}
+message CS_COMPLETE_GUIDE_GROUP {
+    string guide_group_id = 1;
+    bool is_close = 2;
+}
+message SC_SYNC_ALL_GUIDE {
+    repeated GUIDE_GROUP_INFO guide_group_list = 1;
+    repeated string completed_repeat_accept_guide_group_list = 2;
+}
+message SC_ACCEPT_GUIDE_GROUP {
+    string guide_group_id = 1;
+}
+message SC_COMPLETE_GUIDE_GROUP_KEY_STEP {
+    string guide_group_id = 1;
+}
+message SC_COMPLETE_GUIDE_GROUP {
+    string guide_group_id = 1;
+    bool is_closed = 2;
+}

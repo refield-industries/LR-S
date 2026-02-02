@@ -1,0 +1,352 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+
+enum FRIEND_SEARCH_NAME_TYPE {
+    FRIEND_SEARCH_NAME_TYPE_DEFAULT = 0;
+    FRIEND_SEARCH_NAME_TYPE_THIRD_LOGIN = 1;
+}
+enum FRIEND_REPORT_TYPE {
+    FRT_USER_INVALID = 0;
+    FRT_USER_USR_CARD = 1;
+    FRT_FRIEND_LIST = 2;
+}
+enum FRIEND_BUSINESS_CARD_TYPE {
+    STRANGER = 0;
+    FRIEND = 1;
+}
+enum SOCIAL_USER_TYPE {
+    SOCIAL_INVALID = 0;
+    SOCIAL_FRIEND = 1;
+    SOCIAL_STRANGER = 2;
+    SOCIAL_BLOCK = 3;
+}
+message CS_FRIEND_LIST_SIMPLE_SYNC {
+}
+message CS_FRIEND_LIST_QUERY {
+    FRIEND_USER_INFO_TYPE info_type = 1;
+    repeated uint64 role_id_list = 2;
+}
+message CS_FRIEND_REQUEST_LIST_SIMPLE_SYNC {
+}
+message CS_FRIEND_REQUEST_LIST_QUERY {
+    repeated uint64 role_id_list = 1;
+}
+message CS_FRIEND_BLACK_LIST_SYNC {
+}
+message CS_SOCIAL_USER_LIST_QUERY {
+    repeated uint64 role_id_list = 1;
+}
+message CS_FRIEND_SEARCH_NAME {
+    string name = 1;
+    FRIEND_SEARCH_NAME_TYPE type = 2;
+}
+message CS_FRIEND_SEARCH_NAME_QUERY {
+    repeated uint64 role_id_list = 1;
+}
+message CS_FRIEND_SEARCH_PLATFORM_ROLE_ID {
+    string platform_role_id = 1;
+}
+message CS_FRIEND_STRANGER_RECOMMEND_QUERY {
+}
+message CS_FRIEND_BUSINESS_CARD_EXPAND_FLAG_MODIFY {
+    bool flag = 1;
+}
+message CS_FRIEND_USER_AVATAR_MODIFY {
+    uint32 user_avatar_id = 1;
+}
+message CS_FRIEND_USER_AVATAR_FRAME_MODIFY {
+    uint32 user_avatar_frame_id = 1;
+}
+message CS_FRIEND_SIGNATURE_MODIFY {
+    string signature = 1;
+}
+message CS_FRIEND_DISPLAY_CHAR_MODIFY {
+    repeated uint64 obj_id_list = 1;
+}
+message CS_FRIEND_BUSINESS_CARD_TOPIC_MODIFY {
+    uint32 id = 1;
+}
+message CS_FRIEND_BUSINESS_CARD_QUERY {
+    uint64 role_id = 1;
+    FRIEND_BUSINESS_CARD_TYPE type = 2;
+}
+message CS_FRIEND_SROLE_CHAR_QUERY {
+    uint64 role_id = 1;
+    repeated string template_id = 3;
+}
+message CS_FRIEND_SET_PSN_ONLY {
+    bool psn_only = 1;
+}
+message CS_FRIEND_REMARK_NAME_MODIFY {
+    uint64 role_id = 1;
+    string remark_name = 2;
+}
+message CS_FRIEND_BLACK_LIST_ADD {
+    uint64 role_id = 1;
+}
+message CS_FRIEND_BLACK_LIST_DELETE {
+    uint64 role_id = 1;
+}
+message CS_FRIEND_REQUEST_ACCEPT {
+    uint64 role_id = 1;
+}
+message CS_FRIEND_REQUEST_REJECT {
+    uint64 role_id = 1;
+}
+message CS_FRIEND_DELETE {
+    uint64 role_id = 1;
+}
+message CS_FRIEND_REQUEST_SUBMIT {
+    uint64 role_id = 1;
+    string ApplyPhaseId = 2;
+    string ApplyPanelId = 3;
+    string social_building_template_id = 11;
+}
+message CS_FRIEND_REPORT_USER {
+    uint64 role_id = 1;
+    repeated string reason = 2;
+    string content = 3;
+    FRIEND_REPORT_TYPE report_type = 4;
+}
+message CS_FRIEND_VISIT_SPACESHIP {
+    uint64 role_id = 1;
+}
+message CS_FRIEND_PSN_FRIEND_LIST_SIMPLE_SYNC {
+    string auth_code = 1;
+    string psn_env = 2;
+}
+message CS_FRIEND_PSN_FRIEND_LIST_QUERY {
+    repeated string account_list = 1;
+}
+message CS_FRIEND_PSN_BLACK_LIST_SYNC {
+    string auth_code = 1;
+    string psn_env = 2;
+}
+message CS_FRIEND_PSN_AUTHCODE_QUERY {
+    string auth_code = 1;
+    string psn_env = 2;
+    PSN_AUTHCODE_QUERY_TYPE query_type = 3;
+}
+message SROLE_INFO {
+    string name = 2;
+    string short_id = 3;
+    uint32 gender = 4;
+    int32 business_card_topic_id = 5;
+    string signature = 6;
+    int32 user_avatar_id = 7;
+    int32 user_avatar_frame_id = 8;
+    uint32 adventure_level = 9;
+    uint32 world_level = 10;
+    string main_mission_id = 11;
+    int64 create_time = 12;
+    string platform_role_id = 21;
+    SROLE_DATA_DOMAIN_DEV_SYSTEM domain_dev = 13;
+    SROLE_DATA_ACHIEVEMENT achievement = 14;
+    SROLE_DATA_STATISTIC statistic = 15;
+    repeated FRIEND_CHAR_INFO char_list = 16;
+    bool business_card_expand_flag = 50;
+    HG_THIRD_ACCOUNT_TYPE last_login_type = 60;
+    THIRD_ACCOUNT_DATA third_account_data = 61;
+}
+message FRIEND_BUSINESS_CARD_DATA_FRIEND {
+    SROLE_INFO base_data = 1;
+    string remark_name = 2;
+}
+message FRIEND_BUSINESS_CARD_DATA_STRANGER {
+    SROLE_INFO base_data = 1;
+}
+message SCD_FRIEND_FRIEND_SIMPLE_INFO {
+    uint64 role_id = 1;
+    int64 last_logout_time = 2;
+    bool online = 3;
+    uint32 adventure_level = 4;
+    int64 create_time = 5;
+    bool help_flag = 6;
+    bool clue_flag = 7;
+    string name = 8;
+    string remark_name = 9;
+    FRIEND_SPACESHIP_HELP_STATUS help_status = 10;
+    bool guest_room_unlock = 11;
+    bool clue_room_unlock = 17;
+    map<int32, int64> host_clue_status = 18;
+    string short_id = 12;
+    string signature = 13;
+    int32 user_avatar_id = 14;
+    int32 user_avatar_frame_id = 15;
+    int32 business_card_topic_id = 16;
+    HG_THIRD_ACCOUNT_TYPE last_login_type = 20;
+    THIRD_ACCOUNT_DATA third_account_data = 21;
+}
+message SCD_FRIEND_REQUEST_SIMPLE_INFO {
+    uint64 role_id = 1;
+    int64 create_time = 2;
+    uint32 adventure_level = 3;
+    HG_THIRD_ACCOUNT_TYPE last_login_type = 10;
+}
+message SC_FRIEND_LIST_SIMPLE_SYNC {
+    repeated SCD_FRIEND_FRIEND_SIMPLE_INFO friend_list = 1;
+}
+message SC_FRIEND_LIST_QUERY {
+    repeated FRIEND_FRIEND_INFO friend_list = 1;
+}
+message SC_FRIEND_REQUEST_LIST_LOGIN_NOTIFY {
+    repeated uint64 role_id_list = 1;
+}
+message SC_FRIEND_FRIEND_LIST_LOGIN_NOTIFY {
+    repeated uint64 role_id_list = 2;
+}
+message SC_FRIEND_REQUEST_LIST_SIMPLE_SYNC {
+    repeated SCD_FRIEND_REQUEST_SIMPLE_INFO friend_request_list = 1;
+}
+message SC_FRIEND_REQUEST_LIST_QUERY {
+    repeated FRIEND_REQUEST_INFO friend_request_list = 1;
+}
+message SCD_SOCIAL_USER_INFO {
+    SOCIAL_USER_TYPE social_user_type = 1;
+    oneof data {
+        FRIEND_FRIEND_INFO friend_data = 11;
+        FRIEND_STRANGER_USER_INFO stranger_data = 12;
+        FRIEND_BLACK_LIST_INFO black_data = 13;
+    }
+}
+message SC_SOCIAL_USER_LIST_QUERY {
+    repeated SCD_SOCIAL_USER_INFO user_list = 1;
+}
+message SC_FRIEND_BLACK_LIST_SYNC {
+    repeated FRIEND_BLACK_LIST_INFO black_list = 1;
+}
+message SCD_FRIEND_SEARCH_NAME_THIRD_ACCOUNT_DATA {
+    HG_THIRD_ACCOUNT_TYPE last_login_type = 1;
+    THIRD_ACCOUNT_DATA third_account_data = 2;
+}
+message SCD_FRIEND_SEARCH_NAME_STRANGER_SIMPLE_INFO {
+    uint64 role_id = 1;
+    FRIEND_SEARCH_NAME_TYPE data_type = 10;
+    oneof extra_data {
+        SCD_FRIEND_SEARCH_NAME_THIRD_ACCOUNT_DATA third_account_data = 11;
+    }
+}
+message SC_FRIEND_SEARCH_NAME {
+    repeated SCD_FRIEND_SEARCH_NAME_STRANGER_SIMPLE_INFO stranger_list = 1;
+}
+message SC_FRIEND_SEARCH_NAME_QUERY {
+    repeated FRIEND_STRANGER_USER_INFO stranger_list = 1;
+    repeated uint64 deleted_role_id_list = 2;
+}
+message SC_FRIEND_SEARCH_PLATFORM_ROLE_ID {
+    FRIEND_STRANGER_USER_INFO stranger = 1;
+}
+message SC_FRIEND_STRANGER_RECOMMEND_QUERY {
+    repeated FRIEND_STRANGER_USER_INFO stranger_list = 1;
+}
+message SC_FRIEND_BUSINESS_CARD_EXPAND_FLAG_MODIFY {
+    bool flag = 1;
+}
+message SC_FRIEND_PERSONAL_DATA_SYNC {
+    FRIEND_PERSONAL_DATA data = 1;
+}
+message SC_FRIEND_USER_AVATAR_MODIFY {
+    uint32 user_avatar_id = 1;
+}
+message SC_FRIEND_USER_AVATAR_FRAME_MODIFY {
+    uint32 user_avatar_frame_id = 1;
+}
+message SC_FRIEND_SIGNATURE_MODIFY {
+    string signature = 1;
+}
+message SC_FRIEND_BUSINESS_CARD_TOPIC_MODIFY {
+    uint32 id = 1;
+}
+message SC_FRIEND_DISPLAY_CHAR_MODIFY {
+    repeated uint64 obj_id_list = 1;
+}
+message SC_FRIEND_BUSINESS_CARD_QUERY {
+    uint64 role_id = 1;
+    FRIEND_BUSINESS_CARD_TYPE type = 2;
+    oneof data {
+        FRIEND_BUSINESS_CARD_DATA_STRANGER stranger_data = 3;
+        FRIEND_BUSINESS_CARD_DATA_FRIEND friend_data = 4;
+    }
+}
+message SC_FRIEND_SROLE_CHAR_QUERY {
+    uint64 role_id = 1;
+    repeated SROLE_DATA_CHAR char_data = 3;
+}
+message SC_FRIEND_REMARK_NAME_MODIFY {
+    uint64 role_id = 1;
+    string remark_name = 2;
+}
+message SC_FRIEND_BLACK_LIST_MODIFY {
+    repeated FRIEND_BLACK_LIST_INFO add_list = 1;
+    repeated uint64 del_list = 2;
+}
+message SC_FRIEND_REQUEST_ACCEPT {
+    FRIEND_FRIEND_INFO friend_info = 1;
+}
+message SC_FRIEND_REQUEST_REJECT {
+    uint64 role_id = 1;
+}
+message SC_FRIEND_DELETE {
+    uint64 role_id = 1;
+}
+message SC_FRIEND_REQUEST_REJECTED_NOTIFY {
+    uint64 role_id = 1;
+}
+message SC_FRIEND_REQUEST_SUBMIT {
+    uint64 role_id = 1;
+}
+message SC_FRIEND_REQUEST_ADD_NOTIFY {
+    FRIEND_REQUEST_INFO friend_request_info = 1;
+}
+message SC_FRIEND_ADD_NOTIFY {
+    FRIEND_FRIEND_INFO friend_info = 1;
+}
+message SC_FRIEND_VISIT_SPACESHIP {
+    uint64 role_id = 1;
+    uint64 clue_end_ts = 2;
+    bool control_center_flag = 3;
+    bool manufacturing_station_flag = 4;
+    bool grow_cabin_flag = 5;
+    bool command_center_flag = 6;
+    bool has_joined_info_exchange = 7;
+    bool guest_room_unlock = 8;
+}
+message SC_FRIEND_PSN_AUTHCODE_QUERY {
+    PSN_AUTHCODE_QUERY_TYPE query_type = 1;
+}
+message SCD_FRIEND_PSN_FRIEND_ROLE_SIMPLE_INFO {
+    uint64 role_id = 1;
+    bool online = 3;
+    int64 last_logout_time = 4;
+    uint32 adventure_level = 5;
+}
+message SCD_FRIEND_PSN_FRIEND_SIMPLE_INFO {
+    string account_id = 1;
+    SOCIAL_USER_TYPE friend_type = 2;
+    SCD_FRIEND_PSN_FRIEND_ROLE_SIMPLE_INFO role_info = 3;
+}
+message SC_FRIEND_PSN_FRIEND_LIST_SIMPLE_SYNC {
+    repeated SCD_FRIEND_PSN_FRIEND_SIMPLE_INFO friend_list = 1;
+}
+message SCD_FRIEND_PSN_FRIEND_INFO {
+    THIRD_ACCOUNT_DATA_PSN psn_data = 1;
+    SCD_SOCIAL_USER_INFO user_info = 2;
+}
+message SC_FRIEND_PSN_FRIEND_LIST_QUERY {
+    repeated SCD_FRIEND_PSN_FRIEND_INFO friend_list = 1;
+}
+message SCD_FRIEND_PSN_BLACK_LIST_INFO {
+    THIRD_ACCOUNT_DATA_PSN psn_data = 1;
+    bool is_register = 2;
+    FRIEND_BLACK_LIST_INFO role_data = 3;
+}
+message SC_FRIEND_PSN_BLACK_LIST_SYNC {
+    repeated SCD_FRIEND_PSN_BLACK_LIST_INFO black_list = 1;
+}
+message SC_FRIEND_SET_PSN_ONLY {
+    bool psn_only = 1;
+}

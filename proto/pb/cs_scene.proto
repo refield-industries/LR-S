@@ -1,0 +1,634 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "cs_char_bag.proto";
+import "common.proto";
+import "battle.proto";
+import "cs_misc.proto";
+import "options.proto";
+
+enum SELF_INFO_REASON_TYPE {
+    SLR_ENTER_SCENE = 0;
+    SLR_REVIVE_DEAD = 1;
+    SLR_REVIVE_REST = 2;
+    SLR_CHANGE_TEAM = 3;
+    SLR_REVIVE_BY_ITEM = 4;
+    SLR_RESET_DUNGEON = 5;
+    SLR_SEAMLESSLY_ENTER_SCENE = 6;
+    SLR_SEAMLESSLY_TOUCH_SCENE = 7;
+    SLR_CHANGE_TEAM_BY_NPC_TEAMMATES = 8;
+}
+enum MOTION_STATE {
+    MOTION_NONE = 0;
+    MOTION_STANDBY = 1;
+    MOTION_STANDBY_MOVE = 2;
+    MOTION_WALK = 3;
+    MOTION_RUN = 4;
+    MOTION_CLIMB = 5;
+    MOTION_CLIMB_JUMP = 6;
+}
+enum ENTITY_OP_TYPE {
+    ENTITY_OP_TYPE_NONE = 0;
+    ENTITY_OP_TYPE_ID = 2;
+}
+enum SCENE_SPAWN_INTERACTIVE_TYPE {
+    SPAWN_ITV_BY_TEMPLATE = 0;
+    SPAWN_ITV_BY_LEVEL_CONFIG = 1;
+}
+enum SCENE_SPAWN_MONSTER_TYPE {
+    SPAWN_MST_BY_TEMPLATE = 0;
+    SPAWN_MST_BY_LEVEL_CONFIG = 1;
+}
+enum SCENE_CROSS_BORDER_OP {
+    SCENE_CROSS_BORDER_OP_RESET = 0;
+    SCENE_CROSS_BORDER_OP_PREPARE_TO_REPATRIATE = 1;
+}
+enum SCENE_CROSS_BORDER_REASON {
+    SCENE_CROSS_BORDER_REASON_NONE = 0;
+    SCENE_CROSS_BORDER_REASON_INVALID_CHUNK = 1;
+    SCENE_CROSS_BORDER_REASON_LOCKED = 2;
+    SCENE_CROSS_BORDER_REASON_EXCEED_Y_AXIS = 3;
+}
+enum SERVER_SCRIPT_UNIT_TYPE {
+    SCRIPT_UNIT_TYPE_NONE = 0;
+    SCRIPT_UNIT_TYPE_ACTION = 1;
+    SCRIPT_UNIT_TYPE_CONDITION = 2;
+    SCRIPT_UNIT_TYPE_CUSTOM_EVENT = 3;
+    SCRIPT_UNIT_TYPE_NATIVE_EVENT = 4;
+}
+message CS_ENTER_SCENE {
+    int32 scene_num_id = 1;
+    VECTOR position = 2;
+    VECTOR rotation = 3;
+}
+message CS_SCENE_LEAVE_PLANE {
+    VECTOR position = 1;
+    VECTOR rotation = 2;
+}
+message SCENE_OBJECT_COMMON_INFO {
+    uint64 id = 1;
+    int32 type = 2;
+    string templateid = 3;
+    VECTOR position = 4;
+    VECTOR rotation = 5;
+    uint64 belongLevelScriptId = 6;
+    int32 scene_num_id = 7;
+    double hp = 8;
+    uint32 belongScriptSlotId = 9;
+    bool is_battle_create = 10;
+}
+message SCENE_CHARACTER {
+    SCENE_OBJECT_COMMON_INFO common_info = 1;
+    int32 level = 2;
+    string name = 3;
+    repeated ATTR_INFO attrs = 4;
+    BATTLE_MGR_INFO battle_info = 5;
+}
+message SCENE_MONSTER {
+    SCENE_OBJECT_COMMON_INFO common_info = 1;
+    uint64 origin_id = 2;
+    int32 level = 3;
+    repeated ATTR_INFO attrs = 4;
+    BATTLE_MGR_INFO battle_info = 5;
+}
+message SCENE_INTERACTIVE {
+    SCENE_OBJECT_COMMON_INFO common_info = 1;
+    uint64 origin_id = 2;
+    map<int32, DYNAMIC_PARAMETER> properties = 4;
+    int32 meta = 5;
+    BATTLE_MGR_INFO battle_info = 6;
+    uint64 bond_id = 7;
+}
+message SCENE_SUMMON {
+    SCENE_OBJECT_COMMON_INFO common_info = 1;
+    repeated ATTR_INFO attrs = 3;
+    BATTLE_MGR_INFO battle_info = 4;
+    string cast_skill_id = 5;
+    BATTLE_BLACKBOARD blackboard = 6;
+}
+message SCENE_NPC {
+    SCENE_OBJECT_COMMON_INFO common_info = 1;
+    int64 last_interact_time_stamp = 2;
+}
+message SCENE_OBJECT_DETAIL_CONTAINER {
+    repeated SCENE_CHARACTER char_list = 1;
+    repeated SCENE_MONSTER monster_list = 2;
+    repeated SCENE_INTERACTIVE interactive_list = 3;
+    repeated SCENE_NPC npc_list = 4;
+    repeated SCENE_SUMMON summon_list = 5;
+}
+message SCD_TRIGGER_VOLUME_INFO {
+    uint64 script_local_id = 1;
+    bool is_hidden = 2;
+    int32 trigger_count = 3;
+}
+message CS_SCENE_SET_LEVEL_SCRIPT_ACTIVE {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    bool is_active = 3;
+    VECTOR leader_pos = 4;
+}
+message CS_SCENE_SET_LEVEL_SCRIPT_START {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    bool is_start = 3;
+    VECTOR leader_pos = 4;
+}
+message CS_SCENE_LEVEL_SCRIPT_EVENT_TRIGGER {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    string event_name = 3;
+    map<string, DYNAMIC_PARAMETER> properties = 4;
+    string ctx_token = 5;
+}
+message LEVEL_SCRIPT_INFO {
+    uint64 script_id = 1;
+    int32 state = 2;
+    map<int32, DYNAMIC_PARAMETER> properties = 3;
+    bool is_done = 4;
+    int32 stage = 5;
+    repeated SCD_TRIGGER_VOLUME_INFO trigger_volume_infos = 6;
+}
+message SC_SCENE_UPDATE_LEVEL_SCRIPT_PROPERTY {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    map<int32, DYNAMIC_PARAMETER> properties = 3;
+    bool clientOperate = 4;
+}
+message SC_SCENE_LEVEL_SCRIPT_STATE_NOTIFY {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    int32 state = 3;
+    bool is_complete = 4;
+}
+message SC_SCENE_LEVEL_SCRIPT_RESET_BEGIN {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+}
+message SC_SCENE_LEVEL_SCRIPT_RESET_END {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+}
+message SC_SCENE_LEVEL_SCRIPT_TASK_STATE_UPDATE {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    string task_id = 3;
+    int32 task_state = 4;
+}
+message SC_SCENE_LEVEL_SCRIPT_TASK_PROGRESS_UPDATE {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    string task_id = 3;
+    map<string, bool> condition_completed_map = 4;
+}
+message SC_SCENE_LEVEL_SCRIPT_TASK_START_FINISH {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    string task_id = 3;
+}
+message SC_SCENE_TRIGGER_CLIENT_LEVEL_SCRIPT_EVENT {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    string event_name = 3;
+    string ctx_token = 4;
+}
+message SC_SCENE_TRIGGER_CLIENT_INTERACTIVE_EVENT {
+    int32 scene_num_id = 1;
+    uint64 id = 2;
+    string event_name = 3;
+}
+message SCD_SCENE_TEAM_INFO {
+    CHAR_BAG_TEAM_TYPE team_type = 1;
+    int32 team_index = 2;
+    uint64 team_change_token = 3;
+    uint64 cur_leader_id = 4;
+    repeated uint64 enter_npc_teammate_ids = 5;
+    repeated uint64 leave_npc_teammate_ids = 6;
+    string new_npc_teammate_action_id = 7;
+    repeated VECTOR enter_npc_teammate_start_pos_list = 8;
+    repeated VECTOR enter_npc_teammate_start_rot_list = 9;
+}
+message SC_SELF_SCENE_INFO {
+    int32 scene_num_id = 1;
+    uint64 scene_id = 2;
+    SCENE_OBJECT_DETAIL_CONTAINER detail = 3;
+    repeated uint64 revive_chars = 7;
+    repeated LEVEL_SCRIPT_INFO level_scripts = 8;
+    int32 self_info_reason = 9;
+    repeated string unlock_area = 10;
+    repeated SCENE_DROP drop_list = 14;
+    SCD_SCENE_TEAM_INFO teamInfo = 16;
+    oneof scene_impl {
+        SCENE_IMPL_DUNGEON dungeon = 11;
+        SCENE_IMPL_EMPTY empty = 12;
+    }
+}
+message SCENE_IMPL_DUNGEON {
+    string dungeon_id = 1;
+    int64 challenge_expire_ts = 2;
+    int64 leave_dungeon_ts = 3;
+    bool is_reward = 4;
+    bool is_calc = 5;
+    bool is_pass = 6;
+}
+message SCENE_IMPL_EMPTY {
+}
+message SC_SCENE_RESET_ENTITY {
+    int32 scene_num_id = 1;
+    uint64 id = 2;
+    BATTLE_MGR_INFO battle_info = 3;
+}
+message SC_OBJECT_ENTER_VIEW {
+    SCENE_OBJECT_DETAIL_CONTAINER detail = 1;
+    bool has_extra_object = 2;
+}
+message LEAVE_OBJECT_INFO {
+    int32 obj_type = 1;
+    uint64 obj_id = 2;
+}
+message SC_OBJECT_LEAVE_VIEW {
+    repeated LEAVE_OBJECT_INFO obj_list = 1;
+}
+message MOTION_INFO {
+    VECTOR position = 1;
+    VECTOR rotation = 2;
+    VECTOR speed = 3;
+    MOTION_STATE state = 4;
+}
+message MOVE_OBJECT_MOVE_INFO {
+    uint64 objid = 1;
+    MOTION_INFO motion_info = 2;
+    uint32 server_time = 3;
+    int32 scene_num_id = 4;
+}
+message CS_MOVE_OBJECT_MOVE {
+    repeated MOVE_OBJECT_MOVE_INFO move_info = 1;
+    int32 leader_move_tag_mask = 2;
+    int32 leader_index = 3;
+    int32 leader_jump_count = 4;
+}
+message SC_MOVE_OBJECT_MOVE {
+    repeated MOVE_OBJECT_MOVE_INFO move_info = 1;
+    bool server_notify = 2;
+}
+message SC_CHANGE_SCENE_BEGIN_NOTIFY {
+    int32 scene_num_id = 1;
+    VECTOR position = 2;
+    PASS_THROUGH_DATA pass_through_data = 3;
+}
+message SC_ENTER_SCENE_NOTIFY {
+    uint64 role_id = 1;
+    int32 scene_num_id = 2;
+    uint64 scene_id = 3;
+    VECTOR position = 4;
+    PASS_THROUGH_DATA pass_through_data = 5;
+}
+message SC_LEAVE_SCENE_NOTIFY {
+    uint64 role_id = 1;
+    int32 scene_num_id = 2;
+    uint64 scene_id = 3;
+}
+message SC_SEAMLESS_SCENE_DESTROY_NOTIFY {
+    uint64 role_id = 1;
+    int32 scene_num_id = 2;
+    uint64 scene_id = 3;
+}
+message CS_SCENE_LOAD_FINISH {
+    int32 scene_num_id = 1;
+}
+message CS_SCENE_SET_LAST_RECORD_CAMPID {
+    uint64 last_camp_id = 1;
+    VECTOR position = 2;
+    VECTOR rotation = 3;
+    int32 scene_num_id = 4;
+}
+message SC_SCENE_SET_LAST_RECORD_CAMPID {
+    uint64 last_camp_id = 1;
+    int32 scene_num_id = 2;
+}
+message CS_SCENE_INTERACTIVE_EVENT_TRIGGER {
+    int32 scene_num_id = 1;
+    uint64 id = 2;
+    string event_name = 3;
+    map<string, DYNAMIC_PARAMETER> properties = 4;
+}
+message SC_SCENE_UPDATE_INTERACTIVE_PROPERTY {
+    int32 scene_num_id = 1;
+    uint64 id = 2;
+    map<int32, DYNAMIC_PARAMETER> properties = 3;
+    bool clientOperate = 4;
+}
+message CS_SCENE_REST {
+}
+message ENTITY_INFO {
+    ENTITY_OP_TYPE entity_op_type = 2;
+    uint64 id = 3;
+    int32 type = 4;
+}
+message SC_SCENE_CREATE_ENTITY {
+    int32 scene_num_id = 1;
+    uint64 id = 2;
+}
+message SC_SCENE_DESTROY_ENTITY {
+    int32 scene_num_id = 1;
+    uint64 id = 2;
+    int32 reason = 3;
+}
+message SC_SCENE_CROSS_SCENE_STATUS {
+    uint64 obj_id = 1;
+    int32 scene_num_id = 2;
+}
+message CS_SCENE_REVIVAL {
+}
+message SC_SCENE_REVIVAL {
+}
+message CS_SCENE_SET_STORY_SAFE_ZONE {
+    bool in_zone = 1;
+}
+message SC_SCENE_SET_STORY_SAFE_ZONE {
+    bool in_zone = 1;
+}
+message CS_SCENE_SET_SAFE_ZONE {
+    bool in_zone = 1;
+    uint64 id = 2;
+}
+message SC_SCENE_SET_SAFE_ZONE {
+    bool in_zone = 1;
+    uint64 id = 2;
+}
+message CS_SCENE_SPAWN_SUMMON {
+    string summon_id = 1;
+    VECTOR position = 2;
+    VECTOR rotation = 3;
+    string skill_id = 4;
+    BATTLE_BLACKBOARD blackboard = 5;
+}
+message SC_SCENE_UNLOCK_AREA {
+    int32 scene_num_id = 1;
+    string area_id = 2;
+}
+message CS_SCENE_INTERACT_TREE {
+    string tree_type_id = 1;
+    VECTOR position = 2;
+    bool is_breaked = 3;
+}
+message SVR_TP_REASON_GOTO_HUB_DETAIL {
+    uint64 obj_id = 1;
+}
+message SVR_TP_REASON_GOTO_CAMP_DETAIL {
+    uint64 camp_id = 1;
+}
+message CLT_TP_REASON_SPATIAL_CROSSING_IN_MOVE_DETAIL {
+    uint64 from_space_id = 1;
+    uint64 to_space_id = 2;
+}
+message CLT_TP_REASON_CUTSCENE_DETAIL {
+    string cutsceneId = 1;
+    string logicId = 2;
+}
+message CLT_TP_REASON_GUIDE_DETAIL {
+    string guideId = 1;
+}
+message CS_SCENE_TELEPORT {
+    int32 scene_num_id = 1;
+    VECTOR position = 2;
+    VECTOR rotation = 3;
+    int32 teleport_reason = 4;
+    PASS_THROUGH_DATA pass_through_data = 5;
+    string tp_pos_id = 6;
+    oneof tp_reason_detail {
+        SVR_TP_REASON_GOTO_HUB_DETAIL svr_tp_goto_hub_detail = 21;
+        SVR_TP_REASON_GOTO_CAMP_DETAIL svr_tp_goto_camp_detail = 22;
+        CLT_TP_REASON_SPATIAL_CROSSING_IN_MOVE_DETAIL clt_tp_spatial_crossing_in_move = 121;
+        CLT_TP_REASON_CUTSCENE_DETAIL clt_tp_cutscene = 122;
+        CLT_TP_REASON_GUIDE_DETAIL clt_tp_guide = 123;
+    }
+}
+message SC_SCENE_TELEPORT {
+    repeated uint64 obj_id_list = 1;
+    int32 scene_num_id = 2;
+    VECTOR position = 3;
+    VECTOR rotation = 4;
+    uint32 server_time = 5;
+    int32 teleport_reason = 6;
+    uint64 tp_uuid = 7;
+    PASS_THROUGH_DATA pass_through_data = 8;
+}
+message CS_SCENE_TELEPORT_FINISH {
+    uint64 tp_uuid = 1;
+}
+message CS_SCENE_SUBMIT_ETHER {
+    string domain_id = 1;
+}
+message SC_SCENE_SUBMIT_ETHER {
+    int32 level = 1;
+    int32 count = 2;
+    string domain_id = 3;
+}
+message AREA_UNLOCK_INFO {
+    string scene_id = 1;
+    repeated string unlock_area_id = 2;
+}
+message SUBMIT_ETHER_INFO {
+    int32 level = 1;
+    int32 count = 2;
+    string domain_id = 3;
+}
+message SC_SYNC_ALL_ROLE_SCENE {
+    int32 submit_ether_level = 1;
+    int32 submit_ether_count = 2;
+    repeated AREA_UNLOCK_INFO unlock_area_info = 3;
+    repeated SUBMIT_ETHER_INFO ether_info = 4;
+}
+message CS_SCENE_SET_LAST_SAFE_ZONE {
+    int32 scene_num_id = 1;
+    VECTOR position = 2;
+    VECTOR rotation = 3;
+    int32 reason = 4;
+    uint64 source_script_id = 5;
+}
+message CS_SCENE_REPATRIATE {
+    int32 scene_num_id = 1;
+    int32 repatriate_source = 2;
+    PASS_THROUGH_DATA pass_through_data = 3;
+}
+message SC_SCENE_REPATRIATE {
+    int32 scene_num_id = 1;
+    int32 repatriate_source = 2;
+}
+message CS_SCENE_SET_BATTLE {
+    bool in_battle = 1;
+    int64 enter_battle_ts = 2;
+}
+message SC_SCENE_SET_BATTLE {
+    bool in_battle = 1;
+}
+message SC_REWARD_TO_SCENE_BEGIN {
+    int32 reward_source_type = 1;
+    string source_template_id = 2;
+    uint64 source_obj_id = 3;
+}
+message SC_REWARD_TO_SCENE_END {
+}
+message SC_SCENE_LEVEL_SCRIPT_EVENT_TRIGGER {
+}
+message SC_SCENE_LEVEL_SCRIPT_SET_DONE {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+}
+message SC_SCENE_LEVEL_SCRIPT_STAGE_CHANGE {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    int32 stage = 3;
+}
+message SC_SCENE_INTERACTIVE_EVENT_TRIGGER {
+}
+message SCENE_DROP {
+    uint64 drop_id = 1;
+    map<string, int64> stackable_items = 2;
+    repeated SCD_ITEM_GRID inst_list = 3;
+}
+message SC_SCENE_DROP_CREATE {
+    SCENE_DROP drop_data = 1;
+}
+message SC_SCENE_DROP_DELETE {
+    uint64 drop_id = 1;
+}
+message SC_SCENE_DROP_MODIFY {
+    uint64 drop_id = 1;
+    map<string, int64> items = 2;
+    repeated SCD_ITEM_GRID inst_list = 3;
+    repeated uint64 del_inst_list = 4;
+}
+message SC_SCENE_CLIENT_ID_INFO {
+    uint32 role_idx = 1;
+    uint64 last_max_idx = 2;
+}
+message SC_SCENE_UPDATE_INTERACTIVE_META {
+    int32 scene_num_id = 1;
+    uint64 id = 2;
+    int32 meta = 3;
+}
+message CS_SCENE_UPDATE_SCRIPT_TASK_PROGRESS {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    string task_id = 3;
+    repeated SCRIPT_TASK_OBJECTIVE_VALUE_OP objective_value_ops = 4;
+}
+message SCRIPT_TASK_OBJECTIVE_VALUE_OP {
+    string condition_id = 1;
+    int32 value = 2;
+    bool is_add = 3;
+}
+message CS_SCENE_TOUCH_TRIGGER_VOLUME_REQ {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    uint64 script_local_id = 3;
+}
+message SC_SCENE_MODIFY_TRIGGER_VOLUME_SYNC {
+    int32 scene_num_id = 1;
+    uint64 script_id = 2;
+    repeated SCD_TRIGGER_VOLUME_INFO trigger_volume_infos = 3;
+}
+message CS_SCENE_GET_UNSTUCK_REQ {
+    int32 scene_num_id = 1;
+}
+message SC_SCENE_GET_UNSTUCK_RSP {
+    int32 scene_num_id = 1;
+    int64 last_get_unstuck_exec_ts = 2;
+}
+message CS_SCENE_REFRESH_LS_INTERACTIVE_META_REQ {
+    int32 scene_num_id = 1;
+    uint64 entity_id = 2;
+}
+message CS_SCENE_INTERACT_NPC {
+    uint64 obj_id = 1;
+}
+message SC_SCENE_INTERACT_NPC {
+    uint64 obj_id = 1;
+}
+message SC_SCENE_UPDATE_NPC_LAST_INTERACT_TIME {
+    uint64 obj_id = 1;
+    int64 last_interact_time_stamp = 2;
+}
+message SCENE_GAMEPLAY_ELECTRIC_NODE {
+    uint64 obj_id = 1;
+    bool has_power = 2;
+    oneof _is_terminal {
+        bool is_terminal = 3;
+    }
+}
+message SC_SCENE_GAMEPLAY_ELECTRICITY_DATA_SYNC {
+    int32 scene_num_id = 1;
+    repeated SCENE_GAMEPLAY_ELECTRIC_NODE nodes = 2;
+}
+message SC_SCENE_CROSS_BORDER_NOTIFY {
+    SCENE_CROSS_BORDER_OP op = 1;
+    SCENE_CROSS_BORDER_REASON reason = 2;
+}
+message SCENE_TRANSFORM {
+    VECTOR position = 1;
+    VECTOR rotation = 2;
+}
+message SCENE_LOC {
+    string scene_id = 1;
+    SCENE_TRANSFORM transform = 2;
+}
+message SCENE_CHECKPOINT {
+    SCENE_TRANSFORM transform = 1;
+    int32 checkpoint_type = 2;
+    int32 detail_type = 3;
+    uint64 modify_time = 4;
+    uint64 from_script_id = 5;
+}
+message SC_SCENE_CHECKPOINT_DEBUG_INFO {
+    int32 move_tag_mask = 1;
+    SCENE_LOC cur_loc = 2;
+    SCENE_LOC last_valid_world_loc = 3;
+    SCENE_LOC save_loc = 4;
+    SCENE_LOC safezone_loc = 5;
+    repeated SCENE_CHECKPOINT sp_checkpoints = 6;
+}
+message SC_SCENE_CHECKPOINT_SET_DEBUG_INFO {
+    bool is_set = 1;
+    repeated SCENE_CHECKPOINT sp_checkpoints = 6;
+}
+message SC_SCENE_DEBUG_SERVER_SCRIPT {
+    SERVER_SCRIPT_UNIT_TYPE unit_type = 10;
+    string scene_name = 11;
+    uint64 script_id = 12;
+    repeated string error_logs = 13;
+    oneof unit {
+        DEBUG_ACTION_DETAIL action = 1;
+        DEBUG_CONDITION_DETAIL condition = 2;
+        DEBUG_CUSTOM_EVENT_DETAIL custom_event = 3;
+        DEBUG_NATIVE_EVENT_DETAIL native_event = 4;
+    }
+}
+message DEBUG_ACTION_DETAIL {
+    string action_id = 1;
+    repeated DYNAMIC_PARAMETER input_parameters = 2;
+    bool invoke_result = 3;
+}
+message DEBUG_CONDITION_DETAIL {
+    string condition_id = 1;
+    repeated DYNAMIC_PARAMETER input_parameters = 2;
+    bool invoke_result = 3;
+    int32 left_val = 4;
+}
+message DEBUG_CUSTOM_EVENT_DETAIL {
+    string event_name = 1;
+}
+message DEBUG_NATIVE_EVENT_DETAIL {
+    string event_name = 1;
+}
+message SC_SCENE_SYNC_CUR_MAP_VAR {
+    string map_name = 1;
+    map<int32, int64> map_vars = 2;
+}
+message SC_SCENE_UPDATE_MAP_VAR {
+    string map_name = 1;
+    map<int32, int64> map_vars = 2;
+}

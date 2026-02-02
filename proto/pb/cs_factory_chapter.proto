@@ -1,0 +1,710 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+import "options.proto";
+
+enum SCD_FACTORY_HS_CE_EventType {
+    SCD_FACTORY_HS_CE_None = 0;
+    SCD_FACTORY_HS_CE_InPowerUp = 1;
+    SCD_FACTORY_HS_CE_InPowerDown = 2;
+    SCD_FACTORY_HS_CE_FluidHeightChange = 3;
+    SCD_FACTORY_HS_CE_FluidContentChange = 4;
+    SCD_FACTORY_HS_CE_ProducerChangeFormula = 5;
+    SCD_FACTORY_HS_CE_BusLoaderChangeLastPutIn = 6;
+    SCD_FACTORY_HS_CE_BattleEnergyChange = 7;
+    SCD_FACTORY_HS_CE_JoinWorking = 8;
+    SCD_FACTORY_HS_CE_LeaveWorking = 9;
+    SCD_FACTORY_HS_CE_RegionPower = 10;
+    SCD_FACTORY_HS_CE_BlockComponent = 11;
+    SCD_FACTORY_HS_CE_UnBlockComponent = 12;
+    SCD_FACTORY_HS_CE_SubPortBlock = 21;
+    SCD_FACTORY_HS_CE_SubPortUnBlock = 22;
+    SCD_FACTORY_HS_CE_ChangeProduct = 31;
+    SCD_FACTORY_HS_CE_UdPipeChageLastPutIn = 35;
+}
+message SCD_VEC3_INT {
+    int32 X = 1;
+    int32 Y = 2;
+    int32 Z = 3;
+}
+message SCD_RECT_INT {
+    int32 X = 1;
+    int32 Y = 2;
+    int32 Z = 3;
+    int32 L = 4;
+    int32 W = 5;
+    int32 H = 6;
+}
+message SCD_FAC_SUB_PORT {
+    SCD_VEC3_INT position = 1;
+    SCD_VEC3_INT direction = 2;
+}
+message SCD_FACTORY_SYNC_ITEM {
+    string id = 1;
+    int32 count = 2;
+    int32 offset = 6;
+    int64 tms = 11;
+}
+message SCD_FACTORY_SYNC_BC_ITEM {
+    string id = 1;
+    int32 index = 2;
+    int32 offset = 3;
+}
+message SCD_FAC_FLUID_REACTION_FORMULA {
+    string formula_id = 1;
+    int64 current_progress = 2;
+    bool in_block = 3;
+}
+message SCD_FACTORY_HS_CT {
+    uint32 component_id = 1;
+    repeated uint32 item_in = 2;
+    repeated uint32 item_out = 3;
+    repeated int32 index_in = 4;
+    repeated int32 index_out = 5;
+}
+message SCD_FACTORY_HS_FB {
+    uint32 component_id = 1;
+    oneof component_payload {
+        SCD_FACTORY_HS_FB_CACHE cache = 2;
+        SCD_FACTORY_HS_FB_PRODUCER producer = 3;
+        SCD_FACTORY_HS_FB_COLLECTOR collector = 4;
+        SCD_FACTORY_HS_FB_BURN_POWER burn_power = 5;
+        SCD_FACTORY_HS_FB_CACHE_TRANSPORT cache_transport = 6;
+        SCD_FACTORY_HS_FB_GRID_BOX grid_box = 7;
+        SCD_FACTORY_HS_FB_BOX_ROUTER_M1 box_router_m1 = 8;
+        SCD_FACTORY_HS_FB_BOX_BRIDGE box_bridge = 9;
+        SCD_FACTORY_HS_FB_FLUID_BRIDGE fluid_bridge = 12;
+        SCD_FACTORY_HS_FB_FLUID_ROUTER_M1 fluid_router_m1 = 13;
+        SCD_FACTORY_HS_FB_FLUID_CONTAINER fluid_container = 14;
+        SCD_FACTORY_HS_FB_FLUID_PUMP_IN fluid_pump_in = 15;
+        SCD_FACTORY_HS_FB_BATTLE battle = 16;
+        SCD_FACTORY_HS_FB_BATTERY_BURN battery_burn = 17;
+        SCD_FACTORY_HS_FB_FLUID_SPRAY fluid_spray = 18;
+        SCD_FACTORY_HS_FB_FLUID_PUMP_OUT fluid_pump_out = 19;
+        SCD_FACTORY_HS_FB_FLUID_CONSUME fluid_consume = 20;
+        SCD_FACTORY_HS_FB_FLUID_REACTION fluid_reaction = 21;
+        SCD_FACTORY_HS_FB_WATER_COLLECTOR water_collector = 22;
+        SCD_FACTORY_HS_FB_BOX_VALVE box_valve = 23;
+        SCD_FACTORY_HS_FB_FLUID_VALVE fluid_valve = 24;
+        SCD_FACTORY_HS_FB_FLUID_UD_PIPE ud_pipe = 25;
+    }
+}
+message SCD_FACTORY_HS_FB_CACHE {
+    repeated uint32 items = 1;
+}
+message SCD_FACTORY_HS_FB_PRODUCER {
+    int64 progress_incr_per_ms = 1;
+    string formula_id = 2;
+    int64 current_progress = 3;
+}
+message SCD_FACTORY_HS_FB_COLLECTOR {
+    int64 progress_incr_per_ms = 1;
+    int64 current_progress = 2;
+}
+message SCD_FACTORY_HS_FB_BURN_POWER {
+    int64 progress_decr_per_ms = 1;
+    int64 current_least_progress = 2;
+}
+message SCD_FACTORY_HS_FB_CACHE_TRANSPORT {
+    int64 progress_incr_per_ms = 1;
+    int64 current_progress = 2;
+}
+message SCD_FACTORY_HS_FB_GRID_BOX {
+    repeated uint32 items = 1;
+}
+message SCD_FACTORY_HS_FB_BOX_ROUTER_M1 {
+    repeated uint32 items = 1;
+    map<int32, uint32> last_item_in = 2;
+    map<int32, uint32> last_item_out = 3;
+}
+message SCD_FACTORY_HS_FB_BOX_BRIDGE {
+    repeated uint32 items = 1;
+    uint32 last_item_in = 2;
+    uint32 last_item_out = 3;
+}
+message SCD_FACTORY_HS_FB_BOX_VALVE {
+    repeated uint32 items = 1;
+    int32 current_passed = 2;
+}
+message SCD_FACTORY_HS_FB_FLUID_BRIDGE {
+    repeated uint32 items = 1;
+    uint32 last_item_in = 2;
+    uint32 last_item_out = 3;
+}
+message SCD_FACTORY_HS_FB_FLUID_ROUTER_M1 {
+    repeated uint32 items = 1;
+    map<int32, uint32> last_item_in = 2;
+    map<int32, uint32> last_item_out = 3;
+}
+message SCD_FACTORY_HS_FB_FLUID_VALVE {
+    repeated uint32 items = 1;
+    int32 current_passed = 2;
+}
+message SCD_FACTORY_HS_FB_FLUID_UD_PIPE {
+    int32 last_round_pass_count = 1;
+}
+message SCD_FACTORY_HS_FB_FLUID_CONTAINER {
+    repeated uint32 items = 1;
+    bool infinite = 2;
+}
+message SCD_FACTORY_HS_FB_FLUID_PUMP_IN {
+    int64 progress_incr_per_ms = 1;
+    int64 current_progress = 2;
+}
+message SCD_FACTORY_HS_FB_FLUID_PUMP_OUT {
+    int64 progress_incr_per_ms = 1;
+    int64 current_progress = 2;
+    int32 last_round_pump_count = 3;
+}
+message SCD_FACTORY_HS_FB_FLUID_CONSUME {
+    int64 progress_incr_per_ms = 1;
+    int64 current_progress = 2;
+}
+message SCD_FACTORY_HS_FB_FLUID_REACTION {
+    repeated SCD_FAC_FLUID_REACTION_FORMULA formulas = 1;
+    int64 progress_incr_per_ms = 2;
+}
+message SCD_FACTORY_HS_FB_BATTLE {
+    int32 energy_current = 1;
+    int32 energy_max = 2;
+    bool in_overloading = 3;
+}
+message SCD_FACTORY_HS_FB_BATTERY_BURN {
+    int32 energy_loaded = 1;
+    int32 energy_current = 2;
+}
+message SCD_FACTORY_HS_FB_FLUID_SPRAY {
+    int64 progress_incr_per_ms = 1;
+    int64 current_progress = 2;
+    int32 last_round_spray_count = 3;
+}
+message SCD_FACTORY_HS_FB_WATER_COLLECTOR {
+    int64 progress_incr_per_ms = 1;
+    int64 current_progress = 2;
+}
+message SCD_FACTORY_HS_CE {
+    SCD_FACTORY_HS_CE_EventType EventType = 1;
+    repeated uint32 EventParam = 2;
+}
+message SCD_FACTORY_HS_BB {
+    SCD_FACTORY_HS_BB_POWER power = 1;
+}
+message SCD_FACTORY_HS_BB_POWER {
+    bool is_stop_by_power = 1;
+    int64 power_cost_sum = 2;
+    int64 power_save_max = 3;
+    int64 power_save_current = 4;
+    int64 power_gen_last_sec = 5;
+}
+message SCD_FAC_COM {
+    uint32 component_id = 1;
+    int32 component_type = 2;
+    oneof component_payload {
+        SCD_FAC_COM_PORT_MANAGER port_manager = 9;
+        SCD_FAC_COM_INVENTORY inventory = 10;
+        SCD_FAC_COM_CACHE cache = 11;
+        SCD_FAC_COM_SELECTOR selector = 12;
+        SCD_FAC_COM_COLLECTOR collector = 13;
+        SCD_FAC_COM_PRODUCER producer = 14;
+        SCD_FAC_COM_BOX_CONVEYOR box_conveyor = 15;
+        SCD_FAC_COM_BOX_ROUTER_M1 box_router_m1 = 16;
+        SCD_FAC_COM_BURN_POWER burn_power = 17;
+        SCD_FAC_COM_CACHE_TRANSPORT cache_transport = 18;
+        SCD_FAC_COM_STABLE_POWER stable_power = 19;
+        SCD_FAC_COM_POWER_POLE power_pole = 20;
+        SCD_FAC_COM_POWER_SAVE power_save = 22;
+        SCD_FAC_COM_BUS_LOADER bus_loader = 23;
+        SCD_FAC_COM_TRAVEL_POLE travel_pole = 24;
+        SCD_FAC_COM_GRID_BOX grid_box = 25;
+        SCD_FAC_COM_BOX_BRIDGE box_bridge = 26;
+        SCD_FAC_COM_BATTLE battle = 27;
+        SCD_FAC_COM_FLUID_CONVEYOR fluid_conveyor = 28;
+        SCD_FAC_COM_FLUID_BRIDGE fluid_bridge = 29;
+        SCD_FAC_COM_FLUID_ROUTER_M1 fluid_router_m1 = 30;
+        SCD_FAC_COM_FORMULA_MAN formula_man = 31;
+        SCD_FAC_COM_FLUID_CONTAINER fluid_container = 32;
+        SCD_FAC_COM_FLUID_PUMP_IN fluid_pump_in = 33;
+        SCD_FAC_COM_BATTERY_BURN battery_burn = 34;
+        SCD_FAC_COM_SUB_HUB sub_hub = 35;
+        SCD_FAC_COM_WATER_COLLECTOR water_collector = 36;
+        SCD_FAC_COM_SOIL soil = 37;
+        SCD_FAC_COM_FLUID_SPRAY fluid_spray = 38;
+        SCD_FAC_COM_FLUID_PUMP_OUT fluid_pump_out = 39;
+        SCD_FAC_COM_FLUID_CONSUME fluid_consume = 40;
+        SCD_FAC_COM_FLUID_REACTION fluid_reaction = 41;
+        SCD_FAC_COM_BOX_VALVE box_valve = 42;
+        SCD_FAC_COM_FLUID_VALVE fluid_valve = 43;
+        SCD_FAC_COM_SOCIAL social_value = 44;
+        SCD_FAC_COM_BUS_FREE bus_free = 45;
+        SCD_FAC_COM_BUS_START bus_start = 46;
+        SCD_FAC_COM_FLUID_UD_PIPE ud_pipe = 47;
+        SCD_FAC_COM_SIGN sign = 48;
+    }
+}
+message SCD_FAC_COM_SUB_PORT {
+    int32 index = 1;
+    uint32 owner_com_id = 2;
+    uint32 touch_com_id = 3;
+    bool in_block = 4;
+}
+message SCD_FAC_COM_PORT_MANAGER {
+    repeated SCD_FAC_COM_SUB_PORT ports = 1;
+}
+message SCD_FAC_COM_INVENTORY {
+    map<uint32, int32> items = 1;
+}
+message SCD_FAC_COM_CACHE {
+    repeated SCD_FACTORY_SYNC_ITEM items = 1;
+    int32 size = 2;
+}
+message SCD_FAC_COM_SELECTOR {
+    string selected_item_id = 1;
+}
+message SCD_FAC_COM_BUS_LOADER {
+    string last_putin_item_id = 1;
+}
+message SCD_FAC_COM_COLLECTOR {
+    repeated SCD_FACTORY_SYNC_ITEM items_round = 1;
+    int64 current_progress = 2;
+    bool in_block = 4;
+}
+message SCD_FAC_COM_WATER_COLLECTOR {
+    repeated SCD_FACTORY_SYNC_ITEM items_round = 1;
+    int64 current_progress = 2;
+    bool in_block = 4;
+    bool in_produce = 5;
+}
+message SCD_FAC_COM_PRODUCER {
+    string formula_id = 1;
+    int64 current_progress = 2;
+    bool in_block = 4;
+    bool in_produce = 5;
+    string last_formula_id = 11;
+}
+message SCD_FAC_COM_BURN_POWER {
+    int64 current_least_progress = 1;
+    string current_burn_item_id = 2;
+    int64 power_gen_per_sec = 3;
+}
+message SCD_FAC_COM_STABLE_POWER {
+    int64 power_gen_per_sec = 3;
+}
+message SCD_FAC_COM_CACHE_TRANSPORT {
+    int64 current_progress = 1;
+    int64 total_progress = 2;
+    bool auto_transport = 3;
+    bool in_use = 5;
+}
+message SCD_FAC_COM_BOX_CONVEYOR {
+    repeated SCD_FACTORY_SYNC_ITEM items = 2;
+    repeated SCD_FACTORY_SYNC_BC_ITEM items_v2 = 3;
+}
+message SCD_FAC_COM_BOX_BRIDGE {
+    SCD_FACTORY_SYNC_ITEM hold_item = 1;
+}
+message SCD_FAC_COM_BOX_ROUTER_M1 {
+    SCD_FACTORY_SYNC_ITEM hold_item = 1;
+    bool m_in = 2;
+}
+message SCD_FAC_COM_BOX_VALVE {
+    SCD_FACTORY_SYNC_ITEM hold_item = 1;
+    string selected_item_id = 2;
+    bool valve_enable = 3;
+    int32 valve_passed = 4;
+    int32 current_passed = 5;
+}
+message SCD_FAC_COM_FLUID_CONVEYOR {
+    string item_id = 1;
+    int32 fluid_height = 2;
+    repeated int64 box_tms_list = 3;
+    repeated int32 box_offset_list = 4;
+}
+message SCD_FAC_COM_FLUID_BRIDGE {
+    SCD_FACTORY_SYNC_ITEM hold_item = 1;
+}
+message SCD_FAC_COM_FLUID_ROUTER_M1 {
+    SCD_FACTORY_SYNC_ITEM hold_item = 1;
+    bool m_in = 2;
+}
+message SCD_FAC_COM_FLUID_CONTAINER {
+    SCD_FACTORY_SYNC_ITEM hold_item = 1;
+    bool infinite = 2;
+}
+message SCD_FAC_COM_FLUID_VALVE {
+    SCD_FACTORY_SYNC_ITEM hold_item = 1;
+    string selected_item_id = 2;
+    bool valve_enable = 3;
+    int32 valve_passed = 4;
+    int32 current_passed = 5;
+}
+message SCD_FAC_COM_BUS_FREE {
+    bool enabled = 1;
+}
+message SCD_FAC_COM_BUS_START {
+}
+message SCD_FAC_COM_FLUID_UD_PIPE {
+    uint64 conn_com_id = 1;
+    int32 offset = 2;
+    string last_pass_item_id = 3;
+    bool in_block = 4;
+}
+message SCD_FAC_COM_POWER_POLE {
+}
+message SCD_FAC_COM_POWER_SAVE {
+    int64 power_save = 1;
+}
+message SCD_FAC_COM_TRAVEL_POLE {
+    uint32 default_next = 11;
+}
+message SCD_FAC_COM_GRID_BOX {
+    repeated SCD_FACTORY_SYNC_ITEM items = 1;
+}
+message SCD_FAC_COM_FORMULA_MAN {
+    repeated string formula_ids = 1;
+    string locked_formula_id = 2;
+    string current_mode = 11;
+    string current_group = 12;
+}
+message SCD_FAC_COM_FLUID_PUMP_IN {
+    SCD_FACTORY_SYNC_ITEM item_round = 1;
+    int64 current_progress = 2;
+    string source_inst_key = 3;
+    bool in_block = 4;
+    bool in_produce = 5;
+}
+message SCD_FAC_COM_FLUID_PUMP_OUT {
+    int32 round_count = 1;
+    int64 current_progress = 2;
+    string target_inst_key = 3;
+    bool in_block = 4;
+    bool in_produce = 5;
+}
+message SCD_FAC_COM_FLUID_CONSUME {
+    int32 round_count = 1;
+    int64 current_progress = 2;
+    bool in_block = 3;
+    bool in_produce = 4;
+    string latest_item_id = 5;
+}
+message SCD_FAC_COM_FLUID_REACTION {
+    repeated SCD_FAC_FLUID_REACTION_FORMULA formulas = 1;
+    bool in_block = 2;
+    bool in_produce = 3;
+}
+message SCD_FAC_COM_BATTLE {
+    int32 energy_current = 1;
+    int32 energy_max = 2;
+    bool in_overloading = 3;
+}
+message SCD_FAC_COM_BATTERY_BURN {
+    int32 energy_loaded = 1;
+    int32 energy_current = 2;
+}
+message SCD_FAC_COM_SUB_HUB {
+    int32 level = 1;
+}
+message SCD_FAC_COM_SOIL {
+    int32 step_cursor = 1;
+    int32 water_got = 2;
+    int32 grow_ms = 4;
+    int32 increased_type = 5;
+    int32 ripen_count = 6;
+    int64 in_grow_tms = 3;
+}
+message SCD_FAC_COM_FLUID_SPRAY {
+    int64 current_progress = 1;
+    bool in_produce = 2;
+    int32 last_round_spray_count = 3;
+    bool in_block = 11;
+}
+message SCD_FAC_COM_SOCIAL {
+    uint64 owner_id = 1;
+    uint32 social_node_id = 2;
+    uint64 like = 3;
+    int64 last_set_like_ts = 4;
+    int64 expiration_ts = 5;
+    bool preset = 6;
+}
+message SCD_FAC_COM_SIGN {
+    repeated int32 sign_id = 1;
+}
+message SCD_FAC_NODE {
+    uint32 node_id = 1;
+    int32 node_type = 2;
+    string template_id = 3;
+    SCD_FAC_TRANSFORM transform = 4;
+    bool is_deactive = 5;
+    SCD_FAC_INTERACTIVE_OBJECT interactive_object = 6;
+    SCD_FAC_NODE_POWER power = 8;
+    string inst_key = 9;
+    uint32 flag = 10;
+    map<int32, uint32> component_pos = 11;
+    repeated SCD_FAC_COM components = 12;
+}
+message SCD_FAC_TRANSFORM {
+    SCD_VEC3_INT position = 1;
+    SCD_VEC3_INT direction = 2;
+    SCD_FAC_MESH mesh = 3;
+    int32 map_id = 4;
+    VECTOR world_position = 9;
+    VECTOR world_rotation = 10;
+    SCD_FAC_SUB_PORT bc_port_in = 11;
+    SCD_FAC_SUB_PORT bc_port_out = 12;
+}
+message SCD_FAC_MESH {
+    int32 mesh_type = 1;
+    repeated SCD_VEC3_INT points = 2;
+}
+message SCD_FAC_NODE_POWER {
+    bool in_power = 1;
+    int64 power_cost = 2;
+    bool need_in_power = 11;
+    int64 power_cost_show = 12;
+}
+message SCD_FAC_INTERACTIVE_OBJECT {
+    uint64 object_id = 1;
+}
+message SCD_FACTORY_SYNC_SCENE {
+    int32 scene_id = 1;
+    SCD_FACTORY_SYNC_SCENE_BANDWIDTH bandwidth = 5;
+    repeated SCD_FACTORY_SYNC_SCENE_PANEL panels = 6;
+    repeated SCD_FACTORY_SYNC_SCENE_PANEL soil_panels = 7;
+    map<string, SCD_FACTORY_SYNC_SCENE_BANDWIDTH> settlements = 10;
+}
+message SCD_FACTORY_SYNC_SCENE_PANEL {
+    int32 index = 1;
+    int32 level = 2;
+    repeated SCD_RECT_INT main_mesh = 3;
+}
+message SCD_FACTORY_SYNC_SCENE_BANDWIDTH {
+    int32 current = 1;
+    int32 max = 2;
+    int32 travel_pole_current = 3;
+    int32 travel_pole_max = 4;
+    int32 battle_current = 5;
+    int32 battle_max = 6;
+    int32 sp_current = 11;
+    int32 sp_max = 12;
+}
+message SCD_FACTORY_SYNC_MAP {
+    int32 map_id = 1;
+    repeated SCD_FACTORY_SYNC_MAP_WIRE wires = 2;
+}
+message SCD_FACTORY_SYNC_MAP_WIRE {
+    uint64 index = 1;
+    uint64 from_com_id = 2;
+    uint64 to_com_id = 3;
+}
+message SCD_FACTORY_SYNC_BLACKBOARD {
+    uint32 inventory_node_id = 1;
+    SCD_FACTORY_SYNC_BLACKBOARD_POWER power = 11;
+}
+message SCD_FACTORY_SYNC_BLACKBOARD_POWER {
+    int64 power_cost = 1;
+    int64 power_gen = 2;
+    int64 power_save_max = 3;
+    int64 power_save_current = 4;
+    bool is_stop_by_power = 5;
+}
+message SCD_FACTORY_STATISTIC_LASTDAY {
+    repeated SCD_FACTORY_STATISTIC_LASTDAY_DAY days = 1;
+}
+message SCD_FACTORY_STATISTIC_LASTDAY_DAY {
+    int64 day_ts = 1;
+    map<string, int64> from_productivity = 2;
+}
+message SCD_FACTORY_STATISTIC_OTHER {
+    int32 power_net_length_sum = 1;
+    int32 in_power_building = 2;
+    float power_net_coverage = 3;
+}
+message SCD_FACTORY_STATISTIC_RECORD {
+    int32 rank = 1;
+    repeated int64 points_gen = 2;
+    repeated int64 points_cost = 3;
+    int64 theoretical_gen = 4;
+    int64 theoretical_cost = 5;
+}
+message SCD_FACTORY_SYNC_PIN_BOARD {
+    repeated SCD_FACTORY_PIN_CARD cards = 1;
+}
+message SCD_FACTORY_PIN_CARD {
+    int32 pos = 1;
+    string str_id = 2;
+    uint64 num_id = 3;
+}
+message SCD_FACTORY_SYNC_QUICKBAR {
+    int32 type = 1;
+    repeated string list = 2;
+}
+message CSD_BATCH_PLACE_SELECTOR {
+    string selected_item_id = 1;
+}
+message CSD_BATCH_PLACE_FORMULA_MAN {
+    string cur_mode = 1;
+}
+message CSD_BATCH_PLACE_BOX_VALVE {
+    string selected_item_id = 1;
+    bool valve_enable = 2;
+    int32 valve_passed = 3;
+}
+message CSD_BATCH_PLACE_FLUID_VALVE {
+    string selected_item_id = 1;
+    bool valve_enable = 2;
+    int32 valve_passed = 3;
+}
+message CSD_BATCH_PLACE_SIGN {
+    repeated int32 sign_ids = 1;
+}
+message CSD_BATCH_PLACE_COM {
+    int32 com_type = 1;
+    uint32 com_pos = 2;
+    oneof component_payload {
+        CSD_BATCH_PLACE_SELECTOR selector = 10;
+        CSD_BATCH_PLACE_FORMULA_MAN formula_man = 11;
+        CSD_BATCH_PLACE_BOX_VALVE box_valve = 12;
+        CSD_BATCH_PLACE_FLUID_VALVE fluid_valve = 13;
+        CSD_BATCH_PLACE_SIGN sign = 14;
+    }
+}
+message CSD_BATCH_PLACE_COM_LIST {
+    repeated CSD_BATCH_PLACE_COM coms = 1;
+}
+message SCD_BATCH_PENDING_BUILDING_DATA {
+    int32 slot_id = 1;
+    map<string, int32> pre_cost_items = 2;
+    repeated SCD_FAC_NODE nodes = 3;
+    map<uint32, CSD_BATCH_PLACE_COM_LIST> com_data = 4;
+}
+message SCD_FACTORY_SYNC_PENDING_PLACE {
+    repeated SCD_BATCH_PENDING_BUILDING_DATA pending_place_info = 1;
+    repeated SCD_FAC_NODE conveyor_related_nodes = 2;
+}
+message SC_FACTORY_SYNC_CHAPTER {
+    int64 tms = 1;
+    string chapter_id = 2;
+    repeated SCD_FAC_NODE nodes = 3;
+    repeated SCD_FACTORY_SYNC_SCENE scenes = 4;
+    SCD_FACTORY_SYNC_BLACKBOARD blackboard = 5;
+    SCD_FACTORY_SYNC_PIN_BOARD pin_board = 6;
+    repeated SCD_FACTORY_SYNC_MAP maps = 7;
+    repeated SCD_FACTORY_SYNC_QUICKBAR quickbars = 8;
+    SCD_FACTORY_SYNC_STATISTIC statistic = 9;
+    SCD_FACTORY_SYNC_PENDING_PLACE pending_place = 10;
+}
+message SC_FACTORY_MODIFY_CHAPTER_NODES {
+    int64 tms = 1;
+    string chapter_id = 2;
+    repeated SCD_FAC_NODE nodes = 3;
+    repeated uint32 remove_nodes = 4;
+}
+message SC_FACTORY_MODIFY_CHAPTER_COMPONENTS {
+    int64 tms = 1;
+    string chapter_id = 2;
+    repeated SCD_FAC_COM components = 3;
+}
+message SC_FACTORY_MODIFY_CHAPTER_MAP {
+    int64 tms = 1;
+    string chapter_id = 2;
+    int32 map_id = 3;
+    repeated SCD_FACTORY_SYNC_MAP_WIRE wires = 11;
+    repeated uint64 remove_wires = 12;
+}
+message SC_FACTORY_MODIFY_CHAPTER_SCENE {
+    int64 tms = 1;
+    string chapter_id = 2;
+    int32 scene_id = 3;
+    SCD_FACTORY_SYNC_SCENE_BANDWIDTH bandwidth = 13;
+    repeated SCD_FACTORY_SYNC_SCENE_PANEL panels = 14;
+    repeated SCD_FACTORY_SYNC_SCENE_PANEL soil_panels = 15;
+    map<string, SCD_FACTORY_SYNC_SCENE_BANDWIDTH> settlements = 20;
+}
+message SC_FACTORY_MODIFY_CHAPTER_PIN_BOARD {
+    int64 tms = 1;
+    string chapter_id = 2;
+    repeated SCD_FACTORY_PIN_CARD modified = 3;
+    repeated int32 release_pos = 4;
+}
+message SC_FACTORY_SWITCH_CHAPTER {
+    repeated string release_chapter_ids = 1;
+    repeated string active_chapter_ids = 2;
+}
+message SC_FACTORY_HS {
+    int64 tms = 1;
+    repeated SCD_FACTORY_HS_CT ctList = 2;
+    repeated SCD_FACTORY_HS_FB fbList = 3;
+    repeated SCD_FACTORY_HS_CE ceList = 4;
+    SCD_FACTORY_HS_BB blackboard = 5;
+    string chapter_id = 11;
+}
+message SC_FACTORY_HS_SYNC {
+    int64 tms = 1;
+    repeated SCD_FAC_COM ccList = 2;
+    repeated SCD_FACTORY_HS_FB fbList = 3;
+    SCD_FACTORY_SYNC_BLACKBOARD blackboard = 4;
+    string chapter_id = 11;
+}
+message SCD_FACTORY_SYNC_STATISTIC {
+    SCD_FACTORY_STATISTIC_OTHER other = 3;
+    SCD_FACTORY_STATISTIC_LASTDAY last_day = 4;
+}
+message SC_FACTORY_MODIFY_STATISTIC {
+    string chapter_id = 1;
+    SCD_FACTORY_STATISTIC_OTHER other = 3;
+    SCD_FACTORY_STATISTIC_LASTDAY last_day = 4;
+}
+message SC_FACTORY_STATISTIC_REQUIRE {
+    string chapter = 1;
+    SCD_FACTORY_STATISTIC_RECORD power = 2;
+    map<string, SCD_FACTORY_STATISTIC_RECORD> productivity = 3;
+}
+message SC_FACTORY_MODIFY_QUICKBAR {
+    int32 scope_name = 1;
+    repeated SCD_FACTORY_SYNC_QUICKBAR quickbars = 2;
+    string chapter_id = 3;
+}
+message SC_FACTORY_SYNC_PENDING_LIST {
+    int64 tms = 1;
+    string chapter_id = 2;
+    SCD_FACTORY_SYNC_PENDING_PLACE pending_place = 3;
+}
+message SC_FACTORY_MODIFY_PENDING_DATA {
+    int64 tms = 1;
+    string chapter_id = 2;
+    int32 slot_id = 3;
+    SCD_BATCH_PENDING_BUILDING_DATA pending_data = 4;
+}
+message CS_FACTORY_HS_FB {
+    string chapter_id = 1;
+    repeated uint32 node_id_list = 21;
+    bool undo = 3;
+}
+message CS_FACTORY_STATISTIC_REQUIRE {
+    int32 rank_power = 1;
+    int32 rank_productivity = 2;
+    repeated string productivity_item_ids = 3;
+    bool all_productivity = 4;
+    string chapter_id = 12;
+}
+message CS_FACTORY_PIN_SET {
+    int32 scope_name = 1;
+    int32 pos = 3;
+    string str_id = 4;
+    uint64 num_id = 5;
+    bool release = 11;
+}
+message CS_FACTORY_QUICKBAR_SET_ONE {
+    int32 type = 2;
+    int32 index = 3;
+    string item_id = 4;
+    string chapter_id = 5;
+}
+message CS_FACTORY_QUICKBAR_MOVE_ONE {
+    int32 type = 2;
+    int32 from_index = 3;
+    int32 to_index = 4;
+    string chapter_id = 5;
+}

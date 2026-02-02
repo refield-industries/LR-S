@@ -1,0 +1,669 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "beyond-go/proto/pbcommon;pbcommon";
+
+import "options.proto";
+
+enum CLIENT_PLATFORM_TYPE {
+    DEFAULT = 0;
+    ANDRIOD = 1;
+    IOS = 2;
+    WINDOWS = 3;
+    PLAYSTATION = 4;
+    HARMONYOS = 5;
+    MAX = 6;
+}
+enum MOVE_OBJECT_TYPE {
+    INVALID = 0;
+    ROLE = 1;
+    NPC = 2;
+    MONSTER = 3;
+    CHARACTER = 4;
+    INTERACTIVE = 5;
+    SUMMON = 6;
+}
+enum ITEM_FLAG {
+    ItemNormal = 0;
+    ItemLock = 1;
+    ItemTrash = 2;
+}
+enum ITEM_MOVE_MODE {
+    Normal = 0;
+    BatchItemId = 1;
+    Grid = 2;
+    HalfGrid = 3;
+    AutoBatch = 4;
+}
+enum INTERACTIVE_PROPERTY_VALUE_TYPE {
+    Bool = 0;
+    Int = 1;
+    Float = 2;
+    String = 3;
+}
+enum UID_TYPE {
+    Common = 0;
+    Char = 2;
+    Monster = 3;
+    Interactive = 4;
+    Npc = 5;
+    Summon = 6;
+    PayOrder = 7;
+}
+enum UID_TYPE_EXTEND {
+    InvalidPlaceholder = 0;
+    TriggerVolume = 8;
+}
+enum CHAR_TYPE {
+    default_type = 0;
+    trial_type = 1;
+}
+enum TEAM_CHAR_ID_TYPE {
+    obj_id = 0;
+    preset_char_id = 1;
+}
+enum GENDER {
+    GEN_INVALID = 0;
+    GEN_MALE = 1;
+    GEN_FEMALE = 2;
+    GEN_TOTAL = 3;
+}
+enum FRIEND_SPACESHIP_HELP_STATUS {
+    FRIEND_SPACESHIP_HELP_STATUS_INVALID = 0;
+    FRIEND_SPACESHIP_HELP_STATUS_CAN_HELP = 1;
+    FRIEND_SPACESHIP_HELP_STATUS_HELPED = 2;
+}
+enum FRIEND_USER_INFO_TYPE {
+    FRIEND_USER_INFO_TYPE_SPACESHIP_DEFAULT = 0;
+    FRIEND_USER_INFO_TYPE_NONE = 1;
+}
+enum PSN_AUTHCODE_QUERY_TYPE {
+    PSN_BLACKLIST_UPDATE = 0;
+    PSN_FRIENDLIST_UPDATE = 1;
+}
+enum RegionStatus {
+    RegionStatus_UnLocked = 0;
+    RegionStatus_Explored = 1;
+    RegionStatus_ExpeditionInProgress = 2;
+}
+enum ExpeditionStatus {
+    ExpeditionStatus_Available = 0;
+    ExpeditionStatus_InProgress = 1;
+    ExpeditionStatus_Completed = 2;
+}
+enum SpaceshipExtraReportType {
+    SpaceshipExtraReportType_None = 0;
+    SpaceshipExtraReportType_Expedition = 1;
+}
+enum BRIEF_BP_STATUS {
+    BRIEF_BP_STATUS_NONE = 0;
+    BRIEF_BP_STATUS_EXIST = 1;
+    BRIEF_BP_STATUS_INVALID = 2;
+}
+enum FRIEND_CHAT_MSG_TYPE {
+    FRIEND_CHAT_MSG_TYPE_PRESET_TEXT = 0;
+    FRIEND_CHAT_MSG_TYPE_EMOJI = 1;
+    FRIEND_CHAT_MSG_TYPE_SOCIAL_BUILDING = 2;
+    FRIEND_CHAT_MSG_TYPE_BLUE_PRINT = 3;
+}
+enum HG_THIRD_ACCOUNT_TYPE {
+    ACCOUNT_TYPE_DEFAULT = 0;
+    ACCOUNT_TYPE_PSN = 1;
+}
+message VECTOR {
+    float X = 1;
+    float Y = 2;
+    float Z = 3;
+}
+message DYNAMIC_PARAMETER {
+    int32 value_type = 1;
+    int32 real_type = 2;
+    repeated bool value_bool_list = 3;
+    repeated int64 value_int_list = 4;
+    repeated float value_float_list = 5;
+    repeated string value_string_list = 6;
+}
+message SKILL_INFO {
+    repeated SKILL_LEVEL_INFO level_info = 1;
+    string normal_skill = 2;
+    string ultimate_skill = 3;
+    string combo_skill = 4;
+    string disp_normal_attack_skill = 5;
+}
+message EQUIP_ATTR {
+    int32 attr_type = 1;
+    int32 modifier_type = 2;
+    double modifier_value = 3;
+    int32 modify_attribute_type = 4;
+}
+message ATTR_ENHANCE_FAILED_DATA {
+    map<int32, int32> enhance_failed_times_by_level = 1;
+}
+message EQUIP_ENHANCE_DATA {
+    map<int32, ATTR_ENHANCE_FAILED_DATA> enhance_failed_data_by_attr_index = 1;
+}
+message EQUIP_DATA {
+    uint64 equipid = 1;
+    int32 templateid = 2;
+    uint64 equip_char_id = 3;
+    map<int32, int32> enhance = 8;
+    EQUIP_ENHANCE_DATA equip_enhance_data = 9;
+}
+message GEM_DATA {
+    uint64 gemId = 1;
+    int32 template_id = 2;
+    int32 total_cost = 3;
+    repeated GEM_TERM terms = 4;
+    uint64 weapon_id = 5;
+    int32 domain_id = 6;
+}
+message GEM_TERM {
+    int32 term_num_id = 1;
+    int32 cost = 2;
+}
+message ITEM_BUNDLE {
+    string id = 1;
+    int32 count = 2;
+}
+message INST_ITEM_BUNDLE {
+    string id = 1;
+    int32 count = 2;
+    uint64 inst_id = 3;
+}
+message WEAPON_DATA {
+    uint64 inst_id = 1;
+    int32 template_id = 2;
+    uint64 exp = 3;
+    uint32 weapon_lv = 4;
+    uint32 refine_lv = 5;
+    uint32 breakthrough_lv = 6;
+    uint64 equip_char_id = 7;
+    uint64 attach_gem_id = 8;
+}
+message ITEM_INST {
+    uint64 inst_id = 1;
+    bool is_lock = 101;
+    bool is_new = 102;
+    ITEM_FLAG item_flag = 103;
+    int64 expire_ts = 104;
+    oneof inst_impl {
+        EQUIP_DATA equip = 2;
+        GEM_DATA gem = 3;
+        WEAPON_DATA weapon = 4;
+        ITEM_INST_EMPTY empty = 31;
+    }
+}
+message ITEM_INST_EMPTY {
+}
+message SCD_ITEM_GRID {
+    int32 grid_index = 1;
+    string id = 2;
+    int32 count = 3;
+    ITEM_INST inst = 4;
+}
+message ITEM_GRID {
+    int32 id = 1;
+    int32 count = 2;
+    ITEM_INST inst = 3;
+    int32 index = 4;
+}
+message SUBMIT_ITEM {
+    string item_id = 1;
+    uint32 count = 2;
+    bool is_inst = 3;
+    uint64 inst_id = 4;
+}
+message BATTLE_INFO {
+    double hp = 1;
+    float ultimatesp = 2;
+}
+message SEND_MAIL_DEF {
+    MAIL_CONTENT mail_content = 1;
+    repeated REWARD_ITEM item_list = 2;
+    int64 send_time = 3;
+    int64 expire_time = 4;
+    int32 mail_type = 5;
+    int32 mail_sub_type = 6;
+    bool is_global = 7;
+    bool is_star = 8;
+    bool ignore_cap_check = 9;
+    string gm_unique_task_id = 10;
+}
+message GAME_CONDITION {
+    string condition_id = 1;
+    int32 condition_type = 2;
+    repeated string params = 3;
+    int32 compare_operator = 4;
+    int32 progress_to_compare = 5;
+    repeated int32 sub_condition_id_logics = 6;
+    repeated GAME_CONDITION sub_conditions = 7;
+    int32 scope_mask = 8;
+    bool use_current_scope = 9;
+}
+message SEND_SYSTEM_MAIL_DEF {
+    uint64 mail_id = 1;
+    GAME_CONDITION condition = 2;
+    repeated REWARD_ITEM completed_item_list = 3;
+    int64 expire_time = 4;
+    bool is_star = 5;
+    string unique_id = 6;
+    int64 mail_expire_in = 7;
+    int64 mail_expire_at = 8;
+    bool has_attachment = 9;
+    int32 mail_sub_type = 10;
+    int64 task_expire_at = 11;
+    int32 channel_id = 12;
+}
+message COST_ITEM_LIST_DEF {
+    repeated SUBMIT_ITEM itemList = 1;
+}
+message MAIL_CONTENT {
+    string template_id = 1;
+    string title = 2;
+    string content = 3;
+    string senderName = 4;
+    string senderIcon = 5;
+    map<string, string> params = 6;
+}
+message REWARD_ITEM {
+    string id = 1;
+    int64 count = 2;
+    ITEM_INST inst = 3;
+    int32 item_opt = 4;
+}
+message SKILL_LEVEL_INFO {
+    string skill_id = 1;
+    int32 skill_level = 2;
+    int32 skill_max_level = 3;
+    int32 skill_enhanced_level = 4;
+}
+message TALENT {
+    string latest_break_node = 1;
+    repeated string attr_nodes = 2;
+    repeated string latest_passive_skill_nodes = 3;
+    repeated string latest_factory_skill_nodes = 4;
+}
+message ROLE_BASE_INFO {
+    uint64 leader_char_id = 1;
+    VECTOR leader_position = 2;
+    VECTOR leader_rotation = 3;
+    string sceneName = 4;
+    uint64 server_ts = 11;
+}
+message TEMP_TEAM_CHAR_SAVE_DATA {
+    TRIAL_CHAR_DATA trial_char_data = 1;
+    int32 hp = 2;
+    int32 ultimate_sp = 3;
+}
+message TRIAL_CHAR_DATA {
+    uint32 trial_char_type = 1;
+    int32 equip_medicine_num = 2;
+}
+message TEAM_CHAR_ID {
+    TEAM_CHAR_ID_TYPE id_type = 1;
+    oneof char_id {
+        uint64 obj_id = 2;
+        string preset_char_id = 3;
+    }
+}
+message PASS_THROUGH_DATA {
+    repeated string str_args = 1;
+    repeated int64 int_args = 2;
+}
+message SCENE_TRACK_POINT {
+    string inst_id = 1;
+}
+message SCENE_STATIC_MAP_MARK {
+    int32 index = 1;
+}
+message WALLET_MONEY_RECORD {
+    int32 record_type = 1;
+    string money_id = 2;
+    oneof record_data {
+        WALLET_DAILY_SOURCE_MONEY_RECORD daily_source_data = 5;
+    }
+}
+message WALLET_DAILY_SOURCE_MONEY_RECORD {
+    repeated WALLET_DAILY_SOURCE_MONEY_BOOK books = 1;
+}
+message WALLET_DAILY_SOURCE_MONEY_BOOK {
+    int64 ts = 1;
+    repeated int64 record = 2;
+}
+message SCENE_DYNAMIC_MAP_MARK {
+    uint32 id = 1;
+    int32 scene_num_id = 2;
+    VECTOR pos = 3;
+    string note = 4;
+    uint32 typ = 5;
+    int32 tier_index = 6;
+    int32 tier_id = 7;
+}
+message ATTACH_USER_INFO {
+    uint64 original_role_id = 1;
+    string original_user_id = 2;
+    uint64 target_role_id = 3;
+    string target_user_id = 4;
+}
+message REMOTE_ROLE_BASE {
+    string userid = 1;
+    string name = 2;
+    uint32 create_time = 3;
+}
+message DOMAIN_DEVELOPMENT {
+    string chapter_id = 1;
+    string version = 3;
+    DOMAIN_DEVELOPMENT_DEGREE dev_degree = 2;
+}
+message DOMAIN_DEVELOPMENT_DEGREE {
+    uint64 exp = 1;
+    uint32 level = 2;
+    uint64 rewarded_level = 3;
+    repeated uint64 source = 4;
+}
+message SPACESHIP_PUBLIC_DATA {
+    SPACESHIP_HELP_RECORD help_record = 1;
+    bool unlock_guest_room = 3;
+    SPACESHIP_GUEST_ROOM_CLUE_LOGIC_EXTRA_RECORD clue_logic_record = 4;
+}
+message SPACESHIP_HELP_RECORD {
+    map<string, ROOM_HELP_RECORD> room_help_record = 1;
+    int64 ttl = 2;
+}
+message ROOM_HELP_RECORD {
+    int32 control_center = 1;
+    int32 manufacturing_station = 2;
+    map<int32, int32> grow_cabin = 3;
+    int32 command_center = 4;
+    int32 control_center_left = 6;
+    int32 manufacturing_station_left = 7;
+    map<int32, int32> grow_cabin_left = 8;
+    int32 command_center_left = 9;
+    int32 can_be_helped_flag = 5;
+    repeated int32 can_be_helped_grow_cabin_box = 10;
+}
+message SPACESHIP_GUEST_ROOM_CLUE_LOGIC_EXTRA_RECORD {
+    uint64 info_exchange_inst_id = 1;
+    int64 info_exchange_expire_ts = 2;
+    map<uint64, bool> role_map = 3;
+    map<int32, int64> host_clue_status = 4;
+    int32 clue_extension_room_level = 5;
+    int64 last_owner_update_ts = 7;
+}
+message SPACESHIP_GUEST_ROOM_CLUE {
+    string clue_id = 1;
+    uint64 inst_id = 2;
+    uint64 from_role_id = 3;
+    int64 expire_ts = 4;
+    map<int32, bool> char_num_id_to_prob_acc = 5;
+    int64 generate_ts = 6;
+    bool is_read = 7;
+}
+message SPACESHIP_GUEST_ROOM_VISITOR_RECORD {
+    int32 day_count = 1;
+    repeated VISIT_OP_RECORD visit_op_record = 2;
+    int32 recved_credit_cnt = 3;
+    int32 total_credit_cnt = 4;
+}
+message VISIT_OP_RECORD {
+    uint64 role_id = 1;
+    int64 start_ts = 2;
+    int64 last_ts = 3;
+    bool joined_info_exchange = 4;
+    map<int32, int64> money_id_to_sold_price = 5;
+    repeated VISIT_RECORD_PROD_SUPPORT_INFO prod_support_list = 6;
+}
+message VISIT_RECORD_PROD_SUPPORT_INFO {
+    int32 room_type = 1;
+    int32 room_number = 2;
+}
+message VALUE_DATA {
+    oneof val {
+        bool v_bool = 1;
+        int64 v_int = 2;
+        float v_float = 3;
+        string v_string = 4;
+    }
+}
+message DYNAMIC_PARAMETER_DATA {
+    int32 value_type = 1;
+    int32 real_type = 2;
+    repeated VALUE_DATA details = 3;
+}
+message PROPERTY_RECORD_DATA {
+    map<int32, DYNAMIC_PARAMETER_DATA> common_properties = 1;
+    bytes bool_properties = 2;
+}
+message FRIEND_PERSONAL_DATA {
+    int32 user_avatar_id = 1;
+    int32 User_avatar_frame_id = 2;
+    int32 business_card_topic_id = 3;
+    string signature = 4;
+    repeated uint64 char_list = 5;
+    bool business_card_expand_flag = 20;
+    bool psn_only = 30;
+}
+message SROLE_DATA_DOMAIN_DEV {
+    string domain_id = 1;
+    uint32 level = 2;
+}
+message SROLE_DATA_DOMAIN_DEV_SYSTEM {
+    repeated SROLE_DATA_DOMAIN_DEV domains = 1;
+}
+message SROLE_DATA_ACHIEVEMENT {
+    map<int32, int32> display = 1;
+    repeated SROLE_DATA_ACHIEVEMENT_INFO info_list = 2;
+}
+message SROLE_DATA_ACHIEVEMENT_INFO {
+    int32 achieve_num_id = 1;
+    int32 level = 2;
+    bool is_plated = 3;
+}
+message SROLE_DATA_STATISTIC {
+    uint32 char_num = 1;
+    uint32 weapon_num = 2;
+    uint32 doc_num = 3;
+}
+message SROLE_DATA_CHAR {
+    string templateId = 1;
+    uint32 level = 2;
+    uint32 exp = 3;
+    uint32 potential_level = 4;
+    map<int32, EQUIP_DATA> equip = 5;
+    map<uint64, GEM_DATA> gem = 6;
+    WEAPON_DATA weapon = 7;
+    SKILL_INFO skill_info = 8;
+    int32 equip_medicine_id = 9;
+    TALENT talent = 10;
+    map<int32, string> potential_cg = 11;
+}
+message SROLED_DOMAIN_SHOP_GOODS {
+    string shop_id = 1;
+    int64 unlock_time = 2;
+    repeated string shop_goods_id = 3;
+}
+message SROLE_DATA_DOMAIN_SHOP {
+    repeated SROLED_DOMAIN_SHOP_GOODS shop_goods = 1;
+}
+message SROLE_DATA_DOMAIN_DEPOT {
+    map<uint64, int64> delegate_inst_id_to_timeout_ts = 1;
+}
+message FRIEND_BASE_USER_INFO {
+    uint64 role_id = 1;
+    string name = 3;
+    string short_id = 4;
+    int64 last_login_time = 5;
+    int64 last_logout_time = 6;
+    bool online = 7;
+    uint32 adventure_level = 8;
+    string signature = 9;
+    GENDER gender = 10;
+    int32 business_card_topic_id = 11;
+    int32 user_avatar_id = 12;
+    int32 user_avatar_frame_id = 13;
+    repeated FRIEND_CHAR_INFO char_data = 14;
+    HG_THIRD_ACCOUNT_TYPE last_login_type = 31;
+    THIRD_ACCOUNT_DATA third_account_data = 32;
+}
+message FRIEND_CHAR_INFO {
+    string templateId = 1;
+    uint32 level = 2;
+    uint32 potential_level = 3;
+}
+message FRIEND_SPACESHIP_DEFAULT_DATA {
+    bool help_flag = 1;
+    bool clue_flag = 2;
+    bool unlock_guest_room = 3;
+    FRIEND_SPACESHIP_HELP_STATUS help_status = 4;
+    bool unlock_clue_room = 5;
+}
+message FRIEND_STRANGER_USER_INFO {
+    FRIEND_BASE_USER_INFO base_data = 1;
+}
+message FRIEND_FRIEND_USER_INFO {
+    FRIEND_USER_INFO_TYPE data_type = 1;
+    FRIEND_BASE_USER_INFO base_data = 2;
+    oneof extra_data {
+        FRIEND_SPACESHIP_DEFAULT_DATA spaceship_default = 3;
+    }
+}
+message FRIEND_FRIEND_INFO {
+    FRIEND_FRIEND_USER_INFO friend_user_info = 1;
+    int64 create_time = 2;
+    string remark_name = 3;
+}
+message FRIEND_BLACK_LIST_INFO {
+    uint64 role_id = 1;
+    string name = 3;
+    string short_id = 4;
+    bool online = 5;
+    int64 last_logout_time = 6;
+    uint32 adventure_level = 7;
+    int32 business_card_topic_id = 8;
+    int32 user_avatar_id = 9;
+    int32 user_avatar_frame_id = 10;
+    HG_THIRD_ACCOUNT_TYPE last_login_type = 31;
+    THIRD_ACCOUNT_DATA third_account_data = 32;
+}
+message FRIEND_REQUEST_INFO {
+    FRIEND_STRANGER_USER_INFO stranger_user_info = 1;
+    int64 create_time = 2;
+}
+message FRIEND_FRIEND_S_INFO {
+    uint64 role_id = 1;
+    int64 create_time = 2;
+    string remark_name = 3;
+}
+message FRIEND_REQUEST_S_INFO {
+    uint64 role_id = 1;
+    int64 create_time = 2;
+}
+message FRIEND_BLACK_S_INFO {
+    uint64 role_id = 1;
+    int64 create_time = 2;
+}
+message DOMAIN_DEPOT_DELIVER_PEER_ROLE_INFO {
+    uint64 role_id = 1;
+    string name = 2;
+    uint32 user_avatar_id = 3;
+    uint32 user_avatar_frame_id = 4;
+    int32 adventure_level = 5;
+    string short_id = 6;
+    bool is_delete = 7;
+    int32 business_card_topic_id = 8;
+}
+message DOMAIN_DEPOT_BUYER_INFO {
+    int32 deliver_num_id = 1;
+    int32 buyer_num_id = 2;
+    int64 reward_value = 3;
+    bool is_critical = 4;
+    int32 price_cfg_idx = 5;
+}
+message DOMAIN_DEPOT_DELIVER_DATA {
+    int32 package_type = 1;
+    int32 package_progress = 2;
+    uint64 original_role_id = 3;
+    uint64 inst_id = 4;
+    int32 cargo_integrity = 5;
+    int32 domain_depot_num_id = 6;
+    int64 expire_ts = 7;
+    int64 original_price = 8;
+    int32 deliver_pack_type = 9;
+    int32 deliver_item_type = 10;
+    repeated DOMAIN_DEPOT_BUYER_INFO buyer_list = 11;
+    DOMAIN_DEPOT_DELIVER_PEER_ROLE_INFO peer_role_info = 12;
+    uint64 delegate_role_id = 13;
+    string deliver_redis_key = 14;
+    int64 final_payment_value = 15;
+}
+message BRIEF_BP_DATA {
+    string share_code = 1;
+    string name = 2;
+    repeated int32 tags = 3;
+    string icon = 4;
+    int32 base_color = 5;
+    BRIEF_BP_STATUS status = 6;
+    int32 share_idx = 7;
+    uint64 bp_uid = 8;
+}
+message FRIEND_CHAT_MSG_DATA_PRESET_TEXT {
+    int32 num_id = 1;
+}
+message FRIEND_CHAT_MSG_DATA_EMOJI {
+    int32 num_id = 1;
+}
+message FRIEND_CHAT_MSG_DATA_SOCIAL_BUILDING {
+    uint64 creator_id = 1;
+    int32 scene_num_id = 2;
+    uint32 node_id = 3;
+    int32 template_id = 4;
+    VECTOR pos = 5;
+    int32 dir_y = 6;
+    VECTOR world_pos = 7;
+    VECTOR world_rot = 8;
+    uint64 like = 9;
+    oneof extra_data {
+        FRIEND_CHAT_MSG_DATA_SOCIAL_BUILDING_SIGN sign_data = 20;
+    }
+}
+message FRIEND_CHAT_MSG_DATA_SOCIAL_BUILDING_SIGN {
+    repeated int32 signs = 1;
+}
+message FRIEND_CHAT_MSG_DATA_BLUE_PRINT {
+    string shared_code = 1;
+}
+message FRIEND_CHAT_MSG_DATA {
+    int64 ts = 1;
+    uint64 owner_id = 2;
+    FRIEND_CHAT_MSG_TYPE type = 3;
+    oneof extra_data {
+        FRIEND_CHAT_MSG_DATA_PRESET_TEXT preset_text_data = 4;
+        FRIEND_CHAT_MSG_DATA_EMOJI emoji_data = 5;
+        FRIEND_CHAT_MSG_DATA_SOCIAL_BUILDING social_building_data = 6;
+        FRIEND_CHAT_MSG_DATA_BLUE_PRINT blue_print_data = 7;
+    }
+}
+message THIRD_ACCOUNT_DATA_PSN {
+    string account_id = 1;
+    string online_id = 2;
+}
+message THIRD_ACCOUNT_DATA {
+    HG_THIRD_ACCOUNT_TYPE third_account_data_type = 1;
+    oneof data {
+        THIRD_ACCOUNT_DATA_PSN third_account_psn = 2;
+    }
+}
+message DEVICE_INFO {
+    string device_id = 1;
+    string os = 2;
+    string os_ver = 3;
+    string brand = 4;
+    string model = 5;
+    string simulator = 6;
+    string network = 7;
+    string carrier = 8;
+    string language = 9;
+    string country_iso_code = 10;
+    int64 ipv4 = 11;
+    string client_res_version = 12;
+}

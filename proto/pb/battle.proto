@@ -1,0 +1,1077 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "beyond-go/proto/pbcommon;pbcommon";
+
+import "common.proto";
+import "options.proto";
+
+enum BATTLE_PROTO_VERSION {
+    BATTLE_PROTO_VERSION_NONE = 0;
+    BATTLE_PROTO_VERSION_CURRENT = 2;
+}
+enum BATTLE_RESET_REASON {
+    BATTLE_RESET_REASON_NONE = 0;
+    BATTLE_RESET_REASON_GENDER_CHANGE = 1;
+    BATTLE_RESET_REASON_DECO = 2;
+    BATTLE_RESET_REASON_OBJ_ENTER_SCENE = 3;
+    BATTLE_RESET_REASON_GM = 4;
+    BATTLE_RESET_REASON_BATTLE_OP = 5;
+    BATTLE_RESET_REASON_BEFORE_DESTROY_ENTITY = 6;
+    BATTLE_RESET_REASON_SCENE_RESET_BATTLE = 7;
+    BATTLE_RESET_REASON_ADD_AOI_OBSERVER = 8;
+    BATTLE_RESET_REASON_REVIVE_CHAR = 9;
+    BATTLE_RESET_REASON_RESET_PART_SUMMON = 10;
+    BATTLE_RESET_REASON_RESET_BACKGROUND_CHAR = 11;
+}
+enum BATTLE_ACTION_OPERATE_TYPE {
+    BATTLE_OP_NONE = 0;
+    BATTLE_OP_ADD_BUFF = 1;
+    BATTLE_OP_FINISH_BUFF = 2;
+    BATTLE_OP_SKILL_ATTACH = 3;
+    BATTLE_OP_SKILL_DETACH = 4;
+    BATTLE_OP_SKILL_START_CAST = 5;
+    BATTLE_OP_SKILL_END_CAST = 6;
+    BATTLE_OP_SWITCH_MODE = 7;
+    BATTLE_OP_TRIGGER_ACTION = 8;
+    BATTLE_OP_ENTITY_DIE = 10;
+    BATTLE_OP_ENTITY_VALUE_MODIFY = 11;
+    BATTLE_OP_RESET_BATTLE_DATA = 12;
+    BATTLE_OP_UPDATE_DATA_VERSION = 13;
+    BATTLE_OP_ENABLE_PASSIVE_SKILL = 14;
+    BATTLE_OP_TRIGGER_KEYWORD = 15;
+    BATTLE_OP_SHIELD_VALUE_MODIFY = 16;
+    BATTLE_OP_UPDATE_ATB_INFO = 17;
+    BATTLE_OP_MODIFY_BATTLE_STATE = 18;
+    BATTLE_OP_MODIFY_POISE_VALUE = 19;
+    BATTLE_OP_SET_BUFF_ENABLE_STATE = 20;
+}
+enum MODIFY_POISE_VALUE_TYPE {
+    MODIFY_POISE_VALUE_TYPE_NONE = 0;
+    MODIFY_POISE_VALUE_TYPE_RESET = 1;
+    MODIFY_POISE_VALUE_TYPE_POISE_DAMAGE = 2;
+    MODIFY_POISE_VALUE_TYPE_POISE_HEAL = 3;
+    MODIFY_POISE_VALUE_TYPE_MAX_VALUE_CHANGE = 4;
+}
+enum BATTLE_UPDATE_ATB_INFO_REASON {
+    BATTLE_UPDATE_ATB_INFO_REASON_NONE = 0;
+    BATTLE_UPDATE_ATB_INFO_REASON_CHANGE_RECOVERY_SPEED = 1;
+    BATTLE_UPDATE_ATB_INFO_REASON_ADD_VALUE = 2;
+    BATTLE_UPDATE_ATB_INFO_REASON_SYNC_CUR_VALUE = 3;
+    BATTLE_UPDATE_ATB_INFO_REASON_GM = 4;
+}
+enum BATTLE_SKILL_SOURCE {
+    BATTLE_SKILL_SOURCE_DEFAULT = 0;
+    BATTLE_SKILL_SOURCE_MODE = 1;
+    BATTLE_SKILL_SOURCE_WEAPON = 2;
+    BATTLE_SKILL_SOURCE_EQUIP_SUIT = 3;
+    BATTLE_SKILL_SOURCE_OTHER = 4;
+    BATTLE_SKILL_SOURCE_INTERACTIVE = 5;
+    BATTLE_SKILL_SOURCE_SUMMON = 6;
+    BATTLE_SKILL_SOURCE_PLUNGING_ATTACK = 7;
+    BATTLE_SKILL_SOURCE_POWER_ATTACK = 8;
+    BATTLE_SKILL_SOURCE_TALENT_POTENTIAL = 9;
+    BATTLE_SKILL_SOURCE_CHAR_COMMON = 10;
+    BATTLE_SKILL_SOURCE_CLIENT_TEMP_ADD = 11;
+}
+enum BATTLE_TRIGGER_TYPE {
+    BATTLE_TRIGGER_TYPE_EXECUTE = 0;
+    BATTLE_TRIGGER_TYPE_TICK = 1;
+    BATTLE_TRIGGER_TYPE_END = 2;
+}
+enum BATTLE_ACTION_OWNER_TYPE {
+    BATTLE_ACTION_OWNER_TYPE_NONE = 0;
+    BATTLE_ACTION_OWNER_TYPE_BUFF = 1;
+    BATTLE_ACTION_OWNER_TYPE_SKILL = 2;
+    BATTLE_ACTION_OWNER_TYPE_STANDALONE = 3;
+}
+enum SKILL_COST_TYPE {
+    SKILL_COST_ULT_SP = 0;
+    SKILL_COST_ATB = 1;
+}
+enum DamageDecorateType {
+    PoiseBreak = 0;
+    PowerAttack = 2;
+    FireAbnormalInitial = 3;
+    PulseAbnormalInitial = 4;
+    CrystAbnormalInitial = 5;
+    IgniteByMud = 6;
+    NormalAttack = 7;
+    NormalSkill = 8;
+    UltimateSkill = 9;
+    PlungingAttack = 10;
+    NormalAttackEffect = 11;
+    CanBreakWeakness = 12;
+    ComboSkill = 13;
+    Crush = 14;
+    Airborne = 15;
+    KnockDown = 16;
+    DashAttack = 17;
+    IgnoreDodgeImmune = 18;
+    IgnoreSkillImmune = 19;
+    NaturalAbnormalInitial = 20;
+    NormalAttackLastCombo = 21;
+    FireBurst = 22;
+    CrystBurst = 23;
+    PulseBurst = 24;
+    NaturalBurst = 25;
+    Burning = 26;
+    Shatter = 27;
+    Dot = 28;
+    RemainArea = 29;
+    Fracture = 30;
+}
+enum ATK_CALCULATION_TYPE {
+    ATK_SCALE = 0;
+    DEFINITE_VALUE = 1;
+    MULTIPLY_ATTRIBUTE = 2;
+    BREAKING_ATK_CALC = 3;
+    PRIMARY_ATTR_CALC = 4;
+}
+enum DAMAGE_PROCESSOR_TYPE {
+    ATTACKER_CRIT_RATE = 0;
+    ATTACKER_ATK = 1;
+    ATTACKER_CRIT_DAMAGE = 2;
+    ATTACKER_PEN = 3;
+    DAMAGE_SCALE = 4;
+    DEFENDER_DEF = 5;
+    MODIFY_CALCULATE_RESULT = 6;
+    INSTANT_MODIFY_ATTRIBUTE = 7;
+    PROCESSOR_TYPE_NONE = 999;
+}
+enum HEAL_PROCESSOR_TYPE {
+    HEAL_PROCESSOR_EMPTY_TYPE = 0;
+    HEAL_MODIFY_RESULT = 1;
+    HEAL_INSTANT_MODIFY_ATTRIBUTE = 2;
+}
+enum SERVER_BATTLE_ACTION_TYPE {
+    BATTLE_ACTION_NONE = 0;
+    BATTLE_ACTION_DAMAGE = 1;
+    BATTLE_ACTION_CREATE_BUFF = 2;
+    BATTLE_ACTION_FINISH_BUFF = 3;
+    BATTLE_ACTION_GAIN_COST = 4;
+    BATTLE_ACTION_HEAL = 5;
+    BATTLE_ACTION_SWITCH_MODE = 6;
+    BATTLE_ACTION_MODIFY_DYNAMIC_BLACKBOARD = 7;
+    BATTLE_ACTION_SPAWN_ENEMY = 8;
+    BATTLE_ACTION_CHECK_DAMAGE_TYPE = 9;
+    BATTLE_ACTION_CHECK_DAMAGE_DECORATE_MASK = 10;
+    BATTLE_ACTION_CHECK_DISTANCE_CONDITION = 11;
+    BATTLE_ACTION_CHECK_ENTITY_NUM = 12;
+    BATTLE_ACTION_CHECK_HP = 13;
+    BATTLE_ACTION_CHECK_IS_CRITICAL_DAMAGE = 14;
+    BATTLE_ACTION_CHECK_MAIN_CHARACTER = 15;
+    BATTLE_ACTION_CHECK_OBJECT_TYPE_MATCH = 16;
+    BATTLE_ACTION_CHECK_SKILL_TYPE = 17;
+    BATTLE_ACTION_CHECK_SQUAD_IN_FIGHT = 18;
+    BATTLE_ACTION_CHECK_TAG_MATCH = 19;
+    BATTLE_ACTION_CHECK_TARGET_ANGLE = 20;
+    BATTLE_ACTION_COMPARE_FLOAT = 21;
+    BATTLE_ACTION_PROBABILITY = 22;
+    BATTLE_ACTION_LAUNCH_PROJECTILE = 23;
+    BATTLE_ACTION_SPAWN_ABILITY_ENTITY = 24;
+    BATTLE_ACTION_IF_ELSE = 25;
+    BATTLE_ACTION_FOR_EACH = 26;
+    BATTLE_ACTION_AURA = 27;
+    BATTLE_ACTION_SPAWN_CUSTOM_SUMMON = 28;
+    BATTLE_ACTION_CHANNELING = 29;
+    BATTLE_ACTION_STORE_ATTRIBUTE_VALUE = 30;
+    BATTLE_ACTION_REFRESH_BUFF_ATTR_MODIFIER_VALUE = 31;
+    BATTLE_ACTION_SET_BLACKBOARD_FROM_PRESET = 32;
+    BATTLE_ACTION_MODIFY_PART_DAMAGE_TRANSFER_RATIO = 33;
+    BATTLE_ACTION_MODIFY_ENABLE_PART = 34;
+    BATTLE_ACTION_READ_SKILL_ACTION_TO_BB = 35;
+    BATTLE_ACTION_SIMPLE_CALC_BB = 36;
+    BATTLE_ACTION_MULTI_MODIFY_BB = 37;
+}
+message TEMPLATE_ID {
+    BATTLE_ACTION_OWNER_TYPE type = 3;
+    oneof id_impl {
+        string str_id = 1;
+        int32 int_id = 2;
+    }
+}
+message BATTLE_CLIENT_DATA {
+    repeated BATTLE_CLIENT_OP_DATA op_list = 1;
+}
+message BATTLE_OP_MODIFY_POISE_VALUE_OP_DATA {
+    MODIFY_POISE_VALUE_TYPE modify_type = 1;
+    TEMPLATE_ID template_id = 2;
+    TEMPLATE_ID original_source_template_id = 3;
+    BATTLE_ACTION_OWNER_TYPE owner_type = 4;
+    double value = 5;
+    double cur_poise_value = 6;
+    uint64 attacker_inst_id = 8;
+    int32 action_id = 9;
+    BATTLE_REPORT_INFO battle_report_info = 10;
+}
+message BATTLE_REPORT_INFO {
+    repeated ATTR_MODIFY_INFO attacker_attr_modify_info = 1;
+    repeated ATTR_MODIFY_INFO defender_attr_modify_info = 2;
+}
+message BATTLE_OP_SET_BUFF_ENABLE_STATE_OP_DATA {
+    map<uint64, bool> buff_inst_id_to_enable_state = 1;
+}
+message ATTR_MODIFY_INFO {
+    int32 attr_type = 1;
+    repeated double attrs = 2;
+}
+message BATTLE_OP_MODIFY_BATTLE_STATE_OP_DATA {
+    bool is_in_battle = 1;
+}
+message BATTLE_UPDATE_ATB_INFO_OP_DATA {
+    BATTLE_ATB_DATA atb_data = 1;
+    TEMPLATE_ID template_id = 2;
+    TEMPLATE_ID original_source_template_id = 3;
+    double delta_value = 4;
+}
+message BATTLE_ATB_DATA {
+    double atb_value = 1;
+    double atb_recovery_speed = 2;
+    int64 client_tick_ts = 3;
+    BATTLE_UPDATE_ATB_INFO_REASON reason = 4;
+}
+message BATTLE_ADD_BUFF_OP_DATA {
+    uint64 src_inst_id = 1;
+    uint64 target_inst_id = 2;
+    TEMPLATE_ID buff_id = 3;
+    uint64 buff_inst_id = 4;
+    int64 client_add_ts = 5;
+    BATTLE_BLACKBOARD assigned_items = 6;
+    int32 buff_src_type = 7;
+    string buff_src_args = 8;
+}
+message BATTLE_FINISH_BUFF_OP_DATA {
+    uint64 buff_inst_id = 1;
+    int32 reduce_layer = 2;
+    bool force = 3;
+}
+message BATTLE_SKILL_ATTACH_OP_DATA {
+    uint64 src_inst_id = 1;
+    TEMPLATE_ID skill_id = 2;
+    int32 skill_lv = 3;
+    BATTLE_SKILL_SOURCE skill_source = 4;
+    uint64 skill_inst_id = 5;
+}
+message BATTLE_SKILL_DETACH_OP_DATA {
+    uint64 skill_inst_id = 1;
+}
+message BATTLE_SKILL_ENABLE_OP_DATA {
+    uint64 skill_inst_id = 1;
+    bool is_enable = 2;
+}
+message BATTLE_SKILL_START_CAST_OP_DATA {
+    uint64 inst_id = 1;
+    BATTLE_TARGET_HANDLE target = 2;
+    BATTLE_ATB_DATA atb_data = 3;
+}
+message BATTLE_SKILL_END_CAST_OP_DATA {
+    uint64 inst_id = 1;
+}
+message BATTLE_SWITCH_MODE_OP_DATA {
+    uint32 mode_inst_id = 1;
+    string mode_id = 2;
+    int32 mode_change_type = 3;
+    bool is_enable = 4;
+}
+message BATTLE_TRIGGER_ACTION_OP_DATA {
+    uint64 owner_id = 1;
+    uint64 inst_id = 2;
+    TEMPLATE_ID template_id = 3;
+    BATTLE_ACTION_INST action = 5;
+    BATTLE_TRIGGER_TYPE trigger_type = 6;
+    BATTLE_ACTION_OWNER_TYPE owner_type = 7;
+}
+message BATTLE_ENTITY_DIE_OP_DATA {
+    uint64 entity_inst_id = 1;
+    int32 scene_num_id = 2;
+    bool disable_anti_cheat = 3;
+}
+message BATTLE_ENTITY_VALUE_MODIFY_DATA {
+    uint64 entity_inst_id = 1;
+    int32 scene_num_id = 2;
+    BATTLE_INFO value = 3;
+    int32 source = 4;
+    TEMPLATE_ID template_id = 5;
+    TEMPLATE_ID original_source_template_id = 6;
+    double delta_value = 7;
+}
+message BATTLE_RESET_BATTLE_DATA_OP_DATA {
+}
+message BATTLE_UPDATE_DATA_VERSION_OP_DATA {
+    string client_data_version = 1;
+    int32 proto_version = 2;
+}
+message BATTLE_SHIELD_VALUE_MODIFY_OP_DATA {
+    uint64 buff_inst_id = 1;
+    double shield_value = 2;
+}
+message BATTLE_TRIGGER_KEYWORD_OP_DATA {
+    uint64 buff_inst_id = 1;
+    int32 add_buff_num_id = 2;
+    repeated BATTLE_TRIGGER_KEYWORD_MODIFY_DATA modify = 3;
+}
+message BATTLE_TRIGGER_KEYWORD_MODIFY_DATA {
+    int32 config_index = 1;
+    double modify_value = 2;
+}
+message BATTLE_CLIENT_OP_DATA {
+    uint64 owner_id = 1;
+    BATTLE_ACTION_OPERATE_TYPE op_type = 2;
+    uint32 generation = 3;
+    int32 chapter_map_id = 4;
+    int32 seq_id = 5;
+    int64 client_tick_tms = 6;
+    oneof op_data_impl {
+        BATTLE_ADD_BUFF_OP_DATA add_buff_op_data = 101;
+        BATTLE_FINISH_BUFF_OP_DATA finish_buff_op_data = 102;
+        BATTLE_SKILL_ATTACH_OP_DATA skill_attach_op_data = 103;
+        BATTLE_SKILL_DETACH_OP_DATA skill_detach_op_data = 104;
+        BATTLE_SKILL_ENABLE_OP_DATA skill_enable_op_data = 105;
+        BATTLE_SKILL_START_CAST_OP_DATA skill_start_cast_op_data = 106;
+        BATTLE_SKILL_END_CAST_OP_DATA skill_end_cast_op_data = 107;
+        BATTLE_SWITCH_MODE_OP_DATA skill_switch_mode_op_data = 108;
+        BATTLE_TRIGGER_ACTION_OP_DATA trigger_action_op_data = 109;
+        BATTLE_ENTITY_DIE_OP_DATA entity_die_op_data = 110;
+        BATTLE_ENTITY_VALUE_MODIFY_DATA entity_value_modify_data = 111;
+        BATTLE_RESET_BATTLE_DATA_OP_DATA reset_battle_op_data = 112;
+        BATTLE_UPDATE_DATA_VERSION_OP_DATA update_data_version_op_data = 113;
+        BATTLE_TRIGGER_KEYWORD_OP_DATA trigger_keyword_op_data = 114;
+        BATTLE_SHIELD_VALUE_MODIFY_OP_DATA shield_value_modify_op_data = 115;
+        BATTLE_UPDATE_ATB_INFO_OP_DATA update_atb_info_op_data = 116;
+        BATTLE_OP_MODIFY_BATTLE_STATE_OP_DATA modify_battle_state_op_data = 117;
+        BATTLE_OP_MODIFY_POISE_VALUE_OP_DATA modify_poise_value_op_data = 118;
+        BATTLE_OP_SET_BUFF_ENABLE_STATE_OP_DATA set_buff_enable_state_op_data = 119;
+    }
+}
+message BATTLE_ACTION_INST {
+    int32 action_id = 1;
+    SERVER_BATTLE_ACTION_TYPE action_type = 2;
+    oneof inst_impl {
+        BATTLE_DAMAGE_ACTION_RUNTIME damage_action = 3;
+        BATTLE_CREATE_BUFF_ACTION_RUNTIME create_buff_action = 4;
+        BATTLE_FINISH_BUFF_ACTION_RUNTIME finish_buff_action = 5;
+        BATTLE_GAIN_COST_ACTION_RUNTIME gain_cost_action = 6;
+        BATTLE_HEAL_ACTION_RUNTIME heal_action = 7;
+        BATTLE_SWITCH_MODE_ACTION_RUNTIME switch_mode_action = 8;
+        BATTLE_MODIFY_DYNAMIC_BLACKBOARD_ACTION_RUNTIME modify_dynamic_blackboard_action = 9;
+        BATTLE_SPAWN_ENEMY_ACTION_RUNTIME spawn_enemy_action = 10;
+        BATTLE_LAUNCH_PROJECTILE_ACTION_RUNTIME launch_projectile_action = 25;
+        BATTLE_SPAWN_ABILITY_ENTITY_ACTION_RUNTIME spawn_ability_entity_action = 26;
+        BATTLE_SPAWN_CUSTOM_SUMMON_ACTION_RUNTIME spawn_custom_summon_action = 27;
+        BATTLE_REFRESH_BUFF_ATTR_MODIFIER_VALUE_ACTION_RUNTIME refresh_buff_attr_modifier_value_action = 28;
+        BATTLE_STORE_ATTRIBUTE_VALUE_ACTION_RUNTIME store_attribute_value_action = 29;
+        BATTLE_SET_BLACKBOARD_FROM_PRESET_RUNTIME set_blackboard_from_preset_action = 30;
+        BATTLE_MODIFY_PART_DAMAGE_TRANSFER_RATIO_ACTION_RUNTIME modify_part_damage_transfer_ratio_action = 31;
+        BATTLE_MODIFY_ENABLE_PART_ACTION_RUNTIME enable_part_action = 32;
+        BATTLE_READ_SKILL_SETTING_TO_BB_ACTION_RUNTIME read_skill_setting_to_bb_action = 33;
+        BATTLE_SIMPLE_CALC_BB_ACTION_RUNTIME simple_calc_bb_action = 34;
+        BATTLE_ACTION_MULTI_MODIFY_BB_ACTION_RUNTIME multi_modify_bb_action = 35;
+        EMPTY_BATTLE_ACTION empty_action = 999;
+    }
+}
+message EMPTY_BATTLE_ACTION {
+}
+message BUFF_RES {
+    string buff_id = 1;
+    int32 life_type = 2;
+    repeated BATTLE_ATTR_MODIFIER attr_modifiers = 3;
+    repeated BUFF_DAMAGE_MODIFIER_RES damage_modifiers = 4;
+    repeated BUFF_HEAL_MODIFIER_RES heal_modifiers = 5;
+    BATTLE_BLACKBOARD blackboard = 6;
+    map<int32, BATTLE_ACTION_RES> action_map = 7;
+    repeated int32 apply_tags = 8;
+    BUFF_STACKING_SETTINGS stacking_settings = 9;
+    BATTLE_BLACKBOARD_FLOAT duration = 10;
+    bool remove_on_repatriate = 11;
+    bool ignore_immune_check = 12;
+    uint32 spell_infliction_type = 13;
+    uint32 physical_infliction_type = 14;
+    uint32 spell_burst_type = 15;
+    BUFF_SHIELD_SETTINGS shield_settings = 16;
+    string stacking_id = 101;
+    int32 stacking_type = 102;
+    int32 max_stack_cnt = 103;
+    double priority = 104;
+    string priority_key = 105;
+    string max_stack_cnt_key = 106;
+}
+message BUFF_STACKING_SETTINGS {
+    int32 identifier_type = 1;
+    int32 stacking_type = 2;
+    string stacking_key = 3;
+    string priority_key = 4;
+    double priority = 5;
+    int32 max_stack_cnt = 6;
+    bool is_ascending_order = 7;
+    string max_stack_cnt_key = 8;
+}
+message BUFF_SHIELD_SETTINGS {
+    bool infinite_shield = 1;
+    bool absorb_all_damage_when_shield_exhausted = 2;
+    bool finish_buff_when_shield_exhausted = 3;
+    BATTLE_BLACKBOARD_FLOAT max_absorption_count = 4;
+    map<int32, SHIELD_ABSORB_INFO> dmg_type_info = 5;
+}
+message SHIELD_ABSORB_INFO {
+    BATTLE_BLACKBOARD_FLOAT dmg_absorption_rate = 1;
+    BATTLE_BLACKBOARD_FLOAT dmg_to_shield_ratio = 2;
+}
+message SKILL_COST_DATA {
+    SKILL_COST_TYPE cost_type = 1;
+    float cost_value = 2;
+}
+message SKILL_RES {
+    string skill_id = 1;
+    SKILL_COST_TYPE cost_type = 2;
+    int32 skill_lv = 3;
+    float cost_value = 4;
+    repeated int32 tag_during_attach = 5;
+    BATTLE_BLACKBOARD blackboard = 6;
+    map<int32, BATTLE_ACTION_RES> action_map = 7;
+    bool is_passive = 8;
+    repeated BATTLE_ATTR_MODIFIER attr_modifiers = 9;
+    int32 skill_type = 11;
+}
+message BUFF_DAMAGE_MODIFIER_RES {
+    int32 enable_side = 1;
+    int32 index = 2;
+    repeated BATTLE_ACTION_RES cond_actions = 3;
+    repeated BATTLE_DAMAGE_PROCESSOR damage_processors = 4;
+}
+message BUFF_HEAL_MODIFIER_RES {
+    int32 enable_side = 1;
+    int32 index = 2;
+    repeated BATTLE_ACTION_RES cond_actions = 3;
+    repeated BATTLE_HEAL_PROCESSOR heal_processors = 4;
+}
+message BUFF_INPUT {
+    string buff_id = 1;
+    bool assign_blackboard = 2;
+    repeated BATTLE_BLACKBOARD_ASSIGN_ITEM assigned_items = 3;
+    bool read_id_from_blackboard = 4;
+    KEYWORD_CONFIG_RES keyword_config = 5;
+}
+message ENTITY_BATTLE_BLACKBOARD_DATA {
+    string id = 1;
+    BATTLE_BLACKBOARD blackboard = 2;
+}
+message BATTLE_BLACKBOARD {
+    map<string, BATTLE_BLACKBOARD_DATA> blackboard = 1;
+}
+message BATTLE_BLACKBOARD_DATA {
+    string str_value = 1;
+    double float_value = 2;
+    bool is_dynamic = 3;
+}
+message BATTLE_TARGET_WRAPPER {
+    uint64 target_id = 1;
+    VECTOR target_pos = 2;
+}
+message BATTLE_TARGET_HANDLE {
+    repeated BATTLE_TARGET_WRAPPER targets = 1;
+}
+message BATTLE_BLACKBOARD_ASSIGN_ITEM {
+    string target_key = 1;
+    string input_value_key = 2;
+    bool use_direct_value = 3;
+    float numeric_value = 4;
+    string string_value = 5;
+}
+message BATTLE_ATTR_MODIFIER {
+    int32 modify_attr_type = 1;
+    int32 attr_type = 2;
+    int32 formula_item = 3;
+    BATTLE_BLACKBOARD_FLOAT param = 4;
+}
+message BATTLE_BLACKBOARD_FLOAT {
+    bool use_blackboard_key = 1;
+    string blackboard_key = 2;
+    double default_value = 3;
+}
+message BATTLE_BLACKBOARD_STRING {
+    bool use_blackboard_key = 1;
+    string blackboard_key = 2;
+    string default_value = 3;
+}
+message BATTLE_STANDALONE_ACTION_RES {
+    string template_id = 1;
+    map<int32, BATTLE_ACTION_RES> action_map = 2;
+}
+message BATTLE_ACTION_RES {
+    int32 action_id = 1;
+    SERVER_BATTLE_ACTION_TYPE action_type = 2;
+    oneof inst_impl {
+        BATTLE_DAMAGE_ACTION_DATA damage_action = 3;
+        BATTLE_CREATE_BUFF_ACTION_DATA create_buff_action = 4;
+        BATTLE_FINISH_BUFF_ACTION_DATA finish_buff_action = 5;
+        BATTLE_GAIN_COST_ACTION_DATA gain_cost_action = 6;
+        BATTLE_HEAL_ACTION_DATA heal_action = 7;
+        BATTLE_SWITCH_MODE_ACTION_DATA switch_mode_action = 8;
+        BATTLE_MODIFY_DYNAMIC_BLACKBOARD_ACTION_DATA modify_dynamic_blackboard_action = 9;
+        BATTLE_SPAWN_ENEMY_ACTION_DATA spawn_enemy_action = 10;
+        BATTLE_LAUNCH_PROJECTILE_ACTION_DATA launch_projectile_action = 25;
+        BATTLE_SPAWN_ABILITY_ENTITY_ACTION_DATA spawn_ability_entity_action = 26;
+        BATTLE_SPAWN_CUSTOM_SUMMON_ACTION_DATA spawn_custom_summon_action = 27;
+        BATTLE_REFRESH_BUFF_ATTR_MODIFIER_VALUE_ACTION_DATA refresh_buff_attr_modifier_value_action = 28;
+        BATTLE_STORE_ATTRIBUTE_VALUE_ACTION_DATA store_attribute_value_action = 29;
+        BATTLE_SET_BLACKBOARD_FROM_PRESET_DATA set_blackboard_from_preset_action = 30;
+        BATTLE_MODIFY_PART_DAMAGE_TRANSFER_RATIO_ACTION_DATA modify_part_damage_transfer_ratio_action = 31;
+        BATTLE_MODIFY_ENABLE_PART_ACTION_DATA enable_part_action = 32;
+        BATTLE_READ_SKILL_SETTING_TO_BB_ACTION_DATA read_skill_setting_to_bb_action = 33;
+        BATTLE_SIMPLE_CALC_BB_ACTION_DATA calc_bb_action = 34;
+        BATTLE_ACTION_MULTI_MODIFY_BB_ACTION_DATA multi_modify_bb_action = 35;
+        BATTLE_ACTION_EMPTY_RES empty_res = 999;
+    }
+}
+message BATTLE_ACTION_EMPTY_RES {
+}
+message BATTLE_ACTION_TARGET_SETTING {
+    int32 target_source = 1;
+    string target_group_key = 2;
+}
+message BATTLE_DAMAGE_ATK_CALCULATION {
+    ATK_CALCULATION_TYPE type = 1;
+    oneof calculation_impl {
+        ATK_SCALE_CALCULATION atk_scale_calculation = 2;
+        DEFINITE_VALUE_CALCULATION definite_value_calculation = 3;
+        MULTIPLY_ATTRIBUTE_CALCULATION multiply_attribute_calculation = 4;
+        BREAKING_ATTACK_CALCULATION breaking_attack_calculation = 5;
+        PRIMARY_ATTR_CALCULATION primary_attr_calculation = 6;
+    }
+}
+message DEV_BATTLE_CALCULATION_RUNTIME_ARGS {
+    oneof calculation_args {
+        SIMPLE_CALC_RUNTIME_ARGS simple_calc_runtime_args = 100;
+        ATK_SCALE_CALCULATION_RUNTIME_ARGS atk_scale_calculation_runtime_args = 101;
+        DEFINITE_VALUE_CALCULATION_RUNTIME_ARGS definite_value_calculation_runtime_args = 102;
+        MULTIPLY_ATTRIBUTE_CALCULATION_RUNTIME_ARGS multiply_attribute_calculation_runtime_args = 103;
+        BREAKING_ATTACK_CALCULATION_RUNTIME_ARGS breaking_attack_calculation_runtime_args = 104;
+        PRIMARY_ATTR_CALCULATION_RUNTIME_ARGS primary_attr_calculation_runtime_args = 105;
+    }
+}
+message SIMPLE_CALC_RUNTIME_ARGS {
+    double client_atk_scale = 1;
+    double client_atk_value = 2;
+}
+message ATK_SCALE_CALCULATION {
+    ATK_CALCULATION_TYPE type = 1;
+    BATTLE_BLACKBOARD_FLOAT atk_scale = 2;
+}
+message ATK_SCALE_CALCULATION_RUNTIME_ARGS {
+    double client_atk_scale = 1;
+    double client_atk_value = 2;
+}
+message DEFINITE_VALUE_CALCULATION {
+    ATK_CALCULATION_TYPE type = 1;
+    BATTLE_BLACKBOARD_FLOAT definite_value = 2;
+    bool apply_scale = 3;
+    BATTLE_BLACKBOARD_FLOAT value_scale = 4;
+}
+message DEFINITE_VALUE_CALCULATION_RUNTIME_ARGS {
+    double client_definite_value = 1;
+    double client_value_scale = 2;
+}
+message MULTIPLY_ATTRIBUTE_CALCULATION {
+    ATK_CALCULATION_TYPE type = 1;
+    int32 value_source = 2;
+    int32 attr_type = 3;
+    BATTLE_BLACKBOARD_FLOAT multiplier = 4;
+    BATTLE_BLACKBOARD_FLOAT add_value = 5;
+}
+message MULTIPLY_ATTRIBUTE_CALCULATION_RUNTIME_ARGS {
+    double client_multiplier = 1;
+    double client_add_value = 2;
+    double client_value = 3;
+}
+message BREAKING_ATTACK_CALCULATION {
+    ATK_CALCULATION_TYPE type = 1;
+    BATTLE_BLACKBOARD_FLOAT atk_scale = 2;
+    BATTLE_BLACKBOARD_FLOAT multiplier = 3;
+}
+message BREAKING_ATTACK_CALCULATION_RUNTIME_ARGS {
+    double client_atk_scale = 1;
+    double client_multiplier = 2;
+    double client_attacker_atk = 3;
+    double client_defender_breaking_attack_dmg_taken_scalar = 4;
+}
+message PRIMARY_ATTR_CALCULATION {
+    int32 value_source = 1;
+    int32 attr_type = 2;
+    bool apply_scale = 3;
+    BATTLE_BLACKBOARD_FLOAT value_scale = 4;
+}
+message PRIMARY_ATTR_CALCULATION_RUNTIME_ARGS {
+    double client_attr_value = 1;
+    double client_value_scale = 2;
+}
+message BATTLE_HEAL_PROCESSOR {
+    HEAL_PROCESSOR_TYPE type = 1;
+    oneof processor_impl {
+        HEAL_PROCESSOR_EMPTY heal_processor_empty = 2;
+        BATTLE_MODIFY_HEAL_CALC_RESULT heal_modify_calc_result = 3;
+        INSTANT_MODIFY_ATTRIBUTE_FOR_HEAL_PROCESSOR instant_modify_attribute_for_heal_processor = 4;
+    }
+}
+message HEAL_PROCESSOR_EMPTY {
+}
+message BATTLE_MODIFY_HEAL_CALC_RESULT {
+    int32 modify_type = 1;
+    BATTLE_BLACKBOARD_FLOAT multiplier = 2;
+    BATTLE_BLACKBOARD_FLOAT multiplier_cnt = 3;
+}
+message INSTANT_MODIFY_ATTRIBUTE_FOR_HEAL_PROCESSOR {
+    HEAL_PROCESSOR_TYPE type = 1;
+    int32 target_side = 2;
+    BATTLE_ATTR_MODIFIER attr_modifier = 3;
+}
+message BATTLE_DAMAGE_PROCESSOR {
+    DAMAGE_PROCESSOR_TYPE type = 1;
+    oneof processor_impl {
+        ATTACKER_CRIT_RATE_PROCESSOR attacker_crit_rate_processor = 2;
+        ATTACKER_ATK_PROCESSOR attacker_atk_processor = 3;
+        ATTACKER_CRIT_DAMAGE_PROCESSOR attacker_crit_damage_processor = 4;
+        ATTACKER_PEN_PROCESSOR attacker_pen_processor = 5;
+        DAMAGE_SCALE_PROCESSOR damage_scale_processor = 6;
+        DEFENDER_DEF_PROCESSOR defender_def_processor = 7;
+        MODIFY_CALCULATE_RESULT_PROCESSOR modify_calulate_result_processor = 8;
+        INSTANT_MODIFY_ATTRIBUTE_PROCESSOR instant_modify_attribute_processor = 9;
+    }
+}
+message ATTACKER_CRIT_RATE_PROCESSOR {
+    DAMAGE_PROCESSOR_TYPE type = 1;
+    BATTLE_BLACKBOARD_FLOAT addition = 2;
+}
+message ATTACKER_ATK_PROCESSOR {
+    DAMAGE_PROCESSOR_TYPE type = 1;
+    BATTLE_BLACKBOARD_FLOAT scale = 2;
+}
+message ATTACKER_CRIT_DAMAGE_PROCESSOR {
+    DAMAGE_PROCESSOR_TYPE type = 1;
+    BATTLE_BLACKBOARD_FLOAT scale = 2;
+}
+message ATTACKER_PEN_PROCESSOR {
+    DAMAGE_PROCESSOR_TYPE type = 1;
+    BATTLE_BLACKBOARD_FLOAT scale = 2;
+}
+message DAMAGE_SCALE_PROCESSOR {
+    DAMAGE_PROCESSOR_TYPE type = 1;
+    int32 damage_scale_side = 2;
+    string zone_name = 3;
+    BATTLE_BLACKBOARD_FLOAT addition = 4;
+}
+message DEFENDER_DEF_PROCESSOR {
+    DAMAGE_PROCESSOR_TYPE type = 1;
+    BATTLE_BLACKBOARD_FLOAT multiplier = 2;
+}
+message MODIFY_CALCULATE_RESULT_PROCESSOR {
+    DAMAGE_PROCESSOR_TYPE type = 1;
+    int32 cal_type = 2;
+    BATTLE_BLACKBOARD_FLOAT base_multiplier = 3;
+    BATTLE_BLACKBOARD_FLOAT multiplier_cnt = 4;
+}
+message INSTANT_MODIFY_ATTRIBUTE_PROCESSOR {
+    DAMAGE_PROCESSOR_TYPE type = 1;
+    int32 target_side = 2;
+    BATTLE_ATTR_MODIFIER attr_modifier = 3;
+}
+message GAMEPLAY_TAG_QUERY {
+    int32 query_type = 1;
+    repeated int32 tag_ids = 2;
+}
+message BATTLE_ACTION_DAMAGE_UNIT {
+    int32 damage_type = 1;
+    int32 damage_attribute_type = 2;
+    int32 damage_decorate_mask = 3;
+    bool simple_calculation = 4;
+    BATTLE_BLACKBOARD_FLOAT atk_scale = 5;
+    BATTLE_DAMAGE_ATK_CALCULATION atk_calculation = 6;
+    repeated BATTLE_DAMAGE_PROCESSOR damage_processors = 7;
+    bool gain_cost = 8;
+    repeated SKILL_COST_DATA cost_data = 9;
+    bool reduce_damage_for_guard = 10;
+    float reduce_damage_for_guard_ratio = 11;
+}
+message BATTLE_ACTION_MULTI_MODIFY_BB_ACTION_DATA {
+    repeated string keys = 1;
+}
+message BATTLE_ACTION_MULTI_MODIFY_BB_ACTION_RUNTIME {
+    string key = 1;
+    double value = 2;
+}
+message BATTLE_SIMPLE_CALC_BB_ACTION_DATA {
+    BATTLE_BLACKBOARD_FLOAT value_a = 1;
+    BATTLE_BLACKBOARD_FLOAT value_b = 2;
+    BATTLE_BLACKBOARD_STRING target_key = 3;
+    int32 modify_type = 4;
+}
+message BATTLE_SIMPLE_CALC_BB_ACTION_RUNTIME {
+    double client_value_a = 1;
+    double client_value_b = 2;
+    string client_target_key = 3;
+    double client_final_value = 4;
+}
+message BATTLE_READ_SKILL_SETTING_TO_BB_ACTION_DATA {
+    repeated BATTLE_READ_SKILL_SETTING_TO_BB_ACTION_DATA_DETAIL configs = 1;
+}
+message BATTLE_READ_SKILL_SETTING_TO_BB_ACTION_DATA_DETAIL {
+    string data_key = 1;
+    string store_key = 2;
+    BATTLE_BLACKBOARD_FLOAT layer_key = 3;
+}
+message BATTLE_READ_SKILL_SETTING_TO_BB_ACTION_RUNTIME {
+    repeated BATTLE_READ_SKILL_SETTING_TO_BB_ACTION_RUNTIME_DETAIL runtime_details = 1;
+}
+message BATTLE_READ_SKILL_SETTING_TO_BB_ACTION_RUNTIME_DETAIL {
+    int32 client_layer_cnt = 1;
+    double client_value = 2;
+    double enhance_attr_value = 3;
+    uint64 attacker_battle_inst_id = 4;
+}
+message BATTLE_MODIFY_PART_DAMAGE_TRANSFER_RATIO_ACTION_DATA {
+    BATTLE_BLACKBOARD_FLOAT ratio = 1;
+    bool reset_on_end = 2;
+}
+message BATTLE_MODIFY_PART_DAMAGE_TRANSFER_RATIO_ACTION_RUNTIME {
+    uint64 main_body_inst_id = 1;
+    repeated uint64 part_inst_ids = 2;
+    float client_ratio = 3;
+}
+message BATTLE_MODIFY_ENABLE_PART_ACTION_DATA {
+    bool enable_when_execute = 1;
+    bool reset_on_end = 2;
+    bool modify_hp_on_enable = 3;
+    int32 modify_type = 4;
+    BATTLE_BLACKBOARD_FLOAT value = 5;
+    bool clear_all_buff_on_disable = 6;
+}
+message BATTLE_MODIFY_ENABLE_PART_ACTION_RUNTIME {
+    uint64 main_body_inst_id = 1;
+    map<uint64, double> part_inst_id_to_hp = 2;
+}
+message BATTLE_SET_BLACKBOARD_FROM_PRESET_DATA {
+    repeated string valid_values = 1;
+    string key = 2;
+    bool skip_check = 3;
+}
+message BATTLE_SET_BLACKBOARD_FROM_PRESET_RUNTIME {
+    string modified_value = 1;
+}
+message BATTLE_REFRESH_BUFF_ATTR_MODIFIER_VALUE_ACTION_DATA {
+}
+message BATTLE_REFRESH_BUFF_ATTR_MODIFIER_VALUE_ACTION_RUNTIME {
+}
+message BATTLE_STORE_ATTRIBUTE_VALUE_ACTION_DATA {
+    string key = 1;
+}
+message BATTLE_STORE_ATTRIBUTE_VALUE_ACTION_RUNTIME {
+    float value = 1;
+}
+message BATTLE_DAMAGE_ACTION_DATA {
+    BATTLE_ACTION_TARGET_SETTING target = 1;
+    int32 attacker_type = 2;
+    repeated BATTLE_ACTION_DAMAGE_UNIT damage_unit = 3;
+    bool is_cache_damage = 4;
+}
+message BATTLE_DAMAGE_ACTION_RUNTIME {
+    uint64 attacker_id = 1;
+    repeated BATTLE_DAMAGE_DETAIL details = 2;
+    TEMPLATE_ID original_source_template_id = 3;
+}
+message BATTLE_DAMAGE_DETAIL {
+    uint64 target_id = 1;
+    int32 damage_unit_index = 2;
+    bool is_crit = 3;
+    double value = 4;
+    BATTLE_DAMAGE_MODIFIER_ARGS modifier_args = 5;
+    double cur_hp = 6;
+    uint64 part_inst_id = 7;
+    repeated DAMAGE_ABSORB_INFO damage_absorb_info = 8;
+    BATTLE_REPORT_INFO battle_report_info = 9;
+    DEV_BATTLE_CALCULATION_RUNTIME_ARGS calculation_check_args = 10;
+    map<int32, BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM> processor_debug_args = 11;
+    DEV_BATTLE_CALCULATE_DAMAGE_RUNTIME_ARGS calculate_damage_check_args = 12;
+    CLIENT_ATTR_MODIFIER_DEBUG_DATA attacker_attr_modifier_debug_data = 13;
+    CLIENT_ATTR_MODIFIER_DEBUG_DATA defender_attr_modifier_debug_data = 14;
+}
+message DAMAGE_ABSORB_INFO {
+    uint64 buff_inst_id = 1;
+    double remain_shield_value = 2;
+    double remain_damage_value = 3;
+    int32 remain_absorption_count = 4;
+}
+message BATTLE_DAMAGE_MODIFIER_ARGS {
+    uint64 attacker_id = 1;
+    uint64 defender_id = 2;
+    repeated BATTLE_MODIFIER_HANDLE attacker_modifiers = 3;
+    repeated BATTLE_MODIFIER_HANDLE defender_modifiers = 4;
+}
+message BATTLE_MODIFIER_HANDLE {
+    uint64 buff_inst_id = 1;
+    int32 index = 2;
+    map<int32, BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM> processor_debug_args = 3;
+}
+message BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM {
+    oneof processor_args {
+        EMPTY_BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM empty_processor_args = 100;
+        BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM_MODIFY_CALCULATE_RESULT modify_calculate_result_processor_args = 101;
+        BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM_INSTANT_MODIFY_ATTRIBUTE instant_modify_attribute_processor_args = 102;
+        BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM_DAMAGE_SCALE damage_scale_processor_args = 103;
+        BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM_HEAL_MODIFY_RESULT heal_modify_result_processor_args = 201;
+        BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM_HEAL_INSTANT_MODIFY_ATTRIBUTE heal_instant_modify_attribute_processor_args = 202;
+    }
+}
+message EMPTY_BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM {
+}
+message BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM_MODIFY_CALCULATE_RESULT {
+    double client_base_modifier = 1;
+    double client_multiplier_cnt = 2;
+    double client_val_before_modify = 3;
+}
+message BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM_INSTANT_MODIFY_ATTRIBUTE {
+    double client_value = 1;
+    CLIENT_ATTR_MODIFIER_DEBUG_DATA attr_modifier_debug_data = 2;
+}
+message BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM_DAMAGE_SCALE {
+    double client_value = 1;
+}
+message BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM_HEAL_MODIFY_RESULT {
+    double client_base_modifier = 1;
+    double client_multiplier_cnt = 2;
+    double client_val_before_modify = 3;
+}
+message BATTLE_CLIENT_PROCESSOR_DEBUG_ARGS_ITEM_HEAL_INSTANT_MODIFY_ATTRIBUTE {
+    double client_value = 1;
+    CLIENT_ATTR_MODIFIER_DEBUG_DATA attr_modifier_debug_data = 2;
+}
+message BATTLE_CREATE_BUFF_ACTION_DATA {
+    repeated BUFF_INPUT buff_input = 1;
+    BATTLE_BLACKBOARD_FLOAT count = 2;
+    BATTLE_ACTION_TARGET_SETTING target = 3;
+    int32 buff_source_type = 4;
+    bool auto_finish_by_action = 5;
+}
+message BATTLE_CREATE_BUFF_ACTION_RUNTIME {
+    repeated BATTLE_CREATE_BUFF_ACTION_DETAIL details = 2;
+}
+message BATTLE_CREATE_BUFF_ACTION_DETAIL {
+    uint64 source_id = 1;
+    uint64 target_id = 2;
+    uint64 buff_inst_id = 3;
+    int32 buff_input_index = 4;
+    repeated BATTLE_BLACKBOARD_ASSIGN_ITEM assigned_items = 5;
+    int32 buff_num_id = 6;
+    string buff_id = 7;
+}
+message KEYWORD_CONFIG_RES {
+    repeated KEYWORD_CONFIG_DATA keyword_configs = 1;
+}
+message KEYWORD_CONFIG_DATA {
+    repeated string interesting_buff_ids = 1;
+    int32 calc_type = 2;
+    string modify_key = 3;
+    BATTLE_BLACKBOARD_FLOAT value = 4;
+}
+message BATTLE_FINISH_BUFF_ACTION_DATA {
+    BATTLE_ACTION_TARGET_SETTING buff_owner = 1;
+    repeated string buff_ids = 2;
+    bool finish_all_buff = 3;
+    BATTLE_BLACKBOARD_FLOAT finish_layer_cnt = 4;
+    bool ignore_check = 5;
+}
+message BATTLE_FINISH_BUFF_ACTION_RUNTIME {
+    repeated BATTLE_FINISH_BUFF_ACTION_DETAIL finish_buffs = 1;
+    int32 finish_layer_cnt = 2;
+}
+message BATTLE_FINISH_BUFF_ACTION_DETAIL {
+    uint64 target_id = 1;
+    uint64 buff_inst_id = 2;
+}
+message BATTLE_GAIN_COST_ACTION_DATA {
+    SKILL_COST_DATA cost_data = 2;
+}
+message BATTLE_GAIN_COST_ACTION_RUNTIME {
+    uint64 source_id = 1;
+    uint64 target_id = 2;
+    double final_value = 3;
+}
+message BATTLE_HEAL_ACTION_DATA {
+    int32 heal_type = 1;
+    BATTLE_DAMAGE_ATK_CALCULATION heal_calculation = 2;
+}
+message BATTLE_HEAL_ACTION_RUNTIME {
+    repeated BATTLE_HEAL_ACTION_DETAIL details = 1;
+    TEMPLATE_ID original_source_template_id = 2;
+}
+message BATTLE_HEAL_ACTION_DETAIL {
+    uint64 source_id = 1;
+    uint64 target_id = 2;
+    double value = 3;
+    BATTLE_HEAL_MODIFIER_ARGS modifier_args = 4;
+    double cur_hp = 5;
+    BATTLE_REPORT_INFO battle_report_info = 6;
+    DEV_BATTLE_CALCULATION_RUNTIME_ARGS calculation_check_args = 10;
+    CLIENT_ATTR_MODIFIER_DEBUG_DATA healer_attr_modifier_debug_data = 11;
+    CLIENT_ATTR_MODIFIER_DEBUG_DATA receiver_attr_modifier_debug_data = 12;
+    DEV_BATTLE_CALCULATE_HEAL_RUNTIME_ARGS calculate_heal_check_args = 13;
+}
+message DEV_BATTLE_CALCULATE_HEAL_RUNTIME_ARGS {
+    double client_heal_value = 1;
+    double client_heal_output_increase = 2;
+    double client_heal_taken_increase = 3;
+}
+message DEV_BATTLE_CALCULATE_DAMAGE_RUNTIME_ARGS {
+    double client_calc_result_value = 1;
+    double client_final_damage_scale = 2;
+    double client_attack_value = 3;
+    double client_crit_add_scale = 4;
+    double client_def_attr_defender_def = 5;
+    double client_def_resistance = 6;
+    double client_dmg_type_resistance = 7;
+    double client_defender_poise_factor = 8;
+    double client_ignite_damage_scalar = 9;
+    double client_final_value = 10;
+    double client_weak_damage_scalar = 11;
+    double client_shelter_damage_scalar = 12;
+    double client_physical_infliction_damage_scalar = 13;
+}
+message BATTLE_HEAL_MODIFIER_ARGS {
+    uint64 healer_id = 1;
+    uint64 heal_receive_id = 2;
+    repeated BATTLE_MODIFIER_HANDLE healer_modifiers = 3;
+    repeated BATTLE_MODIFIER_HANDLE heal_receive_modifiers = 4;
+}
+message BATTLE_SWITCH_MODE_ACTION_DATA {
+    string mode_id = 1;
+    bool reset_on_end = 2;
+}
+message BATTLE_SWITCH_MODE_ACTION_RUNTIME {
+    uint64 source_id = 1;
+    string mode_id = 2;
+    uint32 mode_inst_id = 3;
+}
+message BATTLE_MODIFY_DYNAMIC_BLACKBOARD_ACTION_DATA {
+    string key = 1;
+    BATTLE_BLACKBOARD_FLOAT value = 2;
+    int32 modify_type = 3;
+    bool ignore_server_check = 4;
+}
+message BATTLE_MODIFY_DYNAMIC_BLACKBOARD_ACTION_RUNTIME {
+    double client_value = 1;
+}
+message BATTLE_SPAWN_ENEMY_ACTION_DATA {
+    string enemy_id = 1;
+    BATTLE_BLACKBOARD_FLOAT hp_ratio = 2;
+}
+message BATTLE_SPAWN_ENEMY_ACTION_RUNTIME {
+    uint32 client_key = 1;
+    repeated BATTLE_SPAWN_ENEMY_ACTION_DETAIL details = 2;
+}
+message BATTLE_SPAWN_ENEMY_ACTION_DETAIL {
+    uint64 source_id = 1;
+    uint32 enemy_lv = 2;
+    VECTOR pos = 3;
+    VECTOR rotation = 4;
+    int32 scene_num_id = 5;
+}
+message BATTLE_LAUNCH_PROJECTILE_ACTION_DATA {
+    string projectile_id = 1;
+    bool assign_blackboard = 3;
+}
+message BATTLE_LAUNCH_PROJECTILE_ACTION_RUNTIME {
+    uint64 source_id = 1;
+    repeated BATTLE_PROJECTILE_DETAIL details = 2;
+}
+message BATTLE_PROJECTILE_DETAIL {
+    uint64 client_projectile_id = 1;
+}
+message BATTLE_SPAWN_ABILITY_ENTITY_ACTION_DATA {
+    string ability_entity_id = 1;
+    bool assign_blackboard = 3;
+    bool set_spawner_as_source = 4;
+}
+message BATTLE_SPAWN_ABILITY_ENTITY_ACTION_RUNTIME {
+    repeated BATTLE_ABILITY_ENTITY_DETAIL details = 1;
+}
+message BATTLE_ABILITY_ENTITY_DETAIL {
+    uint64 client_ability_entity_id = 1;
+    uint64 source_id = 2;
+    VECTOR init_pos = 3;
+    VECTOR rotation = 4;
+}
+message BATTLE_SPAWN_CUSTOM_SUMMON_ACTION_DATA {
+}
+message BATTLE_SPAWN_CUSTOM_SUMMON_ACTION_RUNTIME {
+    repeated BATTLE_SPAWN_CUSTOM_SUMMON_DETAIL details = 1;
+}
+message BATTLE_SPAWN_CUSTOM_SUMMON_DETAIL {
+    string summon_id = 1;
+    TEMPLATE_ID summon_skill_id = 2;
+    uint64 client_ability_entity_id = 3;
+    VECTOR init_pos = 4;
+    VECTOR rotation = 5;
+    BATTLE_BLACKBOARD blackboard = 6;
+    uint64 source_id = 7;
+}
+message SERVER_BUFF_STACKING_GROUP {
+    string stacking_key = 1;
+    int32 stacking_type = 2;
+    int32 max_stack_cnt = 3;
+    bool is_server_init = 4;
+    repeated uint64 buff_inst_ids = 5;
+}
+message SERVER_BUFF {
+    TEMPLATE_ID buff_id = 1;
+    uint64 inst_id = 2;
+    BATTLE_BLACKBOARD blackboard = 3;
+    int64 duration = 4;
+    double priority = 5;
+    int32 enhance_multi = 6;
+    bool is_server_init = 7;
+    bool is_enable = 8;
+    string stacking_group_id = 9;
+}
+message SERVER_SKILL {
+    TEMPLATE_ID skill_id = 1;
+    uint64 inst_id = 2;
+    int32 potential_lv = 3;
+    int32 level = 4;
+    BATTLE_BLACKBOARD blackboard = 5;
+    BATTLE_SKILL_SOURCE source = 6;
+    repeated string talent_node_ids = 7;
+    bool is_server_init = 8;
+    bool is_enable = 9;
+    bool is_passive = 10;
+}
+message BATTLE_MGR_INFO {
+    repeated SERVER_BUFF buff_list = 1;
+    repeated SERVER_SKILL skill_list = 2;
+    uint32 msg_generation = 3;
+    uint64 battle_inst_id = 4;
+    repeated SERVER_BUFF_STACKING_GROUP stacking_group_list = 5;
+    BATTLE_PART_INST_INFO part_inst_info = 6;
+}
+message BATTLE_PART_INST_INFO {
+    map<string, uint64> part_id_to_inst_id = 1;
+}
+message CLIENT_ATTR_MODIFIER_DEBUG_DATA {
+    map<int32, CLIENT_ATTR_MODIFIER_LIST> attr_modifier_map = 1;
+}
+message CLIENT_ATTR_MODIFIER_LIST {
+    repeated CLIENT_ATTR_MODIFIER attr_modifier_list = 1;
+    double basic_value = 2;
+}
+message CLIENT_ATTR_MODIFIER {
+    uint64 attr_src_mask = 1;
+    ATTR_MODIFY_DATA modify_data = 2;
+}
+message ATTR_MODIFY_DATA {
+    double modify_value = 1;
+    double modify_ratio = 2;
+    double final_modify_value = 3;
+    double final_modify_ratio = 4;
+    double base_modify_value = 5;
+    double base_modify_ratio = 6;
+    double base_final_modify_value = 7;
+    double base_final_modify_ratio = 8;
+}

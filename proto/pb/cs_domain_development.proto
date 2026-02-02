@@ -1,0 +1,43 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+
+enum DOMAIN_DEVELOPMENT_READ_VERSION_TYPE {
+    DOMAIN_DEV_SYSTEM = 0;
+    DOMAIN_DEV_KITE_STATION = 1;
+    DOMAIN_DEV_SETTLEMENT = 2;
+    DOMAIN_DEV_DOMAIN_SHOP = 3;
+    DOMAIN_DEV_DOMAIN_DEPOT = 4;
+}
+message CS_DOMAIN_DEVELOPMENT_READ_VERSION_INFO {
+    string chapter_id = 1;
+}
+message CS_DOMAIN_DEVELOPMENT_TAKE_REWARD {
+    string chapter_id = 1;
+    uint64 rewarded_level = 2;
+}
+message SC_DOMAIN_DEVELOPMENT_SYSTEM_SYNC {
+    repeated DOMAIN_DEVELOPMENT domains = 1;
+}
+message SC_DOMAIN_DEVELOPMENT_SYNC {
+    DOMAIN_DEVELOPMENT domain = 1;
+}
+message SC_DOMAIN_DEVELOPMENT_DEGREE_MODIFY {
+    string chapter_id = 1;
+    DOMAIN_DEVELOPMENT_DEGREE degree = 2;
+}
+message SC_DOMAIN_DEVELOPMENT_REWARDED_LEVEL_MODIFY {
+    string chapter_id = 1;
+    uint64 rewarded_level = 2;
+}
+message SCD_DOMAIN_DEVELOPMENT_READ_VERSION_INFO_MODIFY {
+    DOMAIN_DEVELOPMENT_READ_VERSION_TYPE data_type = 1;
+    string chapter_id = 2;
+    string version = 3;
+}
+message SC_DOMAIN_DEVELOPMENT_READ_VERSION_INFO_MODIFY {
+    repeated SCD_DOMAIN_DEVELOPMENT_READ_VERSION_INFO_MODIFY data = 1;
+}

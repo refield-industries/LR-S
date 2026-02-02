@@ -1,0 +1,19 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message CS_GAME_TIME_FREEZE_START_REQ {
+    int32 reason = 1;
+}
+message CS_GAME_TIME_FREEZE_END_REQ {
+    int32 reason = 1;
+}
+message SC_GAME_TIME_FREEZE_START_RSP {
+    int32 reason = 1;
+    bool in_time_freeze = 2;
+}
+message SC_GAME_TIME_FREEZE_END_RSP {
+    int32 reason = 1;
+    bool in_time_freeze = 2;
+}

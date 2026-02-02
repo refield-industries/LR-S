@@ -1,0 +1,65 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "options.proto";
+
+enum NPC_CONSTANTS {
+    NC_NONE = 0;
+    NC_META_VALUE_MAX_SIZE = 100;
+}
+message SCD_PATROL_NPC_META {
+    map<int32, int32> patrol_meta_kvs = 1;
+}
+message CS_NPC_SET_META_DATA_REQ {
+    string proxy_id = 1;
+    map<int32, bytes> meta_kvs = 2;
+}
+message SCD_NPC_SET_META_DATA {
+    string proxy_id = 1;
+    map<int32, bytes> meta_kvs = 2;
+}
+message CS_NPC_BATCH_SET_META_DATA_REQ {
+    repeated SCD_NPC_SET_META_DATA npc_meta_datas = 1;
+}
+message SC_NPC_SET_META_DATA_RSP {
+    string proxy_id = 1;
+    map<int32, bytes> meta_kvs = 2;
+}
+message SC_NPC_BATCH_SET_META_DATA_RSP {
+    repeated SCD_NPC_SET_META_DATA npc_meta_datas = 1;
+}
+message SCD_NPC_PROXY_INFO {
+    int32 proxy_num_id = 1;
+    map<int32, bytes> meta_kvs = 2;
+    int32 active_cond_index = 3;
+}
+message SC_NPC_ENTER_MAP_RESYNC {
+    string map_name = 1;
+    repeated SCD_NPC_PROXY_INFO map_active_npc_infos = 2;
+}
+message SC_NPC_ACTIVE_CHANGE_NTF {
+    string map_name = 1;
+    string npc_id = 2;
+    string old_active_npc_proxy_id = 3;
+    SCD_NPC_PROXY_INFO new_active_npc_info = 4;
+}
+message SC_NPC_RESET_META_DATA_NTF {
+    repeated int32 proxy_num_ids = 1;
+}
+message SCD_NPC_CONFLICT_MULTI_NPC_PROXY {
+    string npc_id = 1;
+    repeated string npc_proxy_ids = 2;
+}
+message SCD_NPC_CONFLICT_MULTI_CONDITION {
+    string proxy_id = 1;
+    repeated int32 cond_indexes = 2;
+}
+message SC_NPC_CONFLICT_NTF {
+    repeated SCD_NPC_CONFLICT_MULTI_NPC_PROXY conflict_npc_proxies = 1;
+    repeated SCD_NPC_CONFLICT_MULTI_CONDITION conflict_proxy_conditions = 2;
+}
+message SC_NPC_ACTIVE_CHANGE_APPLY_NTF {
+    string map_name = 1;
+}

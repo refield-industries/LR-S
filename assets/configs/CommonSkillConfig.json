@@ -1,0 +1,42 @@
+{
+  "config": {
+    "Character": {
+      "skillConfigs": [
+        {
+          "skillId": "common_character_ai_dash",
+          "skillType": 3
+        },
+        {
+          "skillId": "common_character_battle_step_left",
+          "skillType": 0
+        },
+        {
+          "skillId": "common_character_battle_step_right",
+          "skillType": 0
+        },
+        {
+          "skillId": "common_character_farming_start",
+          "skillType": 3
+        },
+        {
+          "skillId": "common_character_farming_end",
+          "skillType": 3
+        },
+        {
+          "skillId": "common_character_healtap",
+          "skillType": 3
+        },
+        {
+          "skillId": "common_character_healtap_left",
+          "skillType": 3
+        },
+        {
+          "skillId": "common_character_battle_walk_retreat",
+          "skillType": 0
+        }
+      ]
+    }
+  },
+  "name": "CommonSkillConfig",
+  "hideFlags": 0
+}

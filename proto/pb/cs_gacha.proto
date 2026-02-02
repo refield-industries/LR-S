@@ -1,0 +1,115 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "options.proto";
+
+enum GACHA_CONFIRM_REWARD_TYPE {
+    GCRT_ONCE_REWARD = 0;
+    GCRT_INTERVAL_REWARD = 1;
+}
+enum CHAR_GACHA_ONCE_AUTO_REWARD_INDEX {
+    CGOAR_INDEX_NONE = 0;
+    CGOAR_INDEX_FREE_TEN_PULL = 1;
+    CGOAR_INDEX_TESTIMONIAL = 2;
+    CGOAR_INDEX_CHOICE_PACK = 3;
+}
+message CS_GACHA_SINGLE_PULL_REQ {
+    int32 gacha_type = 1;
+    string gacha_pool_id = 2;
+    map<string, int32> pull_costs = 3;
+}
+message CS_GACHA_TEN_PULL_REQ {
+    int32 gacha_type = 1;
+    string gacha_pool_id = 2;
+    map<string, int32> pull_costs = 3;
+    bool isFree = 4;
+}
+message CS_GACHA_CLAIM_CUMULATIVE_REWARD_REQ {
+    int32 gacha_type = 1;
+    string gacha_pool_id = 2;
+    repeated int32 reward_indexes = 3;
+}
+message CS_GACHA_CONFIRM_REWARD_REQ {
+    int32 gacha_type = 1;
+    string gacha_pool_id = 2;
+    GACHA_CONFIRM_REWARD_TYPE gacha_reward_type = 3;
+    repeated int32 reward_indexes = 4;
+}
+message CS_GACHA_SELECT_CHOICE_PACK_REQ {
+    int32 gacha_type = 1;
+    string gacha_pool_id = 2;
+    string select_item_id = 3;
+}
+message SCD_GACHA_POOL_INFO {
+    string gacha_pool_id = 1;
+    int64 open_time = 2;
+    int64 close_time = 3;
+    bool is_closed = 4;
+    int32 public_close_reason = 5;
+}
+message SCD_GACHA_POOL_ROLE_DATA {
+    string gacha_pool_id = 1;
+    bool is_closed = 2;
+    int32 personal_close_reason = 3;
+    int32 total_pull_count = 4;
+    int32 hard_guarantee_progress = 5;
+    int32 soft_guarantee_progress = 6;
+    int32 star5_soft_guarantee_progress = 7;
+    int32 up_got_count = 8;
+    int64 timestamp_to_close = 9;
+    repeated int32 cumulative_reward_list = 10;
+    int32 free_ten_pull_count = 11;
+    map<int32, bool> once_auto_reward_check_map = 12;
+    map<int32, bool> interval_auto_reward_check_map = 13;
+    int32 choice_pack_count = 14;
+    int32 star6_got_count = 15;
+}
+message SCD_GACHA_POOL_CATEGORY_ROLE_DATA {
+    int32 gacha_pool_type = 1;
+    int32 total_pull_count = 2;
+    int32 soft_guarantee_progress = 3;
+    int32 star5_soft_guarantee_progress = 4;
+    int32 star6_got_count = 5;
+}
+message SCD_GACHA_POOL_MGR {
+    repeated SCD_GACHA_POOL_INFO gacha_pool_infos = 1;
+    repeated SCD_GACHA_POOL_ROLE_DATA gacha_pool_role_datas = 2;
+    repeated SCD_GACHA_POOL_CATEGORY_ROLE_DATA gacha_pool_category_role_datas = 3;
+}
+message SC_GACHA_SYNC {
+    SCD_GACHA_POOL_MGR char_gacha_pool = 1;
+    SCD_GACHA_POOL_MGR weapon_gacha_pool = 2;
+}
+message SC_GACHA_MODIFY_POOL_INFO {
+    repeated SCD_GACHA_POOL_INFO char_gacha_pools = 1;
+    repeated SCD_GACHA_POOL_INFO weapon_gacha_pools = 2;
+}
+message SCD_GACHA_FINAL_RESULT {
+    string item_id = 1;
+    string reward_item_id = 2;
+    repeated string reward_ids = 3;
+    bool is_new = 4;
+}
+message SC_GACHA_SYNC_PULL_RESULT {
+    int32 gacha_type = 1;
+    string gacha_pool_id = 2;
+    repeated string ori_result_ids = 3;
+    repeated SCD_GACHA_FINAL_RESULT final_results = 4;
+    int32 up_got_count = 5;
+    int32 star6_got_count = 6;
+    int32 star5_got_count = 7;
+}
+message SC_GACHA_MODIFY_POOL_ROLE_DATA {
+    int32 gacha_type = 1;
+    string gacha_pool_id = 2;
+    SCD_GACHA_POOL_ROLE_DATA gacha_pool_role_data = 3;
+    SCD_GACHA_POOL_CATEGORY_ROLE_DATA gacha_pool_category_role_data = 4;
+}
+message SC_GACHA_TESTIMONIAL_CONVERT_NTF {
+    string char_gacha_pool_id = 1;
+    string testimonial_item_id = 2;
+    string convert_to_item_id = 3;
+    int32 convert_count = 4;
+}

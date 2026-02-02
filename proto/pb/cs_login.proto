@@ -1,0 +1,168 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+import "options.proto";
+
+enum AREA_TYPE {
+    Default = 0;
+    China = 1;
+    Oversea = 2;
+    ChinaPre = 10;
+    OverseaPre = 11;
+}
+enum ENV_TYPE {
+    DEV = 0;
+    STABLE = 1;
+    PROD = 2;
+}
+message CS_LOGIN {
+    string a14 = 1;
+    string client_res_version = 2;
+    string client_version = 3;
+    string a13 = 4;
+    string uid = 5;
+    string token = 6;
+    bytes client_public_key = 7;
+    CLIENT_PLATFORM_TYPE platform_id = 8;
+    AREA_TYPE area = 9;
+    int32 pay_platform = 10;
+    uint64 last_recv_down_seqid = 11;
+    ENV_TYPE env = 12;
+    int32 a21 = 13;
+    int32 a22 = 14;
+    int32 server_group = 15;
+    int32 client_language = 16;
+    DEVICE_INFO a23 = 17;
+}
+message SC_LOGIN {
+    string uid = 1;
+    string f11 = 2;
+    bytes server_public_key = 3;
+    bytes server_encryp_nonce = 4;
+    bool is_client_reconnect = 5;
+    bool is_first_login = 6;
+    bool is_reconnect = 7;
+    int64 server_time = 8;
+    uint64 last_recv_up_seqid = 9;
+    int32 server_time_zone = 10;
+    string f12 = 11;
+    int32 server_area_type = 12;
+}
+message SC_DEV_DATA_VERSION_NOTIFY {
+    string changelist = 1;
+    uint64 timestamp = 2;
+}
+message CS_CREATE_ROLE {
+    string role_name = 1;
+    GENDER gender = 2;
+}
+message SC_CREATE_ROLE {
+}
+message SC_SYNC_BASE_DATA {
+    int64 create_ts = 1;
+    bytes client_setting = 2;
+    uint64 roleid = 3;
+    GENDER gender = 4;
+    uint32 level = 5;
+    uint32 exp = 6;
+    string short_id = 7;
+    string role_name = 8;
+    int64 create_ts_display = 9;
+}
+message SC_NTF_ERROR_CODE {
+    int32 error_code = 1;
+    string details = 2;
+}
+message SC_NTF_CODE {
+    int32 code = 1;
+    string details = 2;
+    repeated string params = 3;
+}
+message CS_LOGOUT {
+}
+message CS_GM_COMMAND {
+    string command = 1;
+}
+message SCD_GM_GACHA_STAT {
+    string gacha_pool_id = 1;
+    int32 gacha_type = 2;
+    int32 total_pull_count = 3;
+    map<int32, int32> up_got_pull_count_map = 4;
+    int32 up_got_count = 5;
+    map<int32, int32> star6_got_pull_count_map = 6;
+    int32 star6_got_count = 7;
+    int32 star6_ge2_got_count = 8;
+    map<int32, int32> star5_got_pull_count_map = 9;
+    int32 star5_got_count = 10;
+    int32 star5_ge2_got_count = 11;
+    map<string, int32> up_item_count_map = 12;
+    map<string, int32> star6_item_count_map = 13;
+    map<string, int32> star5_item_count_map = 14;
+    map<string, int32> starother_item_count_map = 15;
+    int32 rate_index = 16;
+}
+message SC_GM_COMMAND {
+    string result = 1;
+}
+message CS_PING {
+    uint64 client_ts = 1;
+    uint64 logical_ts = 2;
+}
+message SC_PING {
+    uint64 client_ts = 1;
+    uint64 server_ts = 2;
+}
+message SC_RECONNECT_INCR {
+    bool is_client_reconnect = 1;
+}
+message SC_RECONNECT_FULL {
+    bool is_client_reconnect = 1;
+}
+message CS_FLUSH_SYNC {
+    uint64 client_ts = 1;
+}
+message SC_FLUSH_SYNC {
+    uint64 client_ts = 1;
+    uint64 server_ts = 2;
+}
+message CS_SET_NAME {
+    string name = 1;
+}
+message SC_SET_NAME {
+    string name = 1;
+    string short_id = 2;
+}
+message CS_SET_GENDER {
+    GENDER gender = 1;
+    bool first_set = 2;
+}
+message SC_SET_GENDER {
+    GENDER gender = 1;
+    bool first_set = 2;
+}
+message CS_CHECK_NAME {
+    string name = 1;
+}
+message SC_CHECK_NAME {
+    string name = 1;
+    bool pass = 2;
+}
+message SC_SYNC_FULL_DATA_END {
+}
+message CS_SYNC_LOGICAL_TS {
+    uint64 logical_ts = 1;
+}
+message CS_SET_CLIENT_SETTING {
+    bytes client_setting_modify = 1;
+}
+message SC_SET_CLIENT_SETTING {
+}
+message CS_UPDATE_CLIENT_LANGUAGE {
+    int32 client_language = 1;
+}
+message SC_SYNC_CLIENT_SWITCH {
+    repeated string client_switch = 1;
+}

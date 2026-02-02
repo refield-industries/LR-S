@@ -1,0 +1,33 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "options.proto";
+
+message REMOVE_ITEM_NEW_DATA {
+    int32 depot_type = 1;
+    repeated uint64 inst_ids = 2;
+}
+message CS_REMOVE_ITEM_NEW_TAGS {
+    repeated uint32 item_ids = 1;
+    repeated REMOVE_ITEM_NEW_DATA inst_data = 2;
+}
+message SC_REMOVE_ITEM_NEW_TAGS {
+}
+message CS_RED_DOT_READ_FORMULA {
+    repeated uint32 formula_ids = 1;
+}
+message CS_RED_DOT_READ_CHAR_DOC {
+    repeated uint32 ids = 1;
+}
+message CS_RED_DOT_READ_CHAR_VOICE {
+    repeated uint32 ids = 1;
+}
+message CS_RED_DOT_READ_EQUIP_FORMULA {
+    uint32 id = 1;
+    repeated uint32 ids = 2;
+}
+message CS_RED_DOT_READ_WEEK_RAID_MISSION {
+    repeated uint32 mission_ids = 1;
+}

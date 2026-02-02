@@ -1,0 +1,11 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message SC_SYNC_ALL_UNLOCK {
+    repeated int32 unlock_systems = 1;
+}
+message SC_UNLOCK_SYSTEM {
+    int32 unlock_system_type = 1;
+}

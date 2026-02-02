@@ -1,0 +1,115 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+import "cs_submit_item.proto";
+
+enum WEEK_RAID_DANGER_CHANGE_SOURCE {
+    WRDCS_Normal = 0;
+    WRDCS_Interactive = 1;
+}
+message SC_SYNC_WEEK_RAID {
+    string game_id = 1;
+    int32 battle_pass_score = 2;
+    repeated int32 received_node_id = 3;
+    repeated string unlock_tech_id = 4;
+    repeated string unlock_pictorial_id = 5;
+    repeated string scheduled_mission = 6;
+    repeated string random_mission = 7;
+    int32 refresh_count = 8;
+    string pin_mission = 9;
+    string guide_game_id = 10;
+    bool is_complete_guide = 11;
+}
+message CS_WEEK_RAID_BATTLE_PASS_RECEIVE_REWARD {
+    string game_id = 1;
+    bool receive_all = 2;
+    int32 received_node_id = 3;
+}
+message SC_WEEK_RAID_BATTLE_PASS_RECEIVE_REWARD {
+    string game_id = 1;
+    repeated string receive_rewards = 2;
+}
+message SC_SYNC_WEEK_RAID_BATTLE_PASS_MODIFY {
+    string game_id = 1;
+    int32 battle_pass_score = 2;
+    repeated int32 received_node_id = 3;
+}
+message CS_WEEK_RAID_PICTORIAL_RECEIVE_REWARD {
+    string pictorial_id = 1;
+}
+message SC_WEEK_RAID_PICTORIAL_RECEIVE_REWARD {
+    string pictorial_id = 1;
+    string reward_id = 2;
+}
+message SC_WEEK_RAID_PICTORIAL_MODIFY {
+    string game_id = 1;
+    repeated string new_unlock_pictorial_id = 2;
+}
+message SC_WEEK_RAID_TECH_MODIFY {
+    string game_id = 1;
+    repeated string new_unlock_tech_id = 2;
+}
+message CS_WEEK_RAID_REFRESH_MISSION {
+    string game_id = 1;
+    string mission_id = 2;
+}
+message SC_WEEK_RAID_REFRESH_MISSION {
+    string game_id = 1;
+    string org_mission_id = 2;
+    string new_mission_id = 3;
+    int32 refresh_count = 4;
+}
+message CS_WEEK_RAID_COMPLETE_MISSION {
+    string game_id = 1;
+    string mission_id = 2;
+    string quest_id = 3;
+    CS_SCENE_SUBMIT_ITEM submit = 4;
+}
+message SC_WEEK_RAID_COMPLETE_MISSION {
+    repeated string new_mission_id = 1;
+}
+message SC_WEEK_RAID_MISSION_MODIFY {
+    string game_id = 1;
+    repeated string scheduled_mission = 2;
+    repeated string random_mission = 3;
+    string pin_mission = 4;
+    int32 refresh_count = 5;
+}
+message CS_WEEK_RAID_SET_PIN_MISSION {
+    string game_id = 1;
+    string pin_mission = 2;
+    bool is_clear = 3;
+}
+message CS_WEEK_RAID_TRIGGER_REGION {
+    int32 region_id = 1;
+    bool is_enter = 2;
+}
+message SC_SYNC_WEEK_RAID_DANGER_METER_MODIFY {
+    int32 cur_danger_meter = 1;
+    int32 max_danger_meter = 2;
+    int32 cur_danger_level = 3;
+    WEEK_RAID_DANGER_CHANGE_SOURCE source = 4;
+    int64 delay_end_ts = 5;
+}
+message SC_SYNC_WEEK_RAID_GAME_START {
+    float convert_rate = 1;
+}
+message SC_SYNC_WEEK_RAID_SETTLEMENT {
+    string game_id = 1;
+    int32 bp_score = 2;
+    int32 danger_meter = 3;
+    int64 total_playtime = 4;
+    repeated ITEM_BUNDLE loot_items = 5;
+    repeated WEEK_RAID_SETTLEMENT_CONVERT convert_items = 6;
+    float convert_rate = 7;
+}
+message WEEK_RAID_SETTLEMENT_CONVERT {
+    ITEM_BUNDLE loot_item = 1;
+    string convert_gold = 2;
+    int32 count = 3;
+}
+message CS_WEEK_RAID_LEAVE {
+}

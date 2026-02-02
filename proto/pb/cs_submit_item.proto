@@ -1,0 +1,39 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+
+enum SUBMIT_SOURCE_TYPE {
+    SUBMIT_SOURCE_TYPE_NONE = 0;
+    SUBMIT_SOURCE_TYPE_MISSION = 1;
+    SUBMIT_SOURCE_TYPE_INTERACTIVE = 2;
+    SUBMIT_SOURCE_TYPE_ACTIVITY = 3;
+}
+message SUBMIT_SOURCE_PARAM_MISSION {
+    string quest_id = 1;
+}
+message SUBMIT_SOURCE_PARAM_INTERACTIVE {
+    uint64 obj_id = 2;
+}
+message SUBMIT_SOURCE_PARAM_ACTIVITY {
+    string stage_id = 1;
+}
+message SUBMIT_TERM {
+    repeated SUBMIT_ITEM submit_item_list = 1;
+}
+message CS_SCENE_SUBMIT_ITEM {
+    string submit_id = 1;
+    repeated SUBMIT_TERM submit_item_term_list = 6;
+    SUBMIT_SOURCE_TYPE source_type = 3;
+    oneof submit_source_param {
+        SUBMIT_SOURCE_PARAM_MISSION mission = 4;
+        SUBMIT_SOURCE_PARAM_INTERACTIVE interactive = 5;
+        SUBMIT_SOURCE_PARAM_ACTIVITY activity = 7;
+    }
+}
+message SC_SCENE_SUBMIT_ITEM {
+    string submit_id = 1;
+    bool ret = 2;
+}

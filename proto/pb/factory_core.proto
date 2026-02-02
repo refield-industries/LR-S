@@ -1,0 +1,406 @@
+syntax = "proto3";
+package FactoryCore.Proto;
+
+option go_package = "beyond-go/proto/pbcommon;pbcommon";
+option csharp_namespace = "Beyond.FactoryCore.Proto";
+
+enum Bool {
+    Bool_FALSE = 0;
+    Bool_TRUE = 1;
+}
+enum Direction {
+    Direction_Up = 0;
+    Direction_Right = 1;
+    Direction_Down = 2;
+    Direction_Left = 3;
+    Direction_Max = 4;
+}
+enum EventType {
+    EventType_Invalid = 0;
+    EventType_Prepared = 1;
+    EventType_LayoutChg = 2;
+    EventType_ComponentChg = 3;
+    EventType_RelationChg = 4;
+    EventType_Max = 5;
+}
+enum OperateType {
+    OperateType_Invalid = 0;
+    OperateType_Place = 1;
+    OperateType_PlaceConveyor = 2;
+    OperateType_Dismantle = 3;
+    OperateType_SetCollectTarget = 4;
+    OperateType_SetUnloaderSelect = 5;
+    OperateType_PutInItemsToCache = 6;
+    OperateType_TakeOutItemsFromCache = 7;
+    OperateType_AddNewArea = 8;
+    OperateType_SetEventEnable = 9;
+}
+enum OperateRetCode {
+    OperateRetCode_OK = 0;
+    OperateRetCode_Unknown = 1;
+    OperateRetCode_Fail = 2;
+    OperateRetCode_InvalidParameter = 3;
+    OperateRetCode_UnknownTemplate = 4;
+    OperateRetCode_MeshConflict = 5;
+}
+enum ComponentType {
+    ComponentType_Invalid = 0;
+    ComponentType_Map = 1;
+    ComponentType_Transform = 2;
+    ComponentType_Bus = 3;
+    ComponentType_Inventory = 4;
+    ComponentType_Cache = 5;
+    ComponentType_Selector = 6;
+    ComponentType_Collector = 7;
+    ComponentType_Producer = 8;
+    ComponentType_FormulaMan = 9;
+    ComponentType_BoxConveyor = 10;
+    ComponentType_BoxRouter = 11;
+    ComponentType_BusUnloader = 12;
+    ComponentType_BusLoader = 13;
+    ComponentType_Max = 14;
+}
+enum ComponentKind {
+    ComponentKind_Invalid = 0;
+    ComponentKind_Map = 1;
+    ComponentKind_Transform = 2;
+    ComponentKind_Inventory = 11;
+    ComponentKind_Bus = 12;
+    ComponentKind_Cache = 14;
+    ComponentKind_Selector = 15;
+    ComponentKind_Collector = 16;
+    ComponentKind_Producer = 17;
+    ComponentKind_FormulaMan = 18;
+    ComponentKind_BoxConveyor = 19;
+    ComponentKind_BoxRouter = 20;
+    ComponentKind_BusUnloader = 31;
+    ComponentKind_BusLoader = 32;
+    ComponentKind_CacheIn1 = 41;
+    ComponentKind_CacheIn2 = 42;
+    ComponentKind_CacheIn3 = 43;
+    ComponentKind_CacheIn4 = 44;
+    ComponentKind_CacheOut1 = 51;
+    ComponentKind_CacheOut2 = 52;
+    ComponentKind_CacheOut3 = 53;
+    ComponentKind_CacheOut4 = 54;
+    ComponentKind_Selector1 = 61;
+    ComponentKind_Selector2 = 62;
+    ComponentKind_Selector3 = 63;
+    ComponentKind_Selector4 = 64;
+}
+enum NodeType {
+    NodeType_Invalid = 0;
+    NodeType_Inventory = 1;
+    NodeType_Bus = 2;
+    NodeType_Hub = 3;
+    NodeType_Collector = 4;
+    NodeType_Producer = 5;
+    NodeType_BoxConveyor = 6;
+    NodeType_BoxRouter = 7;
+    NodeType_BusUnloader = 8;
+    NodeType_BusLoader = 9;
+    NodeType_Max = 10;
+}
+enum ShapeType {
+    ShapeType_Invalid = 0;
+    ShapeType_Rect = 1;
+    ShapeType_Line = 2;
+    ShapeType_Max = 3;
+}
+enum ConfigKey {
+    ConfigKey_Invalid = 0;
+    ConfigKey_FrameMS = 1;
+    ConfigKey_Max = 2;
+}
+enum LogLevel {
+    LogLevel_Debug = 0;
+    LogLevel_Info = 1;
+    LogLevel_Warning = 2;
+    LogLevel_Error = 3;
+}
+message Vector2 {
+    int32 X = 1;
+    int32 Y = 2;
+}
+message SubPort {
+    Vector2 Pos = 1;
+    Direction Direction = 2;
+}
+message ItemUnit {
+    string Id = 1;
+    uint64 Count = 2;
+}
+message ItemBox {
+    string Id = 1;
+    uint64 Count = 2;
+    int32 Index = 3;
+    int64 Offset = 4;
+}
+message Formula {
+    string Id = 1;
+    int64 ProgressPerRound = 2;
+    repeated ItemUnit From = 3;
+    repeated ItemUnit To = 4;
+}
+message SDShape {
+    ShapeType Type = 1;
+    repeated Vector2 Points = 2;
+}
+message SDTemplate {
+    string Id = 1;
+    NodeType Type = 2;
+    SDShape Shape = 3;
+    oneof SDNode {
+        SDNodeBus Bus = 21;
+        SDNodeBusUnloader BusUnloader = 22;
+        SDNodeBusLoader BusLoader = 23;
+        SDNodeCollector Collector = 24;
+        SDNodeProducer Producer = 25;
+        SDNodeBoxConveyor BoxConveyor = 26;
+        SDNodeBoxRouter BoxRouter = 27;
+    }
+}
+message SDComponentCache {
+    int32 Size = 1;
+    repeated SubPort Ports = 2;
+}
+message SDComponentSelector {
+    repeated SubPort Ports = 1;
+}
+message SDComponentCollector {
+    int64 ProgressPerRound = 1;
+}
+message SDComponentProducer {
+    int64 ProduceScale = 1;
+}
+message SDComponentFormulaMan {
+    repeated string FormulaIds = 1;
+}
+message SDComponentBoxConveyor {
+    int64 MSPerStep = 1;
+}
+message SDComponentBoxRouter {
+    int64 MSHold = 1;
+    repeated SubPort Ports = 2;
+}
+message SDComponentBus {
+    repeated SubPort Ports = 1;
+}
+message SDComponentBusUnloader {
+    repeated SubPort Ports = 1;
+}
+message SDComponentBusLoader {
+    repeated SubPort PortsIn = 1;
+    repeated SubPort PortsOut = 2;
+}
+message SDNodeBus {
+    SDComponentBus Bus = 1;
+}
+message SDNodeBusUnloader {
+    SDComponentBusUnloader BusUnloader = 1;
+    SDComponentSelector Selector = 2;
+}
+message SDNodeBusLoader {
+    SDComponentBusLoader BusLoader = 1;
+}
+message SDNodeCollector {
+    SDComponentCollector Collector = 1;
+    repeated SDComponentCache Caches = 2;
+}
+message SDNodeProducer {
+    SDComponentProducer Producer = 1;
+    SDComponentFormulaMan FormulaMan = 2;
+    repeated SDComponentCache CachesIn = 3;
+    repeated SDComponentCache CachesOut = 4;
+}
+message SDNodeBoxConveyor {
+    SDComponentBoxConveyor BoxConveyor = 1;
+}
+message SDNodeBoxRouter {
+    SDComponentBoxRouter BoxRouter = 1;
+}
+message LayoutShape {
+    ShapeType Type = 1;
+    repeated Vector2 Points = 2;
+    repeated Direction DynamicDirIn = 3;
+    repeated Direction DynamicDirOut = 4;
+}
+message Node {
+    uint64 NodeId = 1;
+    NodeType Type = 2;
+    string TemplateId = 3;
+    LayoutShape Shape = 4;
+    repeated Component Component = 11;
+}
+message Component {
+    uint64 ComponentId = 1;
+    ComponentType Type = 2;
+    oneof Content {
+        ComponentCache Cache = 11;
+        ComponentInventory Inventory = 12;
+        ComponentCollector Collector = 13;
+        ComponentProducer Producer = 14;
+        ComponentSelector Selector = 15;
+        ComponentBoxConveyor BoxConveyor = 16;
+        ComponentBoxRouter BoxRouter = 17;
+        ComponentMap Map = 18;
+        ComponentTransform Transform = 19;
+    }
+}
+message ComponentCache {
+    repeated ItemUnit Cache = 1;
+}
+message ComponentInventory {
+    repeated ItemUnit Store = 1;
+}
+message ComponentCollector {
+    int64 CurrentProgress = 1;
+    int64 ProgressPerRound = 2;
+    repeated ItemUnit ItemsPerRound = 3;
+}
+message ComponentProducer {
+    int64 CurrentProgress = 1;
+    string CurrentFormulaId = 2;
+}
+message ComponentSelector {
+    string SelectedItemId = 1;
+}
+message ComponentBoxConveyor {
+    SubPort PortIn = 1;
+    SubPort PortOut = 2;
+    repeated ItemBox List = 6;
+}
+message ComponentBoxRouter {
+    ItemBox Content = 1;
+}
+message ComponentMap {
+    map<int32, uint64> ComAsKind = 1;
+}
+message ComponentTransform {
+    Vector2 Position = 1;
+    Direction Direction = 2;
+}
+message ContextBrief {
+    uint64 CD = 1;
+    int64 Now = 2;
+    bool IsActive = 3;
+}
+message ContextBlackboard {
+    int64 ElectricCurrent = 1;
+    int64 ElectricMax = 2;
+}
+message ContextStatus {
+    ContextBrief Brief = 1;
+    ContextBlackboard Blackboard = 2;
+    repeated uint64 NodeIds = 3;
+}
+message Event {
+    int64 TimestampMS = 1;
+    uint64 Sequence = 2;
+    EventType Type = 3;
+    oneof Payload {
+        EventPrepared Prepared = 11;
+        EventLayoutChg LayoutChg = 12;
+        EventComponentChg ComponentChg = 13;
+        EventRelationChg RelationChg = 14;
+    }
+}
+message EventPrepared {
+}
+message EventLayoutChg {
+    repeated uint64 NodeIds = 1;
+}
+message EventComponentChg {
+    repeated uint64 ComponentIds = 1;
+}
+message EventRelationChg {
+    bool IsGot = 1;
+    repeated uint64 ComId = 2;
+}
+message Operate {
+    OperateType Type = 1;
+    oneof Payload {
+        OperatePayloadPlace Place = 11;
+        OperatePayloadPlaceConveyor PlaceConveyor = 12;
+        OperatePayloadDismantle Dismantle = 13;
+        OperatePayloadSetCollectTarget SetCollectTarget = 14;
+        OperatePayloadSetUnloaderSelect SetUnloaderSelect = 15;
+        OperatePayloadPutInItemsToCache PutInItemsToCache = 16;
+        OperatePayloadTakeOutItemsFromCache TakeOutItemsFromCache = 17;
+        OperatePayloadAddNewArea AddNewArea = 18;
+        OperatePayloadSetEventEnable SetEventEnable = 19;
+    }
+}
+message OperateReturn {
+    OperateRetCode RetCode = 1;
+    int64 TimestampMS = 2;
+    uint64 Sequence = 3;
+    oneof Payload {
+        OperateReturnPlace Place = 11;
+        OperateReturnPlaceConveyor PlaceConveyor = 12;
+        OperateReturnPutInItemsToCache PutInItemsToCache = 13;
+        OperateReturnTakeOutItemsFromCache TakeOutItemsFromCache = 14;
+    }
+}
+message OperatePayloadPlace {
+    string TemplateId = 1;
+    Vector2 Pos = 2;
+    Direction Direction = 3;
+}
+message OperateReturnPlace {
+    uint64 NodeId = 1;
+}
+message OperatePayloadPlaceConveyor {
+    string TemplateId = 1;
+    Direction DirectionIn = 2;
+    Direction DirectionOut = 3;
+    repeated Vector2 Points = 4;
+}
+message OperateReturnPlaceConveyor {
+    uint64 NodeId = 1;
+}
+message OperatePayloadDismantle {
+    uint64 NodeId = 1;
+}
+message OperatePayloadSetCollectTarget {
+    uint64 NodeId = 1;
+    repeated ItemUnit ItemsPerRound = 2;
+}
+message OperatePayloadSetUnloaderSelect {
+    uint64 NodeId = 1;
+    string ItemId = 2;
+}
+message OperatePayloadPutInItemsToCache {
+    uint64 ComId = 1;
+    repeated ItemUnit Items = 2;
+}
+message OperateReturnPutInItemsToCache {
+    repeated ItemUnit LeastItems = 1;
+}
+message OperatePayloadTakeOutItemsFromCache {
+    uint64 ComId = 1;
+    repeated ItemUnit Items = 2;
+}
+message OperateReturnTakeOutItemsFromCache {
+    repeated ItemUnit GotItems = 1;
+}
+message OperatePayloadAddNewArea {
+    repeated Vector2 Area = 1;
+}
+message OperatePayloadSetEventEnable {
+    bool Enable = 1;
+    repeated EventType EventTypeList = 2;
+}
+message MeshArea {
+    repeated Vector2 Range = 1;
+}
+message MeshAreaBitmap {
+    repeated Vector2 Area = 1;
+    repeated uint64 Bitmaps = 2;
+}
+message ContextArchive {
+    ContextBrief Brief = 1;
+    ContextBlackboard Blackboard = 2;
+    repeated MeshArea Areas = 3;
+    repeated Node Nodes = 11;
+}

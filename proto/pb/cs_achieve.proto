@@ -1,0 +1,41 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+message SCD_ACHIEVE_CONDITIONS {
+    map<string, int32> condition_values = 1;
+}
+message SCD_ACHIEVE_PUBLIC_INFO {
+    int32 achieve_num_id = 1;
+    int64 open_time = 2;
+    int64 close_time = 3;
+}
+message SCD_ACHIEVE_PERSONAL_INFO {
+    int32 achieve_num_id = 1;
+    int32 level = 2;
+    bool is_plated = 3;
+    int64 obtain_time_ts = 4;
+    SCD_ACHIEVE_CONDITIONS achieve_conditions = 5;
+}
+message SCD_ACHIEVE_DISPLAY_INFO {
+    map<int32, int32> display = 1;
+    repeated int32 display_depot = 2;
+}
+message SC_ACHIEVE_SYNC {
+    repeated SCD_ACHIEVE_PUBLIC_INFO achieve_public_infos = 1;
+    repeated SCD_ACHIEVE_PERSONAL_INFO achieve_personal_infos = 2;
+    SCD_ACHIEVE_DISPLAY_INFO achieve_display_info = 3;
+}
+message SC_ACHIEVE_SYNC_PUBLIC_INFO {
+    repeated SCD_ACHIEVE_PUBLIC_INFO achieve_public_infos = 1;
+}
+message SC_ACHIEVE_SYNC_PERSONAL_INFO {
+    repeated SCD_ACHIEVE_PERSONAL_INFO achieve_personal_infos = 1;
+}
+message CS_ACHIEVE_DISPLAY_INFO_CHANGE {
+    map<int32, int32> display = 1;
+    repeated int32 display_depot = 2;
+}
+message SC_ACHIEVE_DISPLAY_INFO_CHANGE {
+}

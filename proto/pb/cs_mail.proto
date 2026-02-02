@@ -1,0 +1,66 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+import "options.proto";
+
+message CS_MAIL_DEF {
+    int32 mail_type = 1;
+    uint64 mail_id = 2;
+    int64 expire_time = 3;
+    bool is_read = 4;
+    bool is_attachment_got = 5;
+    int64 send_time = 6;
+    MAIL_CONTENT mail_content = 7;
+    repeated REWARD_ITEM item_list = 8;
+    bool is_star = 9;
+    int32 mail_sub_type = 10;
+}
+message CS_GET_MAIL {
+    repeated uint64 mail_id_list = 1;
+}
+message CS_READ_MAIL {
+    uint64 mail_id = 1;
+}
+message CS_DELETE_MAIL {
+    uint64 mail_id = 1;
+}
+message CS_DELETE_ALL_MAIL {
+}
+message CS_GET_MAIL_ATTACHMENT {
+    uint64 mail_id = 1;
+}
+message CS_GET_ALL_MAIL_ATTACHMENT {
+}
+message CS_MARK_STAR_MAIL {
+    uint64 mail_id = 1;
+    bool is_star = 2;
+}
+message SC_SYNC_ALL_MAIL {
+    repeated uint64 mail_id_list = 1;
+    bool new_mail_tag = 2;
+    bool new_questionnaire_tag = 3;
+}
+message SC_READ_MAIL {
+    uint64 mail_id = 1;
+}
+message SC_GET_MAIL {
+    repeated CS_MAIL_DEF mail_list = 1;
+}
+message SC_GET_MAIL_ATTACHMENT {
+    repeated uint64 success_mail_id_list = 1;
+    repeated uint64 failed_mail_id_list = 2;
+}
+message SC_DEL_MAIL_NOTIFY {
+    repeated uint64 mail_id_list = 1;
+}
+message SC_NEW_MAIL_NOTIFY {
+    repeated uint64 mail_id_list = 1;
+    bool new_questionnaire_tag = 2;
+}
+message SC_MARK_STAR_MAIL {
+    uint64 mail_id = 1;
+    bool is_star = 2;
+}

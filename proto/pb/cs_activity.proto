@@ -1,0 +1,155 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "options.proto";
+
+message SC_ACTIVITY_SYNC {
+    repeated ACTIVITY_INFO info = 1;
+}
+message SC_ACTIVITY_MODIFY {
+    repeated ACTIVITY_INFO info = 1;
+}
+message SC_ACTIVITY_PROGRESS_CHANGE {
+    string id = 1;
+    SCD_ACTIVITY_CONDITIONS conditions = 2;
+}
+message SCD_ACTIVITY_CONDITIONS {
+    map<string, int32> values = 1;
+    map<string, bool> flags = 2;
+}
+message ACTIVITY_INFO {
+    bool is_enable = 1;
+    string id = 2;
+    int64 start_time = 3;
+    int64 end_time = 4;
+    int32 typ = 5;
+    ACTIVITY_INFO_SPECIFIED data = 6;
+    bool is_completed = 7;
+    bool is_unlocked = 8;
+    int32 status = 9;
+    bool reward_all = 11;
+    SCD_ACTIVITY_CONDITIONS conditions = 10;
+}
+message ACTIVITY_INFO_SPECIFIED {
+    oneof data {
+        ACTIVITY_INFO_SPECIFIED_CHECKIN checkin = 15;
+        ACTIVITY_INFO_SPECIFIED_BASE_MULTI_STAGE base_multi_stage = 16;
+        ACTIVITY_INFO_SPECIFIED_CONDITIONAL_MULTI_STAGE conditional_multi_stage = 17;
+        ACTIVITY_INFO_SPECIFIED_GAME_ENTRANCE game_entrance = 18;
+        ACTIVITY_INFO_SPECIFIED_CHAR_TRIAL char_trial = 19;
+        ACTIVITY_INFO_SPECIFIED_REFLOW reflow = 20;
+        ACTIVITY_INFO_SPECIFIED_WEEKLY_TASK weekly_task = 21;
+    }
+}
+message ACTIVITY_INFO_SPECIFIED_CHECKIN {
+    int32 login_days = 1;
+    repeated uint64 reward_days = 2;
+}
+message CS_DAILY_CHECKIN {
+    string id = 1;
+    repeated uint32 days = 2;
+}
+message SC_DAILY_CHECKIN {
+    string id = 1;
+    repeated uint32 days = 2;
+}
+message ACTIVITY_INFO_SPECIFIED_BASE_MULTI_STAGE {
+    repeated int32 receive_stage_list = 1;
+    repeated int32 complete_stage_list = 2;
+}
+message CS_BASE_MULTI_STAGE_ACTIVITY_RECEIVE_REWARD {
+    string id = 1;
+    int32 stage = 2;
+    repeated int32 stage_list = 3;
+}
+message SC_BASE_MULTI_STAGE_ACTIVITY_RECEIVE_REWARD {
+    string id = 1;
+    repeated int32 stage_list = 2;
+    string reward_id = 3;
+}
+message ACTIVITY_INFO_SPECIFIED_GAME_ENTRANCE {
+    bool complete_intro_mission = 2;
+    repeated GAME_ENTRANCE_ACTIVITY_SERIES_INFO series_infos = 1;
+}
+message GAME_ENTRANCE_ACTIVITY_SERIES_INFO {
+    string series_id = 1;
+    int64 open_time = 2;
+}
+message ACTIVITY_INFO_SPECIFIED_CHAR_TRIAL {
+    map<string, bool> dungeon_status = 1;
+}
+message ACTIVITY_INFO_SPECIFIED_REFLOW {
+    int64 start_time = 1;
+    int64 end_time = 2;
+}
+message ACTIVITY_INFO_SPECIFIED_WEEKLY_TASK {
+    int32 cur_week_score = 1;
+    repeated ACTIVITY_CONDITIONAL_STAGE_INFO task_info = 2;
+    repeated ACTIVITY_WEEKLY_TASK_MILESTONE milestone_info = 3;
+}
+message ACTIVITY_INFO_SPECIFIED_CONDITIONAL_MULTI_STAGE {
+    bool complete_intro_mission = 1;
+    bool complete_finale_mission = 2;
+    repeated ACTIVITY_CONDITIONAL_STAGE_INFO stage_list = 3;
+    repeated string show_preview_stage_list = 4;
+    oneof extra_data {
+        ACTIVITY_INFO_CONDITIONAL_MULTI_STAGE_EXTRA_DATA_PHOTO_TAKING photo_taking = 15;
+    }
+}
+message ACTIVITY_CONDITIONAL_STAGE_INFO {
+    string id = 1;
+    int32 status = 2;
+    SCD_ACTIVITY_CONDITIONS conditions = 3;
+}
+message ACTIVITY_INFO_CONDITIONAL_MULTI_STAGE_EXTRA_DATA_PHOTO_TAKING {
+}
+message SC_ACTIVITY_CONDITIONAL_MULTI_STAGE_BASE_CHANGE {
+    repeated SCD_ACTIVITY_CONDITIONAL_MULTI_STAGE_BASE changes = 1;
+}
+message SCD_ACTIVITY_CONDITIONAL_MULTI_STAGE_BASE {
+    string id = 1;
+    bool complete_intro_mission = 2;
+    bool complete_finale_mission = 3;
+    repeated ACTIVITY_CONDITIONAL_STAGE_INFO stage_list = 4;
+}
+message CS_CONDITIONAL_MULTI_STAGE_ACTIVITY_GAIN_REWARD {
+    string activity_id = 1;
+    repeated string stage_id_list = 2;
+}
+message SC_CONDITIONAL_MULTI_STAGE_ACTIVITY_GAIN_REWARD {
+    string activity_id = 1;
+    repeated string stage_id_list = 2;
+}
+message SC_ACTIVITY_CONDITIONAL_STAGE_PROGRESS_CHANGE {
+    string stage_id = 1;
+    SCD_ACTIVITY_CONDITIONS conditions = 2;
+}
+message CS_ACTIVITY_CHAR_TRIAL_CLAIM_REWARD {
+    string activity_id = 1;
+    repeated string dungeon_id_list = 2;
+}
+message CS_ACTIVITY_READ_NOTIFY {
+    string activity_id = 1;
+}
+message ACTIVITY_WEEKLY_TASK_MILESTONE {
+    string id = 1;
+    bool rewarded = 2;
+}
+message CS_ACTIVITY_WEEKLY_TASK_TASK_GAIN_REWARD {
+    string activity_id = 1;
+    repeated string task_id_list = 2;
+}
+message SC_ACTIVITY_WEEKLY_TASK_TASK_GAIN_REWARD {
+    string activity_id = 1;
+    repeated string task_id_list = 2;
+}
+message CS_ACTIVITY_WEEKLY_TASK_MILESTONE_GAIN_REWARD {
+    string activity_id = 1;
+    repeated string milestone_id_list = 2;
+}
+message SC_ACTIVITY_WEEKLY_TASK_MILESTONE_GAIN_REWARD {
+    string activity_id = 1;
+    repeated string milestone_id_list = 2;
+}

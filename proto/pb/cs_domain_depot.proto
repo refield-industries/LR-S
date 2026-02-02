@@ -1,0 +1,123 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+import "options.proto";
+
+message CS_DOMAIN_DEPOT_UNLOCK_REQ {
+    string domain_depot_id = 1;
+}
+message SC_DOMAIN_DEPOT_UNLOCK_RSP {
+    string domain_depot_id = 1;
+}
+message CS_DOMAIN_DEPOT_LEVEL_UPGRADE_REQ {
+    string domain_depot_id = 1;
+}
+message SC_DOMAIN_DEPOT_LEVEL_UPGRADE_RSP {
+    string domain_depot_id = 1;
+    uint32 level = 2;
+}
+message CS_REDUCE_CARGO_INTEGRITY_REQ {
+    uint64 deliver_inst_id = 1;
+    int32 reduce_type = 2;
+}
+message SC_REDUCE_CARGO_INTEGRITY_RSP {
+    uint64 deliver_inst_id = 1;
+    int32 current_cargo_integrity = 2;
+    int64 reward_value = 3;
+}
+message SCD_DELEGATE_INST_STATUS_CHANGE {
+    uint64 deliver_inst_id = 1;
+    bool is_delete = 2;
+    int32 state = 3;
+    int64 expire_ts = 4;
+}
+message SC_DOMAIN_DEPOT_DAILY_REFRESH_TRIGGER {
+    repeated int32 can_package_domain_depot_num_id_list = 1;
+    repeated SCD_DELEGATE_INST_STATUS_CHANGE status_change_list = 2;
+}
+message SC_DOMAIN_DEPOT_SYNC_ALL_INFO {
+    repeated DOMAIN_DEPOT_INFO domain_depot_info_list = 1;
+    repeated DOMAIN_DEPOT_DELIVER_DATA domain_depot_deliver_info_list = 2;
+    int32 daily_take_delegate_count = 3;
+    uint64 cur_deliver_inst_id = 4;
+    map<int32, string> version_map = 5;
+}
+message DOMAIN_DEPOT_INFO {
+    string domain_depot_id = 1;
+    int32 level = 2;
+    bool can_package = 3;
+    uint64 domain_depot_deliver_inst_id = 4;
+}
+message CS_DOMAIN_DEPOT_PACK_ITEM_REQ {
+    string domain_depot_id = 1;
+    int32 deliver_pack_type = 2;
+    int32 deliver_item_type = 3;
+    map<string, int64> items = 4;
+}
+message SC_DOMAIN_DEPOT_PACK_ITEM_RSP {
+    string domain_depot_id = 1;
+    uint64 deliver_inst_id = 2;
+    repeated DOMAIN_DEPOT_BUYER_INFO buyer_candidate_list = 3;
+    int32 pack_type = 4;
+    int32 item_type = 5;
+}
+message CS_DOMAIN_DEPOT_SELECT_BUYER_REQ {
+    uint64 deliver_inst_id = 1;
+    string buyer_id = 2;
+}
+message SC_DOMAIN_DEPOT_SELECT_BUYER_RSP {
+    uint64 deliver_inst_id = 1;
+    DOMAIN_DEPOT_BUYER_INFO buyer_info = 2;
+    int64 reward_value = 3;
+}
+message CS_DOMAIN_DEPOT_FETCH_DELEGATE_REQ {
+}
+message SC_DOMAIN_DEPOT_FETCH_DELEGATE_RSP {
+    repeated DOMAIN_DEPOT_DELIVER_DATA delegate_info_list = 1;
+}
+message CS_DOMAIN_DEPOT_DELEGATE_REQ {
+    uint64 deliver_inst_id = 1;
+}
+message SC_DOMAIN_DEPOT_DELEGATE_RSP {
+    uint64 deliver_inst_id = 1;
+    int64 expire_ts = 2;
+}
+message CS_DOMAIN_DEPOT_TAKE_DELEGATE_REQ {
+    uint64 deliver_inst_id = 1;
+}
+message SC_DOMAIN_DEPOT_TAKE_DELEGATE_RSP {
+    uint64 deliver_inst_id = 1;
+    int32 daily_take_delegate_count = 3;
+    int64 expire_ts = 4;
+}
+message CS_DOMAIN_DEPOT_RECV_PACKAGE_FOR_DELIVER_REQ {
+    uint64 deliver_inst_id = 1;
+}
+message SC_DOMAIN_DEPOT_RECV_PACKAGE_FOR_DELIVER_RSP {
+    uint64 deliver_inst_id = 1;
+}
+message CS_DOMAIN_DEPOT_SEND_PACKAGE_FOR_DELIVER_REQ {
+    uint64 deliver_inst_id = 1;
+}
+message SC_DOMAIN_DEPOT_SEND_PACKAGE_FOR_DELIVER_RSP {
+    uint64 deliver_inst_id = 1;
+    int64 reward_value = 2;
+    int64 extra_credit_count = 3;
+}
+message SC_DOMAIN_DEPOT_UPDATE_DELEGATE_INST_STATE {
+    uint64 deliver_inst_id = 1;
+    int32 state = 2;
+    DOMAIN_DEPOT_DELIVER_PEER_ROLE_INFO peer_role_info = 3;
+    int64 expire_ts = 4;
+    int64 final_payment_value = 5;
+}
+message CS_DOMAIN_DEPOT_COLLECT_DELEGATE_REWARD_REQ {
+    repeated uint64 deliver_inst_id = 2;
+}
+message SC_DOMAIN_DEPOT_COLLECT_DELEGATE_REWARD_RSP {
+    repeated uint64 deliver_inst_id = 2;
+    map<string, int64> money_id_to_add_value = 3;
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+enum FOCUS_MODE_LEAVE_REASON {
+    COMPLETE = 0;
+    CLT_QUIT = 1;
+    INTERRUPT = 2;
+}
+message CS_FOCUS_MODE_ENTER_REQ {
+    string focus_mode_id = 1;
+}
+message CS_FOCUS_MODE_LEAVE_REQ {
+    string focus_mode_id = 1;
+}
+message SC_FOCUS_MODE_ENTER_NTF {
+    string focus_mode_id = 1;
+}
+message SC_FOCUS_MODE_LEAVE_NTF {
+    string focus_mode_id = 1;
+    FOCUS_MODE_LEAVE_REASON leave_reason = 2;
+}
+message SC_FOCUS_MODE_LEAVE_END_NTF {
+    string focus_mode_id = 1;
+}

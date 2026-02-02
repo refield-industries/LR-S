@@ -1,0 +1,39 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "options.proto";
+
+message SC_SYNC_ALL_BITSET {
+    repeated BITSET_DATA bitset = 1;
+}
+message BITSET_DATA {
+    int32 type = 1;
+    repeated uint64 value = 2;
+}
+message CS_BITSET_ADD {
+    int32 type = 1;
+    repeated uint32 value = 2;
+}
+message CS_BITSET_REMOVE_ALL {
+    int32 type = 1;
+}
+message CS_BITSET_REMOVE {
+    int32 type = 1;
+    repeated uint32 value = 2;
+}
+message SC_BITSET_ADD {
+    int32 type = 1;
+    repeated uint32 value = 2;
+    int32 source = 3;
+}
+message SC_BITSET_REMOVE {
+    int32 type = 1;
+    repeated uint32 value = 2;
+    int32 source = 3;
+}
+message SC_BITSET_REMOVE_ALL {
+    int32 type = 1;
+    int32 source = 2;
+}

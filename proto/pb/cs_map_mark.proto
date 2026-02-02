@@ -1,0 +1,56 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "/csproto";
+
+import "common.proto";
+
+message CSD_SCENE_STATIC_MAP_MARK_UPDATE {
+    SCENE_STATIC_MAP_MARK mark = 1;
+    bool is_add = 2;
+}
+message CS_SCENE_STATIC_MAP_MARK_UPDATE {
+    repeated CSD_SCENE_STATIC_MAP_MARK_UPDATE ops = 1;
+}
+message CS_SCENE_SET_TRACK_POINT {
+    SCENE_TRACK_POINT track_point = 1;
+}
+message CS_SCENE_DYNAMIC_MAP_MARK_ADD {
+    int32 scene_num_id = 1;
+    VECTOR position = 2;
+    string note = 3;
+    uint32 typ = 4;
+    int32 tier_index = 5;
+    int32 tier_id = 6;
+}
+message CS_SCENE_DYNAMIC_MAP_MARK_DELETE {
+    int32 scene_num_id = 1;
+    repeated uint32 id = 2;
+}
+message CS_SCENE_DYNAMIC_MAP_MARK_UPDATE {
+    int32 scene_num_id = 1;
+    uint32 id = 2;
+    string note = 3;
+    uint32 typ = 4;
+}
+message SC_SCENE_MAP_MARK_SYNC {
+    repeated SCENE_STATIC_MAP_MARK scene_static_map_mark_list = 1;
+    repeated SCENE_DYNAMIC_MAP_MARK scene_dynamic_map_mark_list = 3;
+    repeated uint64 detected_entity_id = 4;
+    SCENE_TRACK_POINT track_point = 2;
+}
+message SC_SCENE_STATIC_MAP_MARK_MODIFY {
+    repeated SCENE_STATIC_MAP_MARK added_list = 1;
+    repeated int32 deleted_list = 2;
+}
+message SC_SCENE_DYNAMIC_MAP_MARK_MODIFY {
+    repeated SCENE_DYNAMIC_MAP_MARK modified_marks = 1;
+    repeated uint32 deleted_marks = 2;
+}
+message SC_SCENE_DETECT_MAP_MARK {
+    repeated uint64 add_entity_id = 1;
+    repeated uint64 del_entity_id = 2;
+}
+message SC_SCENE_SET_TRACK_POINT {
+    SCENE_TRACK_POINT track_point = 1;
+}
