@@ -15,12 +15,12 @@ pub fn saveCharBagTeams(
     player_id: logic.World.PlayerId,
     io: Io,
 ) !void {
-    const data_dir = fs.persistence.openPlayerDataDir(io, player_id.uid) catch |err| switch (err) {
+    const data_dir = fs.persistence.openPlayerDataDir(io, player_id.uid.view()) catch |err| switch (err) {
         error.Canceled => |e| return e,
         else => |e| {
             log.err(
-                "failed to open data dir for player with uid {d}: {t}",
-                .{ player_id.uid, e },
+                "failed to open data dir for player with uid {s}: {t}",
+                .{ player_id.uid.view(), e },
             );
             return;
         },

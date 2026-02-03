@@ -1,6 +1,8 @@
 const std = @import("std");
 const pb = @import("proto").pb;
+const mem = @import("common").mem;
 const Session = @import("../Session.zig");
+const PlayerId = @import("../logic.zig").World.PlayerId;
 
 const Io = std.Io;
 const Allocator = std.mem.Allocator;
@@ -10,14 +12,30 @@ const log = std.log.scoped(.auth);
 pub const Error = error{LoginFailed} || Session.SendError || Allocator.Error || Io.Cancelable;
 
 pub const Result = struct {
-    uid: u64, // It's a string in SC_LOGIN tho
+    uid: mem.LimitedString(PlayerId.max_length),
+
+    pub const FromUidSliceError = error{
+        TooLongString,
+        InvalidCharacters,
+    };
+
+    pub fn fromUidSlice(slice: []const u8) FromUidSliceError!Result {
+        const result: Result = .{ .uid = try .init(slice) };
+        for (slice) |c| if (!std.ascii.isAlphanumeric(c)) {
+            return error.InvalidCharacters;
+        };
+
+        return result;
+    }
 };
 
 pub fn processLoginRequest(io: Io, session: *Session, request: *const pb.CS_LOGIN) Error!Result {
     log.info("login request received: {any}", .{request});
 
-    const uid = std.fmt.parseInt(u64, request.uid, 10) catch
+    const result = Result.fromUidSlice(request.uid) catch |err| {
+        log.err("invalid UID received: {t}", .{err});
         return error.LoginFailed;
+    };
 
     try session.send(pb.SC_LOGIN{
         .uid = request.uid,
@@ -25,5 +43,5 @@ pub fn processLoginRequest(io: Io, session: *Session, request: *const pb.CS_LOGI
         .server_time_zone = 3,
     });
 
-    return .{ .uid = uid };
+    return result;
 }

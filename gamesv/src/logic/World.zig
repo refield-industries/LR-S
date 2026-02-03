@@ -1,6 +1,7 @@
 // Describes player-local state of the world.
 const World = @This();
 const std = @import("std");
+const mem = @import("common").mem;
 const logic = @import("../logic.zig");
 const Session = @import("../Session.zig");
 const Assets = @import("../Assets.zig");
@@ -8,7 +9,11 @@ const Assets = @import("../Assets.zig");
 const Io = std.Io;
 const Allocator = std.mem.Allocator;
 
-pub const PlayerId = struct { uid: u64 };
+pub const PlayerId = struct {
+    pub const max_length: usize = 16;
+
+    uid: mem.LimitedString(max_length),
+};
 
 player_id: PlayerId,
 session: *Session, // TODO: should it be here this way? Do we need an abstraction?
@@ -18,7 +23,7 @@ player: logic.Player,
 pub fn init(
     session: *Session,
     assets: *const Assets,
-    uid: u64,
+    uid: mem.LimitedString(PlayerId.max_length),
     player: logic.Player,
     gpa: Allocator,
     io: Io,

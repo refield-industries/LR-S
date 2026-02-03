@@ -6,6 +6,7 @@ const Assets = @import("../Assets.zig");
 const Io = std.Io;
 const Allocator = std.mem.Allocator;
 const Player = logic.Player;
+const PlayerId = logic.World.PlayerId;
 
 const player_data_dir = "store/player/";
 const base_component_file = "base_data";
@@ -35,10 +36,12 @@ const LoadPlayerError = error{
 const log = std.log.scoped(.persistence);
 
 // Opens or creates data directory for the player with specified uid.
-pub fn openPlayerDataDir(io: Io, uid: u64) !Io.Dir {
-    var dir_path_buf: [player_data_dir.len + 20]u8 = undefined;
-    const dir_path = std.fmt.bufPrint(&dir_path_buf, player_data_dir ++ "{d}", .{uid}) catch
-        unreachable; // Since we're printing a u64, it shouldn't exceed the buffer.
+pub fn openPlayerDataDir(io: Io, uid: []const u8) !Io.Dir {
+    std.debug.assert(uid.len <= PlayerId.max_length);
+
+    var dir_path_buf: [player_data_dir.len + PlayerId.max_length]u8 = undefined;
+    const dir_path = std.fmt.bufPrint(&dir_path_buf, player_data_dir ++ "{s}", .{uid}) catch
+        unreachable;
 
     const cwd: Io.Dir = .cwd();
     return cwd.openDir(io, dir_path, .{}) catch |open_err| switch (open_err) {
@@ -53,7 +56,7 @@ pub fn openPlayerDataDir(io: Io, uid: u64) !Io.Dir {
 
 // Loads player data. Creates components that do not exist.
 // Resets component to default if its data is corrupted.
-pub fn loadPlayer(io: Io, gpa: Allocator, assets: *const Assets, uid: u64) !Player {
+pub fn loadPlayer(io: Io, gpa: Allocator, assets: *const Assets, uid: []const u8) !Player {
     const data_dir = try openPlayerDataDir(io, uid);
     defer data_dir.close(io);
 
@@ -88,20 +91,20 @@ pub fn loadPlayer(io: Io, gpa: Allocator, assets: *const Assets, uid: u64) !Play
 fn loadBaseComponent(
     io: Io,
     data_dir: Io.Dir,
-    uid: u64,
+    uid: []const u8,
 ) !Player.Base {
     return fs.loadStruct(Player.Base, io, data_dir, base_component_file) catch |err| switch (err) {
         inline error.FileNotFound, error.ChecksumMismatch, error.ReprSizeMismatch => |e| reset: {
             if (e == error.ChecksumMismatch) {
                 log.err(
-                    "checksum mismatched for base_data of player {d}, resetting to defaults.",
+                    "checksum mismatched for base_data of player {s}, resetting to defaults.",
                     .{uid},
                 );
             }
 
             if (e == error.ReprSizeMismatch) {
                 log.err(
-                    "struct layout mismatched for base_data of player {d}, resetting to defaults.",
+                    "struct layout mismatched for base_data of player {s}, resetting to defaults.",
                     .{uid},
                 );
             }
@@ -116,7 +119,7 @@ fn loadBaseComponent(
     };
 }
 
-fn loadGameVarsComponent(io: Io, gpa: Allocator, data_dir: Io.Dir, uid: u64) !Player.GameVars {
+fn loadGameVarsComponent(io: Io, gpa: Allocator, data_dir: Io.Dir, uid: []const u8) !Player.GameVars {
     var game_vars: Player.GameVars = undefined;
 
     game_vars.server_vars = try loadArray(
@@ -146,7 +149,7 @@ fn loadGameVarsComponent(io: Io, gpa: Allocator, data_dir: Io.Dir, uid: u64) !Pl
     return game_vars;
 }
 
-fn loadUnlockComponent(io: Io, gpa: Allocator, data_dir: Io.Dir, uid: u64) !Player.Unlock {
+fn loadUnlockComponent(io: Io, gpa: Allocator, data_dir: Io.Dir, uid: []const u8) !Player.Unlock {
     var unlock: Player.Unlock = undefined;
 
     unlock.unlocked_systems = try loadArray(
@@ -164,7 +167,7 @@ fn loadUnlockComponent(io: Io, gpa: Allocator, data_dir: Io.Dir, uid: u64) !Play
     return unlock;
 }
 
-fn loadCharBagComponent(io: Io, gpa: Allocator, data_dir: Io.Dir, uid: u64) !Player.CharBag {
+fn loadCharBagComponent(io: Io, gpa: Allocator, data_dir: Io.Dir, uid: []const u8) !Player.CharBag {
     const char_bag_dir = data_dir.openDir(io, char_bag_path, .{}) catch |err| switch (err) {
         error.FileNotFound => return error.NeedsReset,
         error.Canceled => |e| return e,
@@ -195,14 +198,14 @@ fn loadCharBagComponent(io: Io, gpa: Allocator, data_dir: Io.Dir, uid: u64) !Pla
         inline error.FileNotFound, error.ChecksumMismatch, error.ReprSizeMismatch => |e| reset: {
             if (e == error.ChecksumMismatch) {
                 log.err(
-                    "checksum mismatched for char bag metadata of player {d}, resetting to defaults.",
+                    "checksum mismatched for char bag metadata of player {s}, resetting to defaults.",
                     .{uid},
                 );
             }
 
             if (e == error.ReprSizeMismatch) {
                 log.err(
-                    "struct layout mismatched for char bag metadata of player {d}, resetting to defaults.",
+                    "struct layout mismatched for char bag metadata of player {s}, resetting to defaults.",
                     .{uid},
                 );
             }
@@ -398,19 +401,19 @@ pub fn saveCharBagComponent(
     }
 }
 
-fn loadBitsetComponent(io: Io, data_dir: Io.Dir, uid: u64) !Player.Bitset {
+fn loadBitsetComponent(io: Io, data_dir: Io.Dir, uid: []const u8) !Player.Bitset {
     return fs.loadStruct(Player.Bitset, io, data_dir, bitset_file) catch |err| switch (err) {
         inline error.FileNotFound, error.ChecksumMismatch, error.ReprSizeMismatch => |e| {
             if (e == error.ChecksumMismatch) {
                 log.err(
-                    "checksum mismatched for bitset of player {d}, resetting to defaults.",
+                    "checksum mismatched for bitset of player {s}, resetting to defaults.",
                     .{uid},
                 );
             }
 
             if (e == error.ReprSizeMismatch) {
                 log.err(
-                    "struct layout mismatched for bitset of player {d}, resetting to defaults.",
+                    "struct layout mismatched for bitset of player {s}, resetting to defaults.",
                     .{uid},
                 );
             }
@@ -448,7 +451,7 @@ fn loadArray(
     io: Io,
     gpa: Allocator,
     data_dir: Io.Dir,
-    uid: u64,
+    uid: []const u8,
     sub_path: []const u8,
     defaults: []const T,
 ) ![]T {
@@ -456,14 +459,14 @@ fn loadArray(
         inline error.FileNotFound, error.ChecksumMismatch, error.ReprSizeMismatch => |e| reset: {
             if (e == error.ChecksumMismatch) {
                 log.err(
-                    "checksum mismatched for '{s}' of player {d}, resetting to defaults.",
+                    "checksum mismatched for '{s}' of player {s}, resetting to defaults.",
                     .{ sub_path, uid },
                 );
             }
 
             if (e == error.ReprSizeMismatch) {
                 log.err(
-                    "struct layout mismatched for '{s}' of player {d}, resetting to defaults.",
+                    "struct layout mismatched for '{s}' of player {s}, resetting to defaults.",
                     .{ sub_path, uid },
                 );
             }

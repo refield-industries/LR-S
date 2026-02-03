@@ -107,17 +107,20 @@ pub fn process(
                 error.Canceled => |e| return e,
             };
 
-            const player = fs.persistence.loadPlayer(io, gpa, assets, result.uid) catch |err| switch (err) {
+            const player = fs.persistence.loadPlayer(io, gpa, assets, result.uid.view()) catch |err| switch (err) {
                 error.Canceled => |e| return e,
                 else => |e| {
-                    log.err("failed to load data for player with uid {d}: {t}, disconnecting", .{ result.uid, e });
+                    log.err(
+                        "failed to load data for player with uid {s}: {t}, disconnecting",
+                        .{ result.uid.view(), e },
+                    );
                     return;
                 },
             };
 
             log.info(
-                "client from '{f}' has successfully logged into account with uid: {d}",
-                .{ stream.socket.address, result.uid },
+                "client from '{f}' has successfully logged into account with uid: {s}",
+                .{ stream.socket.address, result.uid.view() },
             );
 
             world = logic.World.init(&session, assets, result.uid, player, gpa, io);
