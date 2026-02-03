@@ -15,6 +15,7 @@ const namespaces = &.{
     @import("messaging/scene.zig"),
     @import("messaging/char_bag.zig"),
     @import("messaging/friend_chat.zig"),
+    @import("messaging/map_mark.zig"),
 };
 
 pub fn Request(comptime CSType: type) type {
