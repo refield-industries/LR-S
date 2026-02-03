@@ -1,0 +1,2047 @@
+{
+  "teleportValidationDatas": {
+    "TpForMap_ent_10100020314": {
+      "id": "TpForMap_ent_10100020314",
+      "teleportReason": 2,
+      "sceneId": "map02_lv001",
+      "position": {
+        "x": -1124.35229,
+        "y": 226.687119,
+        "z": -1738.60083,
+        "normalized": {
+          "x": -0.539812863,
+          "y": 0.108834766,
+          "z": -0.8347198,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 2082.85571,
+        "sqrMagnitude": 4338288.0
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 202.856857,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 202.856857,
+        "sqrMagnitude": 41150.9063
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_10100020315": {
+      "id": "TpForMap_ent_10100020315",
+      "teleportReason": 2,
+      "sceneId": "map02_lv001",
+      "position": {
+        "x": -1237.64868,
+        "y": 240.421967,
+        "z": -1973.01636,
+        "normalized": {
+          "x": -0.528583,
+          "y": 0.102680966,
+          "z": -0.842648566,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 2341.44629,
+        "sqrMagnitude": 5482370.5
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 344.169922,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 344.169922,
+        "sqrMagnitude": 118452.938
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_10100020319": {
+      "id": "TpForMap_ent_10100020319",
+      "teleportReason": 2,
+      "sceneId": "map02_lv001",
+      "position": {
+        "x": -961.1155,
+        "y": 228.584518,
+        "z": -1896.708,
+        "normalized": {
+          "x": -0.449419022,
+          "y": 0.106886461,
+          "z": -0.886903465,
+          "normalized": {
+            "x": -0.449419051,
+            "y": 0.106886469,
+            "z": -0.8869035,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.9999999
+        },
+        "magnitude": 2138.57324,
+        "sqrMagnitude": 4573495.0
+      },
+      "rotationEuler": {
+        "x": 359.759857,
+        "y": 187.18544,
+        "z": 0.1116431,
+        "normalized": {
+          "x": 0.887105346,
+          "y": 0.4615668,
+          "z": 0.0002752925,
+          "normalized": {
+            "x": 0.8871054,
+            "y": 0.461566836,
+            "z": 0.000275292521,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.9999999
+        },
+        "magnitude": 405.543549,
+        "sqrMagnitude": 164465.563
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_10100020350": {
+      "id": "TpForMap_ent_10100020350",
+      "teleportReason": 2,
+      "sceneId": "map02_lv001",
+      "position": {
+        "x": -1034.14,
+        "y": 229.597946,
+        "z": -1668.51807,
+        "normalized": {
+          "x": -0.5232472,
+          "y": 0.116170421,
+          "z": -0.8442255,
+          "normalized": {
+            "x": -0.523247242,
+            "y": 0.116170429,
+            "z": -0.8442256,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.99999994
+        },
+        "magnitude": 1976.389,
+        "sqrMagnitude": 3906113.5
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 269.854553,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 269.854553,
+        "sqrMagnitude": 72821.48
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_10100020646": {
+      "id": "TpForMap_ent_10100020646",
+      "teleportReason": 2,
+      "sceneId": "map02_lv001",
+      "position": {
+        "x": -740.619568,
+        "y": 232.93457,
+        "z": -1548.95654,
+        "normalized": {
+          "x": -0.427451462,
+          "y": 0.1344391,
+          "z": -0.8939863,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 1732.64014,
+        "sqrMagnitude": 3002042.0
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 206.365631,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 206.365631,
+        "sqrMagnitude": 42586.7734
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_10100030017": {
+      "id": "TpForMap_ent_10100030017",
+      "teleportReason": 2,
+      "sceneId": "map02_lv001",
+      "position": {
+        "x": -988.7816,
+        "y": 235.806046,
+        "z": -1302.116,
+        "normalized": {
+          "x": -0.598569453,
+          "y": 0.1427477,
+          "z": -0.7882498,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 1651.90784,
+        "sqrMagnitude": 2728799.5
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 47.0137672,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 47.0137672,
+        "sqrMagnitude": 2210.29419
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_10100030018": {
+      "id": "TpForMap_ent_10100030018",
+      "teleportReason": 2,
+      "sceneId": "map02_lv001",
+      "position": {
+        "x": -747.698,
+        "y": 234.778122,
+        "z": -1141.40649,
+        "normalized": {
+          "x": -0.540029168,
+          "y": 0.16956985,
+          "z": -0.8243874,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 1384.55115,
+        "sqrMagnitude": 1916981.75
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 128.3444,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 128.3444,
+        "sqrMagnitude": 16472.2871
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_10100030027": {
+      "id": "TpForMap_ent_10100030027",
+      "teleportReason": 2,
+      "sceneId": "map02_lv001",
+      "position": {
+        "x": -956.6139,
+        "y": 247.326187,
+        "z": -1061.09375,
+        "normalized": {
+          "x": -0.6597807,
+          "y": 0.170581937,
+          "z": -0.7318409,
+          "normalized": {
+            "x": -0.659780741,
+            "y": 0.170581952,
+            "z": -0.731840968,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.9999999
+        },
+        "magnitude": 1449.89673,
+        "sqrMagnitude": 2102200.5
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 98.3359451,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 98.3359451,
+        "sqrMagnitude": 9669.958
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_10100030048": {
+      "id": "TpForMap_ent_10100030048",
+      "teleportReason": 2,
+      "sceneId": "map02_lv001",
+      "position": {
+        "x": -727.6128,
+        "y": 236.120514,
+        "z": -1349.94189,
+        "normalized": {
+          "x": -0.468938261,
+          "y": 0.152177021,
+          "z": -0.870022357,
+          "normalized": {
+            "x": -0.468938321,
+            "y": 0.152177036,
+            "z": -0.8700225,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.00000012
+          },
+          "magnitude": 0.9999999,
+          "sqrMagnitude": 0.9999998
+        },
+        "magnitude": 1551.61743,
+        "sqrMagnitude": 2407516.5
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 96.13107,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 96.13107,
+        "sqrMagnitude": 9241.184
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_10100030146": {
+      "id": "TpForMap_ent_10100030146",
+      "teleportReason": 2,
+      "sceneId": "map02_lv001",
+      "position": {
+        "x": -767.961548,
+        "y": 227.0939,
+        "z": -1440.19751,
+        "normalized": {
+          "x": -0.46603027,
+          "y": 0.1378098,
+          "z": -0.8739703,
+          "normalized": {
+            "x": -0.4660303,
+            "y": 0.137809813,
+            "z": -0.8739704,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.99999994
+        },
+        "magnitude": 1647.87915,
+        "sqrMagnitude": 2715505.5
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 272.366058,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 272.366058,
+        "sqrMagnitude": 74183.27
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_10100030179": {
+      "id": "TpForMap_ent_10100030179",
+      "teleportReason": 2,
+      "sceneId": "map02_lv001",
+      "position": {
+        "x": -1062.831,
+        "y": 193.130463,
+        "z": -1426.24207,
+        "normalized": {
+          "x": -0.5940408,
+          "y": 0.107945077,
+          "z": -0.7971596,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 1789.15491,
+        "sqrMagnitude": 3201075.5
+      },
+      "rotationEuler": {
+        "x": -1.92545173E-7,
+        "y": 234.599991,
+        "z": -3.84343366E-7,
+        "normalized": {
+          "x": -8.207382E-10,
+          "y": 1.0,
+          "z": -1.63829228E-9,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 234.599991,
+        "sqrMagnitude": 55037.1563
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_200001237": {
+      "id": "TpForMap_ent_200001237",
+      "teleportReason": 2,
+      "sceneId": "map01_lv002",
+      "position": {
+        "x": -678.3555,
+        "y": 122.113251,
+        "z": -77.81069,
+        "normalized": {
+          "x": -0.977968931,
+          "y": 0.176047757,
+          "z": -0.112177812,
+          "normalized": {
+            "x": -0.977969,
+            "y": 0.176047772,
+            "z": -0.112177819,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.9999999
+        },
+        "magnitude": 693.6371,
+        "sqrMagnitude": 481132.375
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 359.345551,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 359.345551,
+        "sqrMagnitude": 129129.227
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_200001239": {
+      "id": "TpForMap_ent_200001239",
+      "teleportReason": 2,
+      "sceneId": "map01_lv002",
+      "position": {
+        "x": -789.2321,
+        "y": 127.6933,
+        "z": 115.577347,
+        "normalized": {
+          "x": -0.9770067,
+          "y": 0.158074155,
+          "z": 0.14307557,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 807.8063,
+        "sqrMagnitude": 652551.0
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 222.699844,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 222.699844,
+        "sqrMagnitude": 49595.22
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_200001240": {
+      "id": "TpForMap_ent_200001240",
+      "teleportReason": 2,
+      "sceneId": "map01_lv002",
+      "position": {
+        "x": -852.94,
+        "y": 142.233063,
+        "z": 123.86,
+        "normalized": {
+          "x": -0.9764139,
+          "y": 0.162823111,
+          "z": 0.141790316,
+          "normalized": {
+            "x": -0.976413965,
+            "y": 0.162823126,
+            "z": 0.14179033,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.00000012
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.99999994
+        },
+        "magnitude": 873.543457,
+        "sqrMagnitude": 763078.2
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 352.922424,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 352.922424,
+        "sqrMagnitude": 124554.234
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_2100000031": {
+      "id": "TpForMap_ent_2100000031",
+      "teleportReason": 2,
+      "sceneId": "map01_lv001",
+      "position": {
+        "x": -384.918365,
+        "y": 107.498909,
+        "z": -399.271057,
+        "normalized": {
+          "x": -0.6813669,
+          "y": 0.190290213,
+          "z": -0.70677346,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 564.920837,
+        "sqrMagnitude": 319135.531
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 87.2653046,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 87.2653046,
+        "sqrMagnitude": 7615.2334
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_2100000073": {
+      "id": "TpForMap_ent_2100000073",
+      "teleportReason": 2,
+      "sceneId": "map01_lv001",
+      "position": {
+        "x": -9.230749,
+        "y": 96.17314,
+        "z": -472.262878,
+        "normalized": {
+          "x": -0.0191491731,
+          "y": 0.199511,
+          "z": -0.9797085,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 482.044281,
+        "sqrMagnitude": 232366.7
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 180.0,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 180.0,
+        "sqrMagnitude": 32400.0
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_2100000086": {
+      "id": "TpForMap_ent_2100000086",
+      "teleportReason": 2,
+      "sceneId": "map01_lv001",
+      "position": {
+        "x": -269.919,
+        "y": 137.825256,
+        "z": -95.93534,
+        "normalized": {
+          "x": -0.8490888,
+          "y": 0.433559269,
+          "z": -0.301785439,
+          "normalized": {
+            "x": -0.849088848,
+            "y": 0.4335593,
+            "z": -0.301785469,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.9999999
+        },
+        "magnitude": 317.892548,
+        "sqrMagnitude": 101055.672
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 318.772858,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 318.772858,
+        "sqrMagnitude": 101616.133
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_2100000093": {
+      "id": "TpForMap_ent_2100000093",
+      "teleportReason": 2,
+      "sceneId": "map01_lv001",
+      "position": {
+        "x": -488.618256,
+        "y": 92.71853,
+        "z": -504.4102,
+        "normalized": {
+          "x": -0.689787865,
+          "y": 0.130891785,
+          "z": -0.712081552,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 708.360168,
+        "sqrMagnitude": 501774.156
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 73.9413452,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 73.9413452,
+        "sqrMagnitude": 5467.32275
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_2100000284": {
+      "id": "TpForMap_ent_2100000284",
+      "teleportReason": 2,
+      "sceneId": "map01_lv001",
+      "position": {
+        "x": -124.518738,
+        "y": 98.40428,
+        "z": -384.222076,
+        "normalized": {
+          "x": -0.2995326,
+          "y": 0.236713693,
+          "z": -0.9242548,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 415.710144,
+        "sqrMagnitude": 172814.922
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 91.0018539,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 91.0018539,
+        "sqrMagnitude": 8281.338
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_2100000322": {
+      "id": "TpForMap_ent_2100000322",
+      "teleportReason": 2,
+      "sceneId": "map01_lv001",
+      "position": {
+        "x": -153.868683,
+        "y": 104.744606,
+        "z": -485.57428,
+        "normalized": {
+          "x": -0.295885235,
+          "y": 0.201421,
+          "z": -0.9337459,
+          "normalized": {
+            "x": -0.295885265,
+            "y": 0.201421008,
+            "z": -0.933746,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.9999999
+        },
+        "magnitude": 520.028259,
+        "sqrMagnitude": 270429.375
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 17.4854984,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 17.4854984,
+        "sqrMagnitude": 305.742645
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_2100010282": {
+      "id": "TpForMap_ent_2100010282",
+      "teleportReason": 2,
+      "sceneId": "map01_lv001",
+      "position": {
+        "x": -179.268417,
+        "y": 147.379486,
+        "z": -38.43367,
+        "normalized": {
+          "x": -0.762085557,
+          "y": 0.626522958,
+          "z": -0.163384855,
+          "normalized": {
+            "x": -0.7620856,
+            "y": 0.626523,
+            "z": -0.16338487,
+            "normalized": {
+              "x": -0.7620855,
+              "y": 0.626522958,
+              "z": -0.163384855,
+              "normalized": {
+                "x": -0.762085557,
+                "y": 0.626523,
+                "z": -0.16338487,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.00000012
+              },
+              "magnitude": 0.99999994,
+              "sqrMagnitude": 0.99999994
+            },
+            "magnitude": 1.00000012,
+            "sqrMagnitude": 1.00000024
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.99999994
+        },
+        "magnitude": 235.233978,
+        "sqrMagnitude": 55335.0273
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 217.855637,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 217.855637,
+        "sqrMagnitude": 47461.08
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_22800030004": {
+      "id": "TpForMap_ent_22800030004",
+      "teleportReason": 2,
+      "sceneId": "map02_lv002",
+      "position": {
+        "x": -1379.863,
+        "y": 320.317017,
+        "z": -292.451,
+        "normalized": {
+          "x": -0.9539801,
+          "y": 0.2214539,
+          "z": -0.202188492,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 1446.42749,
+        "sqrMagnitude": 2092152.63
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 238.1614,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 238.1614,
+        "sqrMagnitude": 56720.8555
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_22800030005": {
+      "id": "TpForMap_ent_22800030005",
+      "teleportReason": 2,
+      "sceneId": "map02_lv002",
+      "position": {
+        "x": -1107.53992,
+        "y": 282.489,
+        "z": -378.089966,
+        "normalized": {
+          "x": -0.9199532,
+          "y": 0.234643176,
+          "z": -0.314051956,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 1203.90894,
+        "sqrMagnitude": 1449396.63
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 348.225372,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 348.225372,
+        "sqrMagnitude": 121260.906
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_22800030007": {
+      "id": "TpForMap_ent_22800030007",
+      "teleportReason": 2,
+      "sceneId": "map02_lv002",
+      "position": {
+        "x": -1340.03,
+        "y": 309.010681,
+        "z": -534.779968,
+        "normalized": {
+          "x": -0.908175051,
+          "y": 0.209425,
+          "z": -0.362435043,
+          "normalized": {
+            "x": -0.9081751,
+            "y": 0.209425017,
+            "z": -0.362435073,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.9999999
+        },
+        "magnitude": 1475.51953,
+        "sqrMagnitude": 2177157.75
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 251.562164,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 251.562164,
+        "sqrMagnitude": 63283.5234
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_22800030008": {
+      "id": "TpForMap_ent_22800030008",
+      "teleportReason": 2,
+      "sceneId": "map02_lv002",
+      "position": {
+        "x": -1106.27148,
+        "y": 280.472748,
+        "z": -733.9413,
+        "normalized": {
+          "x": -0.8152947,
+          "y": 0.206701472,
+          "z": -0.540896535,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 1356.89771,
+        "sqrMagnitude": 1841171.5
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 307.624939,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 307.624939,
+        "sqrMagnitude": 94633.1
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_22800030009": {
+      "id": "TpForMap_ent_22800030009",
+      "teleportReason": 2,
+      "sceneId": "map02_lv002",
+      "position": {
+        "x": -830.0538,
+        "y": 265.949219,
+        "z": -320.2083,
+        "normalized": {
+          "x": -0.8939006,
+          "y": 0.2864057,
+          "z": -0.344838381,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 928.5751,
+        "sqrMagnitude": 862251.6
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 117.666351,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 117.666351,
+        "sqrMagnitude": 13845.37
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_22800030016": {
+      "id": "TpForMap_ent_22800030016",
+      "teleportReason": 2,
+      "sceneId": "map02_lv002",
+      "position": {
+        "x": -792.7939,
+        "y": 276.641846,
+        "z": -579.36145,
+        "normalized": {
+          "x": -0.7771322,
+          "y": 0.271176755,
+          "z": -0.5679161,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 1020.1532,
+        "sqrMagnitude": 1040712.5
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 120.7313,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 120.7313,
+        "sqrMagnitude": 14576.0469
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_22800060089": {
+      "id": "TpForMap_ent_22800060089",
+      "teleportReason": 2,
+      "sceneId": "map02_lv002",
+      "position": {
+        "x": -818.68396,
+        "y": 247.6301,
+        "z": 41.704937,
+        "normalized": {
+          "x": -0.9560364,
+          "y": 0.28917557,
+          "z": 0.0487018675,
+          "normalized": {
+            "x": -0.956036448,
+            "y": 0.2891756,
+            "z": 0.04870187,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.00000012
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.99999994
+        },
+        "magnitude": 856.33136,
+        "sqrMagnitude": 733303.438
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 180.0,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 180.0,
+        "sqrMagnitude": 32400.0
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_22800060090": {
+      "id": "TpForMap_ent_22800060090",
+      "teleportReason": 2,
+      "sceneId": "map02_lv002",
+      "position": {
+        "x": -889.2965,
+        "y": 267.666077,
+        "z": -702.3303,
+        "normalized": {
+          "x": -0.763756633,
+          "y": 0.229880288,
+          "z": -0.603184,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 1164.37158,
+        "sqrMagnitude": 1355761.25
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 300.889526,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 300.889526,
+        "sqrMagnitude": 90534.51
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_25600040000": {
+      "id": "TpForMap_ent_25600040000",
+      "teleportReason": 2,
+      "sceneId": "indie_dg005",
+      "position": {
+        "x": -1663.34119,
+        "y": 408.302032,
+        "z": -328.6326,
+        "normalized": {
+          "x": -0.953769863,
+          "y": 0.234122843,
+          "z": -0.1884399,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 1743.965,
+        "sqrMagnitude": 3041414.0
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "magnitude": 0.0,
+        "sqrMagnitude": 0.0
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_25800050016": {
+      "id": "TpForMap_ent_25800050016",
+      "teleportReason": 2,
+      "sceneId": "base01_lv003",
+      "position": {
+        "x": -67.291,
+        "y": 1.422,
+        "z": 0.389,
+        "normalized": {
+          "x": -0.999760151,
+          "y": 0.02112703,
+          "z": 0.00577947544,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 67.3071442,
+        "sqrMagnitude": 4530.252
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "magnitude": 0.0,
+        "sqrMagnitude": 0.0
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_2800001292": {
+      "id": "TpForMap_ent_2800001292",
+      "teleportReason": 2,
+      "sceneId": "map01_lv007",
+      "position": {
+        "x": 76.35229,
+        "y": 158.326157,
+        "z": 676.420532,
+        "normalized": {
+          "x": 0.109248556,
+          "y": 0.226540744,
+          "z": 0.967855334,
+          "normalized": {
+            "x": 0.109248564,
+            "y": 0.226540759,
+            "z": 0.9678554,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.99999994
+        },
+        "magnitude": 698.886,
+        "sqrMagnitude": 488441.6
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 353.2285,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 353.2285,
+        "sqrMagnitude": 124770.359
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_2800001338": {
+      "id": "TpForMap_ent_2800001338",
+      "teleportReason": 2,
+      "sceneId": "map01_lv007",
+      "position": {
+        "x": -218.389954,
+        "y": 158.7576,
+        "z": 489.172638,
+        "normalized": {
+          "x": -0.390862972,
+          "y": 0.2841361,
+          "z": 0.8754957,
+          "normalized": {
+            "x": -0.390863031,
+            "y": 0.284136117,
+            "z": 0.8754958,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.00000012
+          },
+          "magnitude": 0.9999999,
+          "sqrMagnitude": 0.9999998
+        },
+        "magnitude": 558.7379,
+        "sqrMagnitude": 312188.031
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 248.7854,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 248.7854,
+        "sqrMagnitude": 61894.1758
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_2800001509": {
+      "id": "TpForMap_ent_2800001509",
+      "teleportReason": 2,
+      "sceneId": "map01_lv007",
+      "position": {
+        "x": -67.35998,
+        "y": 171.209045,
+        "z": 575.2554,
+        "normalized": {
+          "x": -0.111530378,
+          "y": 0.283477068,
+          "z": 0.9524714,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 603.9608,
+        "sqrMagnitude": 364768.656
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 90.14104,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 90.14104,
+        "sqrMagnitude": 8125.40674
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_2800001519": {
+      "id": "TpForMap_ent_2800001519",
+      "teleportReason": 2,
+      "sceneId": "map01_lv007",
+      "position": {
+        "x": -95.8557739,
+        "y": 196.066742,
+        "z": 360.2595,
+        "normalized": {
+          "x": -0.227572709,
+          "y": 0.465485156,
+          "z": 0.855297744,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 421.209442,
+        "sqrMagnitude": 177417.391
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 207.655518,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 207.655518,
+        "sqrMagnitude": 43120.8125
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_300001865": {
+      "id": "TpForMap_ent_300001865",
+      "teleportReason": 2,
+      "sceneId": "map01_lv003",
+      "position": {
+        "x": 231.418625,
+        "y": 66.7155762,
+        "z": -574.677734,
+        "normalized": {
+          "x": 0.371395767,
+          "y": 0.10706953,
+          "z": -0.9222805,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 623.105164,
+        "sqrMagnitude": 388260.063
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 146.706818,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 146.706818,
+        "sqrMagnitude": 21522.89
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_300001874": {
+      "id": "TpForMap_ent_300001874",
+      "teleportReason": 2,
+      "sceneId": "map01_lv003",
+      "position": {
+        "x": 346.857941,
+        "y": 27.2610016,
+        "z": -684.460938,
+        "normalized": {
+          "x": 0.451746583,
+          "y": 0.0355046354,
+          "z": -0.891439557,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 767.8153,
+        "sqrMagnitude": 589540.4
+      },
+      "rotationEuler": {
+        "x": 0.3546866,
+        "y": 154.97879,
+        "z": 2.53991461,
+        "normalized": {
+          "x": 0.00228830054,
+          "y": 0.999863148,
+          "z": 0.0163865462,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 155.0,
+        "sqrMagnitude": 24025.002
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_300002538": {
+      "id": "TpForMap_ent_300002538",
+      "teleportReason": 2,
+      "sceneId": "map01_lv003",
+      "position": {
+        "x": 402.882751,
+        "y": 100.122292,
+        "z": -625.9169,
+        "normalized": {
+          "x": 0.536409438,
+          "y": 0.133305639,
+          "z": -0.833363354,
+          "normalized": {
+            "x": 0.5364095,
+            "y": 0.133305654,
+            "z": -0.8333634,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.00000012
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.99999994
+        },
+        "magnitude": 751.0732,
+        "sqrMagnitude": 564110.938
+      },
+      "rotationEuler": {
+        "x": 0.354686379,
+        "y": 342.581635,
+        "z": 2.53991485,
+        "normalized": {
+          "x": 0.00103530486,
+          "y": 0.9999719,
+          "z": 0.007413835,
+          "normalized": {
+            "x": 0.001035305,
+            "y": 0.999972,
+            "z": 0.00741383526,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.9999999
+        },
+        "magnitude": 342.591248,
+        "sqrMagnitude": 117368.758
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_300002665": {
+      "id": "TpForMap_ent_300002665",
+      "teleportReason": 2,
+      "sceneId": "map01_lv003",
+      "position": {
+        "x": 335.264038,
+        "y": 57.7212677,
+        "z": -837.4638,
+        "normalized": {
+          "x": 0.3708983,
+          "y": 0.0638562962,
+          "z": -0.926475465,
+          "normalized": {
+            "x": 0.370898336,
+            "y": 0.0638563,
+            "z": -0.9264755,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.00000012
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.99999994
+        },
+        "magnitude": 903.924438,
+        "sqrMagnitude": 817079.4
+      },
+      "rotationEuler": {
+        "x": 0.35468632,
+        "y": 254.023361,
+        "z": 2.5399158,
+        "normalized": {
+          "x": 0.0013962033,
+          "y": 0.999949038,
+          "z": 0.00999824,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 254.0363,
+        "sqrMagnitude": 64534.4453
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_3400010189": {
+      "id": "TpForMap_ent_3400010189",
+      "teleportReason": 2,
+      "sceneId": "map01_lv005",
+      "position": {
+        "x": 718.370056,
+        "y": 62.4104843,
+        "z": -56.6549377,
+        "normalized": {
+          "x": 0.9931865,
+          "y": 0.0862859562,
+          "z": -0.0783285946,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 723.2983,
+        "sqrMagnitude": 523160.375
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 323.7541,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 323.7541,
+        "sqrMagnitude": 104816.711
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_3400020743": {
+      "id": "TpForMap_ent_3400020743",
+      "teleportReason": 2,
+      "sceneId": "map01_lv005",
+      "position": {
+        "x": 815.430054,
+        "y": 99.69687,
+        "z": -189.34,
+        "normalized": {
+          "x": 0.967250347,
+          "y": 0.118258864,
+          "z": -0.224592134,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 843.0393,
+        "sqrMagnitude": 710715.25
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 138.867142,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 138.867142,
+        "sqrMagnitude": 19284.084
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_3400020746": {
+      "id": "TpForMap_ent_3400020746",
+      "teleportReason": 2,
+      "sceneId": "map01_lv005",
+      "position": {
+        "x": 348.8337,
+        "y": 95.86003,
+        "z": -284.906,
+        "normalized": {
+          "x": 0.757537067,
+          "y": 0.208172336,
+          "z": -0.618709862,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 460.484,
+        "sqrMagnitude": 212045.531
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 270.0,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 270.0,
+        "sqrMagnitude": 72900.0
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_3400020747": {
+      "id": "TpForMap_ent_3400020747",
+      "teleportReason": 2,
+      "sceneId": "map01_lv005",
+      "position": {
+        "x": 602.402954,
+        "y": 96.79,
+        "z": -146.965881,
+        "normalized": {
+          "x": 0.9598824,
+          "y": 0.154227361,
+          "z": -0.234178737,
+          "normalized": {
+            "x": 0.959882438,
+            "y": 0.154227376,
+            "z": -0.234178752,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.00000012
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.99999994
+        },
+        "magnitude": 627.579956,
+        "sqrMagnitude": 393856.6
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 135.22,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 135.22,
+        "sqrMagnitude": 18284.45
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_3400021048": {
+      "id": "TpForMap_ent_3400021048",
+      "teleportReason": 2,
+      "sceneId": "map01_lv005",
+      "position": {
+        "x": 622.4546,
+        "y": 94.9799957,
+        "z": -338.123718,
+        "normalized": {
+          "x": 0.8709292,
+          "y": 0.13289459,
+          "z": -0.473097682,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 714.7017,
+        "sqrMagnitude": 510798.563
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 205.817139,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 205.817139,
+        "sqrMagnitude": 42360.6953
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_3500031058": {
+      "id": "TpForMap_ent_3500031058",
+      "teleportReason": 2,
+      "sceneId": "map01_lv006",
+      "position": {
+        "x": 235.932846,
+        "y": 66.12611,
+        "z": 671.7412,
+        "normalized": {
+          "x": 0.329960465,
+          "y": 0.0924797058,
+          "z": 0.9394539,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 715.0337,
+        "sqrMagnitude": 511273.219
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 218.940063,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 218.940063,
+        "sqrMagnitude": 47934.75
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_3500031059": {
+      "id": "TpForMap_ent_3500031059",
+      "teleportReason": 2,
+      "sceneId": "map01_lv006",
+      "position": {
+        "x": 290.086639,
+        "y": 57.40988,
+        "z": 481.882019,
+        "normalized": {
+          "x": 0.5130811,
+          "y": 0.101541817,
+          "z": 0.8523128,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 565.381653,
+        "sqrMagnitude": 319656.438
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 64.29414,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 64.29414,
+        "sqrMagnitude": 4133.737
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_3500031060": {
+      "id": "TpForMap_ent_3500031060",
+      "teleportReason": 2,
+      "sceneId": "map01_lv006",
+      "position": {
+        "x": 542.803833,
+        "y": 39.4160423,
+        "z": 249.096542,
+        "normalized": {
+          "x": 0.906894267,
+          "y": 0.0658547,
+          "z": 0.416180223,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 598.530457,
+        "sqrMagnitude": 358238.719
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 45.26563,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 45.26563,
+        "sqrMagnitude": 2048.977
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_3500031061": {
+      "id": "TpForMap_ent_3500031061",
+      "teleportReason": 2,
+      "sceneId": "map01_lv006",
+      "position": {
+        "x": 643.6289,
+        "y": 36.06,
+        "z": 443.1306,
+        "normalized": {
+          "x": 0.8227864,
+          "y": 0.04609749,
+          "z": 0.5664783,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 782.2552,
+        "sqrMagnitude": 611923.2
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 183.4744,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 183.4744,
+        "sqrMagnitude": 33662.8555
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_3500031199": {
+      "id": "TpForMap_ent_3500031199",
+      "teleportReason": 2,
+      "sceneId": "map01_lv006",
+      "position": {
+        "x": 714.725464,
+        "y": 69.1238861,
+        "z": 93.09792,
+        "normalized": {
+          "x": 0.987094,
+          "y": 0.09546571,
+          "z": 0.1285758,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 724.0703,
+        "sqrMagnitude": 524277.844
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 4.822195,
+        "z": 0.0,
+        "normalized": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 0.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 4.822195,
+        "sqrMagnitude": 23.2535648
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_9800000001": {
+      "id": "TpForMap_ent_9800000001",
+      "teleportReason": 2,
+      "sceneId": "base01_lv001",
+      "position": {
+        "x": -9.536743E-7,
+        "y": 2.91,
+        "z": -42.5,
+        "normalized": {
+          "x": -2.23869776E-8,
+          "y": 0.06831065,
+          "z": -0.997664034,
+          "normalized": {
+            "x": -2.238698E-8,
+            "y": 0.0683106557,
+            "z": -0.9976641,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.99999994,
+          "sqrMagnitude": 0.9999999
+        },
+        "magnitude": 42.59951,
+        "sqrMagnitude": 1814.71814
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "magnitude": 0.0,
+        "sqrMagnitude": 0.0
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_9800000002": {
+      "id": "TpForMap_ent_9800000002",
+      "teleportReason": 2,
+      "sceneId": "base01_lv001",
+      "position": {
+        "x": 0.0,
+        "y": 1.44,
+        "z": 64.637,
+        "normalized": {
+          "x": 0.0,
+          "y": 0.0222727358,
+          "z": 0.9997519,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 64.65304,
+        "sqrMagnitude": 4180.01563
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "magnitude": 0.0,
+        "sqrMagnitude": 0.0
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    },
+    "TpForMap_ent_9800000031": {
+      "id": "TpForMap_ent_9800000031",
+      "teleportReason": 2,
+      "sceneId": "base01_lv001",
+      "position": {
+        "x": -67.291,
+        "y": 1.422,
+        "z": 0.389,
+        "normalized": {
+          "x": -0.999760151,
+          "y": 0.02112703,
+          "z": 0.00577947544,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 67.3071442,
+        "sqrMagnitude": 4530.252
+      },
+      "rotationEuler": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "magnitude": 0.0,
+        "sqrMagnitude": 0.0
+      },
+      "uiTypeOut": 0,
+      "deviation": 0.0,
+      "keepAnim": false,
+      "keepCam": false
+    }
+  }
+}

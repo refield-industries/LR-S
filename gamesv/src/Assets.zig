@@ -23,6 +23,7 @@ level_config_table: StringHashMap(configs.LevelConfig),
 level_map_mark_groups: StringHashMap([]const configs.ClientSingleMapMarkData),
 // instId-to-data mapping
 map_mark_table: StringHashMap(*const configs.ClientSingleMapMarkData),
+teleport_validation_table: configs.TeleportValidationDataTable,
 
 pub const IdGroup = enum {
     char_id,
@@ -84,6 +85,13 @@ pub fn load(io: Io, gpa: Allocator) !Assets {
 
     const map_mark_table = try buildMapMarkTable(&level_map_mark_groups, arena.allocator());
 
+    const teleport_validation_table = try configs.loadJsonConfig(
+        configs.TeleportValidationDataTable,
+        io,
+        arena.allocator(),
+        "MapTeleportValidationDataTable.json",
+    );
+
     return .{
         .arena = arena,
         .owned_tables = owned_tables,
@@ -94,6 +102,7 @@ pub fn load(io: Io, gpa: Allocator) !Assets {
         .level_config_table = level_config_table,
         .level_map_mark_groups = level_map_mark_groups,
         .map_mark_table = map_mark_table,
+        .teleport_validation_table = teleport_validation_table,
     };
 }
 
