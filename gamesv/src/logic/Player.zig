@@ -10,6 +10,7 @@ pub const Unlock = @import("Player/Unlock.zig");
 pub const CharBag = @import("Player/CharBag.zig");
 pub const ItemBag = @import("Player/ItemBag.zig");
 pub const Bitset = @import("Player/Bitset.zig");
+pub const Scene = @import("Player/Scene.zig");
 
 base: Base,
 game_vars: GameVars,
@@ -17,6 +18,7 @@ unlock: Unlock,
 char_bag: CharBag,
 item_bag: ItemBag,
 bitset: Bitset,
+scene: Scene,
 
 pub fn deinit(player: *Player, gpa: Allocator) void {
     player.game_vars.deinit(gpa);

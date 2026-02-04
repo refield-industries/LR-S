@@ -20,6 +20,9 @@ const char_bag_teams_file = "teams";
 const char_bag_meta_file = "meta";
 const item_bag_path = "item_bag";
 const item_bag_weapon_depot_file = "weapon_depot";
+const scene_path = "scene";
+const scene_current_file = "current";
+const default_level = "map02_lv001";
 
 const default_team: []const []const u8 = &.{
     "chr_0026_lastrite",
@@ -82,6 +85,11 @@ pub fn loadPlayer(io: Io, gpa: Allocator, assets: *const Assets, uid: []const u8
 
     result.bitset = loadBitsetComponent(io, data_dir, uid) catch |err| switch (err) {
         error.NeedsReset => try createDefaultBitsetComponent(io, data_dir, assets),
+        else => |e| return e,
+    };
+
+    result.scene = loadSceneComponent(io, data_dir, uid) catch |err| switch (err) {
+        error.NeedsReset => try createDefaultSceneComponent(io, data_dir, assets),
         else => |e| return e,
     };
 
@@ -444,6 +452,75 @@ fn createDefaultBitsetComponent(io: Io, data_dir: Io.Dir, assets: *const Assets)
 
     try fs.saveStruct(Player.Bitset, &bitset, io, data_dir, bitset_file);
     return bitset;
+}
+
+fn loadSceneComponent(io: Io, data_dir: Io.Dir, uid: []const u8) !Player.Scene {
+    const scene_dir = data_dir.openDir(io, scene_path, .{}) catch |err| switch (err) {
+        error.FileNotFound => return error.NeedsReset,
+        error.Canceled => |e| return e,
+        else => return error.InputOutput,
+    };
+
+    defer scene_dir.close(io);
+
+    const current = fs.loadStruct(Player.Scene.Current, io, scene_dir, scene_current_file) catch |err| switch (err) {
+        inline error.FileNotFound, error.ChecksumMismatch, error.ReprSizeMismatch => |e| {
+            if (e == error.ChecksumMismatch) {
+                log.err(
+                    "checksum mismatched for current scene data of player {s}, resetting to defaults.",
+                    .{uid},
+                );
+            }
+
+            if (e == error.ReprSizeMismatch) {
+                log.err(
+                    "struct layout mismatched for current scene data of player {s}, resetting to defaults.",
+                    .{uid},
+                );
+            }
+
+            return error.NeedsReset;
+        },
+        error.Canceled => |e| return e,
+        else => return error.InputOutput,
+    };
+
+    return .{ .current = current };
+}
+
+fn createDefaultSceneComponent(io: Io, data_dir: Io.Dir, assets: *const Assets) !Player.Scene {
+    const scene_dir = data_dir.createDirPathOpen(io, scene_path, .{}) catch |err| switch (err) {
+        error.Canceled => |e| return e,
+        else => return error.InputOutput,
+    };
+
+    const default_level_config = assets.level_config_table.getPtr(default_level).?;
+
+    const current: Player.Scene.Current = .{
+        .level_id = default_level_config.idNum,
+        .position = .{
+            default_level_config.playerInitPos.x,
+            default_level_config.playerInitPos.y,
+            default_level_config.playerInitPos.z,
+        },
+        .rotation = .{
+            default_level_config.playerInitRot.x,
+            default_level_config.playerInitRot.y,
+            default_level_config.playerInitRot.z,
+        },
+    };
+
+    try fs.saveStruct(Player.Scene.Current, &current, io, scene_dir, scene_current_file);
+    return .{ .current = current };
+}
+
+pub fn saveSceneComponent(io: Io, data_dir: Io.Dir, component: *const Player.Scene) !void {
+    const scene_dir = data_dir.createDirPathOpen(io, scene_path, .{}) catch |err| switch (err) {
+        error.Canceled => |e| return e,
+        else => return error.InputOutput,
+    };
+
+    try fs.saveStruct(Player.Scene.Current, &component.current, io, scene_dir, scene_current_file);
 }
 
 fn loadArray(

@@ -2,12 +2,14 @@ const std = @import("std");
 const pb = @import("proto").pb;
 const logic = @import("../../logic.zig");
 const Assets = @import("../../Assets.zig");
+
+const Player = logic.Player;
 const messaging = logic.messaging;
 
 pub fn onSceneSetTrackPoint(
     request: messaging.Request(pb.CS_SCENE_SET_TRACK_POINT),
     assets: *const Assets,
-    location: *logic.World.Location,
+    scene: Player.Component(.scene),
     change_scene_tx: logic.event.Sender(.change_scene_begin),
 ) !void {
     const log = std.log.scoped(.scene_set_track_point);
@@ -36,8 +38,8 @@ pub fn onSceneSetTrackPoint(
         return;
     };
 
-    location.level = level_config.idNum;
-    location.position = .{
+    scene.data.current.level_id = level_config.idNum;
+    scene.data.current.position = .{
         validation_config.position.x,
         validation_config.position.y,
         validation_config.position.z,
@@ -47,6 +49,6 @@ pub fn onSceneSetTrackPoint(
 
     log.info(
         "transitioning to scene '{s}', position: {any}",
-        .{ validation_config.sceneId, location.position },
+        .{ validation_config.sceneId, scene.data.current.position },
     );
 }

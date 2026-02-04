@@ -19,26 +19,26 @@ pub fn enterSceneOnLogin(
 pub fn beginChangingScene(
     rx: logic.event.Receiver(.change_scene_begin),
     session: *Session,
-    base_comp: Player.Component(.base),
-    location: *const logic.World.Location,
+    base: Player.Component(.base),
+    scene: Player.Component(.scene),
 ) !void {
     _ = rx;
 
     const position: pb.VECTOR = .{
-        .X = location.position[0],
-        .Y = location.position[1],
-        .Z = location.position[2],
+        .X = scene.data.current.position[0],
+        .Y = scene.data.current.position[1],
+        .Z = scene.data.current.position[2],
     };
 
     try session.send(pb.SC_CHANGE_SCENE_BEGIN_NOTIFY{
-        .scene_num_id = location.level,
+        .scene_num_id = scene.data.current.level_id,
         .position = position,
         .pass_through_data = .init,
     });
 
     try session.send(pb.SC_ENTER_SCENE_NOTIFY{
-        .role_id = base_comp.data.role_id,
-        .scene_num_id = location.level,
+        .role_id = base.data.role_id,
+        .scene_num_id = scene.data.current.level_id,
         .position = position,
         .pass_through_data = .init,
     });
@@ -62,8 +62,8 @@ pub fn syncSelfScene(
     rx: logic.event.Receiver(.sync_self_scene),
     session: *Session,
     arena: logic.Resource.Allocator(.arena),
-    char_bag: logic.Player.Component(.char_bag),
-    location: *const logic.World.Location,
+    char_bag: Player.Component(.char_bag),
+    scene: Player.Component(.scene),
     assets: *const Assets,
 ) !void {
     const reason: pb.SELF_INFO_REASON_TYPE = switch (rx.payload.reason) {
@@ -72,16 +72,16 @@ pub fn syncSelfScene(
     };
 
     const position: pb.VECTOR = .{
-        .X = location.position[0],
-        .Y = location.position[1],
-        .Z = location.position[2],
+        .X = scene.data.current.position[0],
+        .Y = scene.data.current.position[1],
+        .Z = scene.data.current.position[2],
     };
 
     const team_index = char_bag.data.meta.curr_team_index;
     const leader_index = char_bag.data.teams.items(.leader_index)[team_index];
 
     var self_scene_info: pb.SC_SELF_SCENE_INFO = .{
-        .scene_num_id = location.level,
+        .scene_num_id = scene.data.current.level_id,
         .self_info_reason = @intFromEnum(reason),
         .teamInfo = .{
             .team_type = .CHAR_BAG_TEAM_TYPE_MAIN,
@@ -111,7 +111,7 @@ pub fn syncSelfScene(
                 .templateid = char_template_id,
                 .position = position,
                 .rotation = .{},
-                .scene_num_id = location.level,
+                .scene_num_id = scene.data.current.level_id,
             },
         };
 
