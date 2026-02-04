@@ -36,3 +36,31 @@ pub fn saveCharBagTeams(
         },
     };
 }
+
+pub fn saveCurrentScene(
+    _: logic.event.Receiver(.current_scene_modified),
+    scene: Player.Component(.scene),
+    player_id: logic.World.PlayerId,
+    io: Io,
+) !void {
+    const data_dir = fs.persistence.openPlayerDataDir(io, player_id.uid.view()) catch |err| switch (err) {
+        error.Canceled => |e| return e,
+        else => |e| {
+            log.err(
+                "failed to open data dir for player with uid {s}: {t}",
+                .{ player_id.uid.view(), e },
+            );
+            return;
+        },
+    };
+
+    defer data_dir.close(io);
+
+    fs.persistence.saveSceneComponent(io, data_dir, scene.data) catch |err| switch (err) {
+        error.Canceled => |e| return e,
+        else => |e| {
+            log.err("save failed: {t}", .{e});
+            return;
+        },
+    };
+}

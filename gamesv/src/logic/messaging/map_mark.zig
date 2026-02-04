@@ -11,6 +11,7 @@ pub fn onSceneSetTrackPoint(
     assets: *const Assets,
     scene: Player.Component(.scene),
     change_scene_tx: logic.event.Sender(.change_scene_begin),
+    cur_scene_modified_tx: logic.event.Sender(.current_scene_modified),
 ) !void {
     const log = std.log.scoped(.scene_set_track_point);
 
@@ -45,6 +46,7 @@ pub fn onSceneSetTrackPoint(
         validation_config.position.z,
     };
 
+    try cur_scene_modified_tx.send(.{});
     try change_scene_tx.send(.{});
 
     log.info(
