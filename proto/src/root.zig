@@ -256,14 +256,19 @@ fn decodeField(r: *Io.Reader, allocator: Allocator, comptime T: type, wire_type:
 }
 
 fn readVarInt(r: *Io.Reader, comptime T: type) !T {
-    var shift: std.math.Log2Int(T) = 0;
-    var result: T = 0;
+    const int = @typeInfo(T).int;
+    var shift: std.math.Log2Int(u64) = 0;
+    var result: u64 = 0;
 
     while (true) : (shift += 7) {
         const byte = try r.takeByte();
-        result |= @as(T, @intCast(byte & 0x7F)) << shift;
-        if ((byte & 0x80) != 0x80) return result;
-        if (shift >= @bitSizeOf(T) - 7) return error.MalformedProtobuf;
+        result |= @as(u64, byte & 0x7F) << shift;
+        if ((byte & 0x80) != 0x80) return switch (int.signedness) {
+            .unsigned => @truncate(result),
+            .signed => @bitCast(@as(@Int(.unsigned, int.bits), @truncate(result))),
+        };
+
+        if (shift >= @bitSizeOf(u64) - 7) return error.MalformedProtobuf;
     }
 }
 
