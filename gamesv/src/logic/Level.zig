@@ -134,3 +134,16 @@ pub fn getObjectByNetId(level: *Level, net_id: Object.NetID) ?Object.Handle {
     const index = level.object_id_map.get(@intFromEnum(net_id)) orelse return null;
     return @enumFromInt(index);
 }
+
+pub fn moveObject(
+    level: *Level,
+    handle: Object.Handle,
+    position: Object.Vector,
+    rotation: Object.Vector,
+) void {
+    const index = @intFromEnum(handle);
+    const objects = level.objects.slice();
+
+    objects.items(.position)[index] = position;
+    objects.items(.rotation)[index] = rotation;
+}
