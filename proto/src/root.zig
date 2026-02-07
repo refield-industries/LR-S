@@ -170,7 +170,7 @@ pub fn decodeMessage(r: *Io.Reader, allocator: Allocator, comptime Message: type
             field_names = field_names ++ .{field.name};
         } else if (comptime oneofUnion(field.type)) |oneof| {
             oneof_names = oneof_names ++ .{field.name};
-            oneof_types = oneof_types ++ .{oneof};
+            oneof_types = oneof_types ++ .{field.type};
             inline for (oneof.fields) |oneof_field| {
                 field_names = field_names ++ .{oneof_field.name};
             }
@@ -221,9 +221,9 @@ pub fn decodeMessage(r: *Io.Reader, allocator: Allocator, comptime Message: type
                     } else {
                         @field(message, field.name) = try decodeField(r, allocator, field.type, wire_type);
                     }
-                } else inline for (oneof_names, oneof_types) |oneof_name, Oneof| inline for (@typeInfo(Oneof).@"union".fields) |oneof_field| {
+                } else inline for (oneof_names, oneof_types) |oneof_name, Oneof| inline for (@typeInfo(std.meta.Child(Oneof)).@"union".fields) |oneof_field| {
                     if (comptime std.mem.eql(u8, oneof_field.name, field_name)) {
-                        @field(message, oneof_name) = @unionInit(Oneof, field_name, try decodeField(r, allocator, oneof_field.type, wire_type));
+                        @field(message, oneof_name) = @unionInit(std.meta.Child(Oneof), field_name, try decodeField(r, allocator, oneof_field.type, wire_type));
                         break;
                     }
                 };

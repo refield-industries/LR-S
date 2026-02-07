@@ -336,7 +336,7 @@ fn compileMessage(mode: CompilationMode, arena: Allocator, l: *Lexer, out: *Io.W
             }
 
             if (output_structures)
-                try out.writeAll("    },\n");
+                try out.writeAll("    } = null,\n");
 
             continue;
         }
