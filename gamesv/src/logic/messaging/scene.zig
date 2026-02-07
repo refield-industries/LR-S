@@ -1,5 +1,6 @@
 const pb = @import("proto").pb;
 const logic = @import("../../logic.zig");
+const Assets = @import("../../Assets.zig");
 const messaging = logic.messaging;
 
 const Level = logic.Level;
@@ -58,4 +59,31 @@ pub fn onMoveObjectMove(
             try cur_scene_modified_tx.send(.{});
         }
     }
+}
+
+pub fn onSceneRepatriate(
+    request: messaging.Request(pb.CS_SCENE_REPATRIATE),
+    assets: *const Assets,
+    scene: Player.Component(.scene),
+    change_scene_tx: logic.event.Sender(.change_scene_begin),
+    cur_scene_modified_tx: logic.event.Sender(.current_scene_modified),
+) !void {
+    if (scene.data.current.level_id != request.message.scene_num_id)
+        return;
+
+    const level_config = assets.level_config_table_by_num_id.get(scene.data.current.level_id).?;
+    scene.data.current.position = .{
+        level_config.playerInitPos.x,
+        level_config.playerInitPos.y,
+        level_config.playerInitPos.z,
+    };
+
+    scene.data.current.rotation = .{
+        level_config.playerInitRot.x,
+        level_config.playerInitRot.y,
+        level_config.playerInitRot.z,
+    };
+
+    try cur_scene_modified_tx.send(.{});
+    try change_scene_tx.send(.{});
 }

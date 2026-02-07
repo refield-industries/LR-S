@@ -7,6 +7,7 @@ pub const CharacterSkillMap = @import("Assets/CharacterSkillMap.zig");
 const Io = std.Io;
 const Allocator = std.mem.Allocator;
 const ArenaAllocator = std.heap.ArenaAllocator;
+const HashMap = std.AutoArrayHashMapUnmanaged;
 const StringHashMap = std.StringArrayHashMapUnmanaged;
 
 const meta = std.meta;
@@ -19,6 +20,7 @@ str_to_num_dicts: IndexDictionaries.StrToNum,
 num_to_str_dicts: IndexDictionaries.NumToStr,
 common_skill_config: configs.CommonSkillConfig,
 level_config_table: StringHashMap(configs.LevelConfig),
+level_config_table_by_num_id: HashMap(i32, *const configs.LevelConfig),
 // Map mark groups as they're stored in LevelMapMark.json
 level_map_mark_groups: StringHashMap([]const configs.ClientSingleMapMarkData),
 // instId-to-data mapping
@@ -76,6 +78,11 @@ pub fn load(io: Io, gpa: Allocator) !Assets {
         "LevelConfigTable.json",
     )).map;
 
+    const level_config_table_by_num_id = try buildLevelConfigByNumIdTable(
+        &level_config_table,
+        arena.allocator(),
+    );
+
     const level_map_mark_groups = (try configs.loadJsonConfig(
         std.json.ArrayHashMap([]const configs.ClientSingleMapMarkData),
         io,
@@ -100,6 +107,7 @@ pub fn load(io: Io, gpa: Allocator) !Assets {
         .num_to_str_dicts = num_to_str_dicts,
         .common_skill_config = common_skill_config,
         .level_config_table = level_config_table,
+        .level_config_table_by_num_id = level_config_table_by_num_id,
         .level_map_mark_groups = level_map_mark_groups,
         .map_mark_table = map_mark_table,
         .teleport_validation_table = teleport_validation_table,
@@ -120,6 +128,19 @@ fn buildMapMarkTable(
         );
         try map.put(arena, inst_id, mark);
     };
+
+    return map;
+}
+
+fn buildLevelConfigByNumIdTable(
+    str_table: *const StringHashMap(configs.LevelConfig),
+    arena: Allocator,
+) Allocator.Error!HashMap(i32, *const configs.LevelConfig) {
+    var map: HashMap(i32, *const configs.LevelConfig) = .empty;
+
+    for (str_table.values()) |*config| {
+        try map.put(arena, config.idNum, config);
+    }
 
     return map;
 }
