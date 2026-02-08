@@ -6,3 +6,4 @@ pub const event = @import("logic/event.zig");
 pub const systems = @import("logic/systems.zig");
 pub const queries = @import("logic/queries.zig");
 pub const Level = @import("logic/Level.zig");
+pub const attrs = @import("logic/attrs.zig");
