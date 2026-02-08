@@ -22,7 +22,8 @@ const item_bag_path = "item_bag";
 const item_bag_weapon_depot_file = "weapon_depot";
 const scene_path = "scene";
 const scene_current_file = "current";
-const default_level = "map02_lv001";
+const default_level = "map01_lv001";
+const default_position: [3]f32 = .{ -384.91837, 107.49891, -399.27106 };
 
 const default_team: []const []const u8 = &.{
     "chr_0026_lastrite",
@@ -498,16 +499,8 @@ fn createDefaultSceneComponent(io: Io, data_dir: Io.Dir, assets: *const Assets) 
 
     const current: Player.Scene.Current = .{
         .level_id = default_level_config.idNum,
-        .position = .{
-            default_level_config.playerInitPos.x,
-            default_level_config.playerInitPos.y,
-            default_level_config.playerInitPos.z,
-        },
-        .rotation = .{
-            default_level_config.playerInitRot.x,
-            default_level_config.playerInitRot.y,
-            default_level_config.playerInitRot.z,
-        },
+        .position = default_position,
+        .rotation = @splat(0),
     };
 
     try fs.saveStruct(Player.Scene.Current, &current, io, scene_dir, scene_current_file);
