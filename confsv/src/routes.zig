@@ -11,6 +11,7 @@ const server_list = @import("routes/server_list.zig");
 const routes = .{
     .{ "/api/game/get_latest", version.getOnlineAppVersion },
     .{ "/api/remote_config/v2/1003/prod-obt/default/Windows/game_config", config.getRemoteGameConfig },
+    .{ "/api/remote_config/v2/3/prod-obt/default/Windows/game_config", config.getCNRemoteGameConfig },
     .{ "/get_server_list", server_list.get },
     .{ "/api/game/get_latest_resources", version.getLatestResources },
 };
